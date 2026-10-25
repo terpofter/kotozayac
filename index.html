@@ -72,7 +72,7 @@
             border: none; border-radius: 8px; padding: 15px 40px; font-size: 24px; 
             font-family: inherit; cursor: pointer;
             box-shadow: 0 6px 0 #005a47; transition: transform 0.1s; margin: 8px; text-align: center;
-            text-transform: uppercase;
+            text-transform: uppercase; position: relative; z-index: 30;
         }
         .btn:active { transform: translateY(6px); box-shadow: 0 0 0 #005a47; }
         .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 6px 0 #111; font-size: 18px; padding: 12px 24px; }
@@ -106,8 +106,14 @@
         #terminal { font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; line-height: 1.8; color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; width: 100%; letter-spacing: 0; }
         @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
         .term-line { margin: 0; min-height: 1.8em; white-space: pre-wrap; }
-        .term-btn-group { margin-top: 30px; display: flex; gap: 15px; }
-        .term-btn { background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; padding: 12px 24px; font-family: inherit; font-size: 20px; cursor: pointer; text-transform: uppercase; }
+        
+        .term-btn-group { margin-top: 30px; display: flex; gap: 15px; position: relative; z-index: 100; }
+        .term-btn { 
+            background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; 
+            padding: 12px 24px; font-family: inherit; font-size: 20px; cursor: pointer; 
+            text-transform: uppercase; pointer-events: auto;
+        }
+        .term-btn:hover { background: rgba(0, 255, 65, 0.3); }
 
         /* МАГАЗИН */
         .shop-balance { font-size: 28px; color: #FFD700; margin-bottom: 20px; text-shadow: 0 0 10px #FFD700; text-align: center; }
@@ -329,8 +335,10 @@
 
         function loadShopData() {
             try {
-                coins = parseInt(localStorage.getItem('kotozayac_coins') || '0', 10);
-                shopItems = JSON.parse(localStorage.getItem('kotozayac_shop') || '{}');
+                const savedCoins = localStorage.getItem('kotozayac_coins');
+                if (savedCoins) coins = parseInt(savedCoins, 10);
+                const savedShop = localStorage.getItem('kotozayac_shop');
+                if (savedShop) shopItems = JSON.parse(savedShop);
             } catch(e) { coins = 0; shopItems = {}; }
             updateCoinUI();
             renderShop();
@@ -338,12 +346,15 @@
 
         function saveShopData() {
             try {
-                localStorage.setItem('kotozayac_coins', coins);
+                localStorage.setItem('kotozayac_coins', String(coins));
                 localStorage.setItem('kotozayac_shop', JSON.stringify(shopItems));
+                localStorage.setItem('kotozayac_best', String(bestScore));
             } catch(e) {}
             updateCoinUI();
             renderShop();
         }
+
+        window.addEventListener('beforeunload', saveShopData);
 
         function updateCoinUI() {
             document.getElementById('coins').innerText = coins;
@@ -430,11 +441,11 @@
             speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0
         };
 
-        // === ЗАГРУЗКА КАРТИНОК (С ЗАЩИТОЙ ОТ КЭША) ===
-        // Добавлен ?v=2 чтобы браузер точно скачал новые картинки
-        let imgIdle = new Image(); imgIdle.src = 'cat.png?v=2';
-        let imgJump = new Image(); imgJump.src = 'cat_jump.png?v=2';
-        let imgHit = new Image(); imgHit.src = 'cat_hit.png?v=2';
+        // === КАРТИНКИ (ЖЕЛЕЗОБЕТОННЫЙ АНТИ-КЭШ) ===
+        const cacheBuster = '?v=' + Date.now();
+        let imgIdle = new Image(); imgIdle.src = 'cat.png' + cacheBuster;
+        let imgJump = new Image(); imgJump.src = 'cat_jump.png' + cacheBuster;
+        let imgHit = new Image(); imgHit.src = 'cat_hit.png' + cacheBuster;
         
         let customPlayerImg = new Image();
         let hasCustomImg = false;
@@ -531,11 +542,12 @@
         document.getElementById('resume-btn').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
         
         document.getElementById('menu-btn-pause').addEventListener('click', goToMainMenu);
-        document.getElementById('term-menu-btn').addEventListener('click', (e) => { e.stopPropagation(); goToMainMenu(); });
-        document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.stopPropagation(); restartGame(); });
+        
+        document.getElementById('term-menu-btn').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); goToMainMenu(); });
+        document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); restartGame(); });
 
-        document.getElementById('game-over-screen').addEventListener('click', () => {
-            if (gameState === 'gameover') restartGame();
+        document.getElementById('game-over-screen').addEventListener('click', (e) => {
+            if (e.target.id === 'game-over-screen' && gameState === 'gameover') restartGame();
         });
 
         function startGame() {
@@ -558,6 +570,7 @@
         }
 
         function restartGame() {
+            if (gameState !== 'gameover') return;
             termGeneration++; 
             Sound.sfx.click(); 
             document.getElementById('game-over-screen').classList.add('hidden');
@@ -692,7 +705,6 @@
                 ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
                 ctx.restore();
             } else {
-                // Векторный запасной
                 ctx.fillStyle = '#6f6f6f'; ctx.fillRect(px + 10, py - 22, 15, 32); ctx.fillRect(px + w - 25, py - 22, 15, 32);
                 ctx.fillStyle = '#e8a0a0'; ctx.fillRect(px + 14, py - 16, 7, 22); ctx.fillRect(px + w - 21, py - 16, 7, 22);
                 ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h);
@@ -844,7 +856,10 @@
         function gameOver() {
             gameState = 'gameover';
             const isNewRecord = score > bestScore;
-            if (isNewRecord) { bestScore = score; bestEl.innerText = bestScore; try { localStorage.setItem('kotozayac_best', String(bestScore)); } catch(e) {} }
+            if (isNewRecord) { 
+                bestScore = score; 
+                bestEl.innerText = bestScore; 
+            }
             
             const earnedCoins = Math.floor(score / 10);
             coins += earnedCoins;
