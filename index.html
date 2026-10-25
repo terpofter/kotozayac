@@ -308,7 +308,7 @@
         let objects = [], particles = [], clouds = [], hills = [];
         let screenShake = 0, flash = 0;
         let btnLeft = false, btnRight = false;
-        let termGeneration = 0; // ТОЛЬКО ОДНО ОБЪЯВЛЕНИЕ
+        let termGeneration = 0;
 
         try { bestScore = parseInt(localStorage.getItem('kotozayac_best') || '0', 10) || 0; } catch(e) {}
         bestEl.innerText = bestScore;
@@ -322,6 +322,11 @@
             speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0
         };
 
+        // === ЗАГРУЗКА КАРТИНОК ИЗ РЕПОЗИТОРИЯ ===
+        let imgIdle = new Image(); imgIdle.src = 'cat.png';
+        let imgJump = new Image(); imgJump.src = 'cat_jump.png';
+        let imgHit = new Image(); imgHit.src = 'cat_hit.png';
+        
         let customPlayerImg = new Image();
         let hasCustomImg = false;
 
@@ -543,13 +548,37 @@
             ctx.scale(player.squash, player.stretch);
             ctx.translate(-(px + w/2), -(py + h/2));
 
+            // ЛОГИКА ВЫБОРА КАРТИНКИ
+            let currentSprite = null;
+            
+            // Если это кастомное фото (загруженное через кнопку) - приоритет
             if (hasCustomImg && customPlayerImg.complete) {
-                ctx.save(); ctx.beginPath(); ctx.arc(px + w/2, py + h/2, w/2, 0, Math.PI*2); ctx.clip();
-                const imgRatio = customPlayerImg.width / customPlayerImg.height;
-                let drawW = w, drawH = h; if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
-                ctx.drawImage(customPlayerImg, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
+                currentSprite = customPlayerImg;
+            } 
+            // Иначе ищем картинки из репозитория
+            else if (imgHit.complete && flash > 0) {
+                currentSprite = imgHit;
+            }
+            else if (imgJump.complete && !player.onGround && imgJump.naturalWidth > 0) {
+                currentSprite = imgJump;
+            }
+            else if (imgIdle.complete && imgIdle.naturalWidth > 0) {
+                currentSprite = imgIdle;
+            }
+
+            if (currentSprite) {
+                ctx.save(); 
+                ctx.beginPath(); 
+                // Делаем картинку круглой
+                ctx.arc(px + w/2, py + h/2, w/2, 0, Math.PI*2); 
+                ctx.clip();
+                const imgRatio = currentSprite.width / currentSprite.height;
+                let drawW = w, drawH = h; 
+                if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
+                ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
                 ctx.restore();
             } else {
+                // Векторный запасной вариант
                 ctx.fillStyle = '#6f6f6f'; ctx.fillRect(px + 10, py - 22, 15, 32); ctx.fillRect(px + w - 25, py - 22, 15, 32);
                 ctx.fillStyle = '#e8a0a0'; ctx.fillRect(px + 14, py - 16, 7, 22); ctx.fillRect(px + w - 21, py - 16, 7, 22);
                 ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h);
