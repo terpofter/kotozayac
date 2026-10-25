@@ -31,18 +31,19 @@
         /* HUD */
         #hud {
             position: absolute; top: 15px; left: 15px; right: 15px;
-            display: flex; align-items: center; gap: 10px; z-index: 10;
+            display: flex; align-items: center; gap: 8px; z-index: 10;
             pointer-events: none;
         }
         .hud-item {
-            background: rgba(15, 15, 25, 0.85); padding: 8px 14px; border-radius: 10px;
-            color: white; font-size: 22px; display: flex; align-items: center; gap: 8px;
+            background: rgba(15, 15, 25, 0.85); padding: 8px 12px; border-radius: 10px;
+            color: white; font-size: 20px; display: flex; align-items: center; gap: 6px;
             border: 2px solid rgba(0, 255, 204, 0.3); backdrop-filter: blur(8px);
         }
-        .hud-icon { width: 24px; height: 24px; fill: currentColor; }
+        .hud-icon { width: 22px; height: 22px; fill: currentColor; }
         .icon-carrot { color: #FF8C00; }
         .icon-heart { color: #ff4444; }
         .icon-coin { color: #FFD700; }
+        .icon-clock { color: var(--neon); }
         
         .hud-btn {
             background: rgba(15, 15, 25, 0.85); border: 2px solid rgba(0, 255, 204, 0.3);
@@ -101,7 +102,11 @@
 
         /* Терминал */
         #game-over-screen { background: #000 !important; justify-content: flex-start !important; align-items: flex-start !important; padding: 40px 30px; }
-        #terminal { font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; line-height: 1.8; color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; width: 100%; letter-spacing: 0; }
+        #terminal { 
+            font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; line-height: 1.8; 
+            color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; 
+            width: 100%; letter-spacing: 0; display: flex; flex-direction: column; 
+        }
         @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
         .term-line { margin: 0; min-height: 1.8em; white-space: pre-wrap; }
         
@@ -113,7 +118,23 @@
         }
         .term-btn:hover { background: rgba(0, 255, 65, 0.3); }
 
-        /* МАГАЗИН (СКИНЫ) */
+        /* АРТ ЗАЙЦА В ТЕРМИНАЛЕ */
+        #cmd-art-container {
+            margin-top: 20px; 
+            display: none; 
+            text-align: left;
+            pointer-events: none;
+        }
+        #cmd-art {
+            max-width: 120px;
+            max-height: 120px;
+            border-radius: 8px;
+            filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); 
+            box-shadow: 0 0 10px #00ff41;
+            border: 2px solid #00ff41;
+        }
+
+        /* МАГАЗИН */
         .shop-balance { font-size: 28px; color: #FFD700; margin-bottom: 20px; text-shadow: 0 0 10px #FFD700; text-align: center; }
         #shop-items { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%; max-width: 700px; margin-bottom: 20px; }
         .shop-item {
@@ -135,14 +156,15 @@
         @media (max-width: 600px) {
             h1 { font-size: 40px; } h2 { font-size: 28px; }
             .subtitle { font-size: 16px; }
-            .hud-item { font-size: 16px; padding: 6px 10px; }
-            .hud-btn { width: 36px; height: 36px; }
-            .hud-btn svg { width: 18px; height: 18px; }
-            .hud-icon { width: 18px; height: 18px; }
+            .hud-item { font-size: 14px; padding: 6px 8px; gap: 4px; }
+            .hud-icon { width: 16px; height: 16px; }
+            .hud-btn { width: 34px; height: 34px; }
+            .hud-btn svg { width: 16px; height: 16px; }
             .btn { font-size: 18px; padding: 12px 24px; }
             #game-over-screen { padding: 25px 15px; }
             #terminal { font-size: 14px; }
             .term-btn { font-size: 16px; padding: 10px 16px; }
+            #cmd-art { max-width: 80px; max-height: 80px; }
             
             .shop-item { width: 45%; padding: 10px; }
             .shop-item-title { font-size: 14px; }
@@ -167,6 +189,13 @@
                 <svg class="hud-icon icon-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 6v12m-4-6h8" stroke="currentColor" stroke-width="2"/></svg>
                 <span id="coins">0</span>
             </div>
+            
+            <!-- НОВЫЕ ЧАСЫ МСК -->
+            <div class="hud-item" style="border-color: rgba(0, 255, 204, 0.6); box-shadow: 0 0 10px rgba(0,255,204,0.2);">
+                <svg class="hud-icon icon-clock" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                <span id="clock-msk">00:00</span>
+            </div>
+
             <div style="flex:1"></div>
             
             <button id="btn-mute" class="hud-btn" title="Звук">
@@ -206,6 +235,10 @@
                     <button class="term-btn" id="term-restart-btn">Заново</button>
                     <button class="term-btn" id="term-menu-btn">В меню</button>
                 </div>
+                <!-- АРТ ЗАЙЦА ЗДЕСЬ -->
+                <div id="cmd-art-container">
+                    <img src="cat.png" id="cmd-art" alt="System Cat">
+                </div>
             </div>
         </div>
 
@@ -217,6 +250,23 @@
     </div>
 
     <script>
+        // ============ ЧАСЫ МСК ============
+        function updateMoscowClock() {
+            const now = new Date();
+            // Получаем время по Москве
+            const mskString = now.toLocaleTimeString('ru-RU', { 
+                timeZone: 'Europe/Moscow', 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('clock-msk').innerText = mskString;
+        }
+        
+        // Обновляем часы каждую секунду
+        setInterval(updateMoscowClock, 1000);
+        updateMoscowClock(); // И сразу при загрузке
+
         // ============ ЗВУК ============
         const Sound = {
             ctx: null, master: null, musicGain: null, sfxGain: null, noiseBuffer: null, muted: false,
@@ -234,7 +284,12 @@
                 for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
             },
             resume() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); },
-            setMute(m) { this.muted = m; if (this.master) this.master.gain.value = m ? 0 : 1; try { localStorage.setItem('kotozayac_mute', m ? '1' : '0'); } catch(e){} },
+            setMute(m) { 
+                this.muted = m; 
+                if (this.master) this.master.gain.value = m ? 0 : 1; 
+                try { localStorage.setItem('kotozayac_mute', m ? '1' : '0'); } catch(e){}
+                if(!m) this.resume(); 
+            },
             tone({freq, type='sine', dur=0.2, vol=0.1, slideTo=null, delay=0, attack=0.005, filter=null}) {
                 if (!this.ctx) return;
                 const t = this.ctx.currentTime + delay; const osc = this.ctx.createOscillator(); const g = this.ctx.createGain();
@@ -260,7 +315,9 @@
                 click() { Sound.noise({dur: 0.025, vol: 0.14, type: 'highpass', freq: 3200}); Sound.tone({freq: 2200, type: 'square', dur: 0.02, vol: 0.06, slideTo: 1600}); },
                 start() { Sound.tone({freq: 90, type: 'sawtooth', dur: 0.7, vol: 0.14, slideTo: 45, filter: {type: 'lowpass', freq: 600, freqTo: 120}}); Sound.tone({freq: 440, type: 'square', dur: 0.4, vol: 0.09, delay: 0.28}); },
                 powerup() { Sound.tone({freq: 440, type: 'square', dur: 0.1, vol: 0.1}); Sound.tone({freq: 880, type: 'square', dur: 0.3, vol: 0.12, delay: 0.1}); },
-                buy() { Sound.tone({freq: 880, type: 'sine', dur: 0.1, vol: 0.1}); Sound.tone({freq: 1200, type: 'sine', dur: 0.3, vol: 0.1, delay: 0.1}); }
+                buy() { Sound.tone({freq: 880, type: 'sine', dur: 0.1, vol: 0.1}); Sound.tone({freq: 1200, type: 'sine', dur: 0.3, vol: 0.1, delay: 0.1}); },
+                drop() { Sound.tone({freq: 600, type: 'sawtooth', dur: 1.5, vol: 0.15, slideTo: 100}); },
+                smash() { Sound.tone({freq: 100, type: 'square', dur: 0.5, vol: 0.3, slideTo: 20}); Sound.noise({dur: 0.4, vol: 0.3, type: 'lowpass', freq: 400}); }
             },
             music: {
                 chords: [ { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 87.31, notes: [349.23, 440.00, 523.25] }, { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 98.00, notes: [392.00, 493.88, 587.33] } ],
@@ -286,6 +343,9 @@
             }
         };
         
+        document.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); });
+        document.addEventListener('keydown', () => { Sound.init(); Sound.resume(); });
+
         try {
             Sound.muted = localStorage.getItem('kotozayac_mute') === '1';
             if (Sound.muted) { document.getElementById('icon-sound-on').style.display = 'none'; document.getElementById('icon-sound-off').style.display = 'block'; }
@@ -371,16 +431,11 @@
                 if (!isDisabled) {
                     document.getElementById(`btn-${item.id}`).addEventListener('click', () => {
                         if (isBought) {
-                            activeSkin = item.id;
-                            Sound.sfx.click();
-                            saveData(); renderShop();
+                            activeSkin = item.id; Sound.sfx.click(); saveData(); renderShop();
                         } else {
                             if (coins >= item.price) {
-                                coins -= item.price; 
-                                shopItems[item.id] = true;
-                                activeSkin = item.id; 
-                                Sound.sfx.buy(); 
-                                saveData(); renderShop();
+                                coins -= item.price; shopItems[item.id] = true; activeSkin = item.id; 
+                                Sound.sfx.buy(); saveData(); renderShop();
                             }
                         }
                     });
@@ -403,13 +458,15 @@
         let combo = 0, carrotsCollected = 0, carrotsMissed = 0, objectSpawnCount = 0, spawnTimer = 0;
         let objects = [], particles = [], clouds = [], hills = [];
         let screenShake = 0, flash = 0, btnLeft = false, btnRight = false, termGeneration = 0;
+        
+        let deathTimer = 0;
+        let giantCarrot = null;
 
         try { bestScore = parseInt(localStorage.getItem('kotozayac_best') || '0', 10) || 0; } catch(e) {}
 
         const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
         const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0 };
 
-        // === ЗАГРУЗКА ВСЕХ КАРТИНОК (ТОЛЬКО PNG) ===
         const IMAGES = {
             classic: { idle: new Image(), jump: new Image(), hit: new Image() },
             mafia: { idle: new Image(), jump: new Image(), hit: new Image() },
@@ -648,6 +705,27 @@
             for (const c of clouds) { c.x -= c.speed * dt; if (c.x < -200) { c.x = W + 200; c.y = 20 + Math.random() * 150; } }
             for (const h of hills) { h.x -= h.speed * dt; if (h.x + h.w < 0) { h.x = W + Math.random()*100; h.h = 150 + Math.random() * 100; } }
             
+            if (gameState === 'dying') {
+                deathTimer += dt * 60;
+                if (giantCarrot) {
+                    giantCarrot.y += giantCarrot.vy * dt * 60;
+                    
+                    if (giantCarrot.y + giantCarrot.height/2 > player.y + player.height - 30) {
+                        giantCarrot.y = player.y + player.height - 30 - giantCarrot.height/2; 
+                        giantCarrot = null;
+                        screenShake = 30;
+                        flash = 1;
+                        Sound.sfx.smash(); 
+                        spawnParticles(player.x + player.width/2, player.y + player.height - 20, ['#5c4a3d','#ff4444','#3a4b22'], 40);
+                        
+                        setTimeout(() => { if(gameState === 'dying') gameOver(); }, 1000);
+                    }
+                }
+                if (screenShake > 0) screenShake *= 0.9;
+                if (flash > 0) flash -= 0.02 * dt * 60;
+                return; 
+            }
+
             if (gameState !== 'playing') return;
             frames += dt * 60;
 
@@ -700,7 +778,7 @@
                         combo = 0; lives--; if (lives < 0) lives = 0; livesEl.innerText = lives;
                         Sound.sfx.hit(); spawnParticles(cx, cy, ['#5c4a3d','#ff4444'], 20);
                         screenShake = 15; flash = 0.5;
-                        if (lives <= 0) gameOver();
+                        if (lives <= 0) triggerDeathAnimation();
                     }
                     objects.splice(i, 1); continue;
                 }
@@ -716,6 +794,21 @@
             if (flash > 0) flash = Math.max(0, flash - 0.04 * dt * 60);
         }
 
+        function triggerDeathAnimation() {
+            gameState = 'dying';
+            deathTimer = 0;
+            Sound.music.stop();
+            Sound.sfx.drop(); 
+            
+            giantCarrot = {
+                x: player.x + player.width/2 - 100, 
+                y: -300, 
+                width: 200,
+                height: 200,
+                vy: 10 
+            };
+        }
+
         function gameOver() {
             gameState = 'gameover';
             const isNewRecord = score > bestScore;
@@ -724,8 +817,8 @@
             coins += Math.floor(score / 10); saveData();
 
             document.getElementById('term-buttons').style.display = 'none';
+            document.getElementById('cmd-art-container').style.display = 'none';
             document.getElementById('game-over-screen').classList.remove('hidden');
-            Sound.music.stop();
             if (isNewRecord) setTimeout(() => Sound.sfx.buy(), 600); else setTimeout(() => Sound.sfx.gameover(), 300);
             showTerminalGameOver(isNewRecord);
         }
@@ -748,7 +841,10 @@
             let lineIdx = 0;
             function typeNextLine() {
                 if (gen !== termGeneration || lineIdx >= lines.length) {
-                    if (gen === termGeneration) document.getElementById('term-buttons').style.display = 'flex';
+                    if (gen === termGeneration) {
+                        document.getElementById('term-buttons').style.display = 'flex';
+                        document.getElementById('cmd-art-container').style.display = 'block';
+                    }
                     return;
                 }
                 const text = lines[lineIdx]; const lineEl = document.createElement('div'); lineEl.className = 'term-line';
@@ -772,11 +868,13 @@
             frames = 0; spawnTimer = 0; difficulty = 1; prevDifficulty = 1; combo = 0;
             carrotsCollected = 0; carrotsMissed = 0; objectSpawnCount = 0;
             objects = []; particles = []; screenShake = 0; flash = 0; btnLeft = btnRight = false;
+            giantCarrot = null; deathTimer = 0;
             Sound.BPM = 115;
             player.x = W/2 - player.width/2; player.y = GROUND_Y; player.vy = 0; player.onGround = true; player.squash = 1; player.stretch = 1;
             scoreEl.innerText = '0'; livesEl.innerText = lives;
             document.getElementById('pause-screen').classList.add('hidden');
             document.getElementById('game-over-screen').classList.add('hidden');
+            document.getElementById('cmd-art-container').style.display = 'none';
             document.getElementById('term-lines').innerHTML = '';
         }
 
@@ -786,7 +884,27 @@
             if (screenShake > 0) ctx.translate((Math.random()-0.5)*screenShake, (Math.random()-0.5)*screenShake);
             
             drawBackground();
-            if (gameState !== 'hub') { drawObjects(); drawPlayer(); }
+            if (gameState !== 'hub') { 
+                drawObjects(); 
+                drawPlayer(); 
+                
+                if (gameState === 'dying' && giantCarrot) {
+                    ctx.save();
+                    ctx.translate(giantCarrot.x + giantCarrot.width/2, giantCarrot.y + giantCarrot.height/2);
+                    
+                    ctx.shadowBlur = 30;
+                    ctx.shadowColor = '#ff0000';
+                    
+                    ctx.fillStyle = '#5c4a3d';
+                    ctx.beginPath(); ctx.moveTo(-80,-80); ctx.lineTo(120,-120); ctx.lineTo(-20,200); ctx.closePath(); ctx.fill();
+                    ctx.fillStyle = '#3e2e24';
+                    ctx.fillRect(-40, -40, 60, 60); ctx.fillRect(40, 60, 50, 50);
+                    ctx.fillStyle = '#4a5d23'; ctx.fillRect(-100,-220,200,120);
+                    ctx.fillStyle = '#36441a'; ctx.fillRect(-60,-280,80,80);
+                    
+                    ctx.restore();
+                }
+            }
             
             for (const p of particles) {
                 ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.color;
