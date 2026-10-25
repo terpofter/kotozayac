@@ -43,13 +43,10 @@
         .hud-btn {
             background: rgba(15, 15, 25, 0.85); border: 2px solid rgba(0, 255, 204, 0.3);
             color: var(--neon); width: 44px; height: 44px; border-radius: 10px;
-            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; font-size: 18px; display: flex; justify-content: center; align-items: center;
             backdrop-filter: blur(8px); transition: all 0.2s; pointer-events: auto;
-            padding: 0;
         }
-        .hud-btn svg { width: 22px; height: 22px; fill: currentColor; }
         .hud-btn:active { transform: scale(0.9); }
-        .hud-btn:hover { border-color: var(--neon); color: #fff; }
 
         /* Оверлеи */
         .overlay {
@@ -102,18 +99,6 @@
         .term-line { margin: 0; min-height: 1.8em; white-space: pre-wrap; }
         .term-btn-group { margin-top: 30px; display: flex; gap: 15px; }
         .term-btn { background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; padding: 12px 24px; font-family: inherit; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-        
-        @media (max-width: 600px) {
-            h1 { font-size: 24px; } h2 { font-size: 18px; }
-            .hud-item { font-size: 10px; padding: 8px 10px; }
-            .hud-btn { width: 36px; height: 36px; }
-            .hud-btn svg { width: 18px; height: 18px; }
-            .btn { font-size: 12px; padding: 14px 20px; }
-            .slider-wrap { width: 240px; }
-            #game-over-screen { padding: 25px 15px; }
-            #terminal { font-size: 12px; }
-            .term-btn { font-size: 12px; padding: 10px 16px; }
-        }
     </style>
 </head>
 <body>
@@ -135,18 +120,9 @@
             </div>
             <div style="flex:1"></div>
             <img id="photo-preview" alt="Фото">
-            
-            <!-- НОВЫЕ ИКОНКИ ТУТ -->
-            <button id="btn-mute" class="hud-btn" title="Звук">
-                <svg id="icon-sound-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                <svg id="icon-sound-off" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-            </button>
-            <button id="btn-photo" class="hud-btn" title="Загрузить фото">
-                <svg viewBox="0 0 24 24"><path d="M12 17c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0-8c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm7-5h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>
-            </button>
-            <button id="btn-pause" class="hud-btn" title="Пауза">
-                <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-            </button>
+            <button id="btn-mute" class="hud-btn">🔊</button>
+            <button id="btn-photo" class="hud-btn">📷</button>
+            <button id="btn-pause" class="hud-btn">⏸</button>
         </div>
 
         <div id="start-screen" class="overlay">
@@ -184,145 +160,67 @@
     </div>
 
     <script>
-        // ============ PWA ============
-        const manifest = {
-            name: "Котозаяц: Прыжок в Кубы", short_name: "Котозаяц",
-            start_url: "./", display: "fullscreen", background_color: "#0f0f13", theme_color: "#00ffcc",
-            icons: [{ src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzBmMGYxMyIvPjxyZWN0IHk9IjM2MCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSIxNTIiIGZpbGw9IiMwMGZmY2MiLz48cmVjdCB4PSIxNjAiIHk9IjEwMCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjEzMCIgcng9IjEwIiBmaWxsPSIjNmY2ZjZmIi8+PHJlY3QgeD0iMzAyIiB5PSIxMDAiIHdpZHRoPSI1MCIgaGVpZ2h0PSIxMzAiIHJ4PSIxMCIgZmlsbD0iIzZmNmY2ZiIvPjxyZWN0IHg9IjE1MCIgeT0iMjAwIiB3aWR0aD0iMjEyIiBoZWlnaHQ9IjIwMCIgcng9IjQwIiBmaWxsPSIjOGE4YThhIi8+PHJlY3QgeD0iMTgwIiB5PSIyNTAiIHdpZHRoPSI1NSIgaGVpZ2h0PSI2MCIgcng9IjEwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMjc3IiB5PSIyNTAiIHdpZHRoPSI1NSIgaGVpZ2h0PSI2MCIgcng9IjEwIiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMTk3IiB5PSIyNjgiIHdpZHRoPSIyOCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiMwMDAiLz48cmVjdCB4PSIyODciIHk9IjI2OCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjMwIiByeD0iNiIgZmlsbD0iIzAwMCIvPjwvc3ZnPg==", sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }]
-        };
-        document.head.appendChild(Object.assign(document.createElement('link'), { rel: 'manifest', href: URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type:'application/json'})) }));
-        if ('serviceWorker' in navigator) {
-            const swCode = `self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>self.clients.claim());self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`;
-            window.addEventListener('load', () => navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], {type:'text/javascript'}))).catch(()=>{}));
-        }
-        
-        let deferredPrompt;
-        const installBtn = document.getElementById('btn-install');
-        window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'flex'; });
-        installBtn.addEventListener('click', async () => { if (!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; installBtn.style.display = 'none'; });
-
-        // ============ ЗВУК ============
+        // Звук
         const Sound = {
-            ctx: null, master: null, musicGain: null, sfxGain: null, noiseBuffer: null, muted: false,
-            musicVolume: 0.35, sfxVolume: 0.7, musicPlaying: false, musicTimer: null, nextNoteTime: 0, step: 0, BPM: 115,
-
+            ctx: null, muted: false, musicVolume: 0.35, sfxVolume: 0.7, BPM: 115,
             init() {
                 if (this.ctx) return;
-                try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return; }
+                try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+                if(!this.ctx) return;
                 this.master = this.ctx.createGain(); this.master.gain.value = this.muted ? 0 : 1; this.master.connect(this.ctx.destination);
                 this.musicGain = this.ctx.createGain(); this.musicGain.gain.value = this.musicVolume; this.musicGain.connect(this.master);
                 this.sfxGain = this.ctx.createGain(); this.sfxGain.gain.value = this.sfxVolume; this.sfxGain.connect(this.master);
-                const sr = this.ctx.sampleRate;
-                this.noiseBuffer = this.ctx.createBuffer(1, sr * 0.5, sr);
-                const data = this.noiseBuffer.getChannelData(0);
-                for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+                const sr = this.ctx.sampleRate; this.noiseBuffer = this.ctx.createBuffer(1, sr * 0.5, sr);
+                const data = this.noiseBuffer.getChannelData(0); for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
             },
             resume() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); },
-            setMute(m) { 
-                this.muted = m; 
-                if (this.master) this.master.gain.value = m ? 0 : 1; 
-                try { localStorage.setItem('kotozayac_mute', m ? '1' : '0'); } catch(e){}
-            },
-            tone({freq, type='sine', dur=0.2, vol=0.1, slideTo=null, delay=0, attack=0.005, filter=null, gainNode=null}) {
+            setMute(m) { this.muted = m; if (this.master) this.master.gain.value = m ? 0 : 1; },
+            tone({freq, type='sine', dur=0.2, vol=0.1, slideTo=null, delay=0, attack=0.005, filter=null}) {
                 if (!this.ctx) return;
-                const t = this.ctx.currentTime + delay; const osc = this.ctx.createOscillator(); const g = this.ctx.createGain();
+                const t = this.ctx.currentTime + delay, osc = this.ctx.createOscillator(), g = this.ctx.createGain();
                 osc.type = type; osc.frequency.setValueAtTime(freq, t);
                 if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
                 g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
                 let node = osc;
                 if (filter) { const f = this.ctx.createBiquadFilter(); f.type = filter.type; f.frequency.setValueAtTime(filter.freq, t); if (filter.freqTo) f.frequency.exponentialRampToValueAtTime(filter.freqTo, t + dur); f.Q.value = filter.q || 1; osc.connect(f); node = f; }
-                node.connect(g).connect(gainNode || this.sfxGain); osc.start(t); osc.stop(t + dur + 0.02);
+                node.connect(g).connect(this.sfxGain); osc.start(t); osc.stop(t + dur + 0.02);
             },
-            noise({dur=0.1, vol=0.1, type='highpass', freq=2000, delay=0, gainNode=null}) {
+            noise({dur=0.1, vol=0.1, type='highpass', freq=2000, delay=0}) {
                 if (!this.ctx) return;
-                const t = this.ctx.currentTime + delay; const src = this.ctx.createBufferSource(); src.buffer = this.noiseBuffer;
+                const t = this.ctx.currentTime + delay, src = this.ctx.createBufferSource(); src.buffer = this.noiseBuffer;
                 const f = this.ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; const g = this.ctx.createGain();
                 g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-                src.connect(f).connect(g).connect(gainNode || this.sfxGain); src.start(t); src.stop(t + dur + 0.01);
+                src.connect(f).connect(g).connect(this.sfxGain); src.start(t); src.stop(t + dur + 0.01);
             },
-            sfx: {
-                jump() { Sound.tone({freq: 250, type: 'square', dur: 0.16, vol: 0.1, slideTo: 780}); Sound.tone({freq: 500, type: 'triangle', dur: 0.12, vol: 0.05, slideTo: 1200, delay: 0.02}); },
-                boost() { Sound.tone({freq: 200, type: 'sawtooth', dur: 0.5, vol: 0.1, slideTo: 2000, filter: {type: 'bandpass', freq: 500, freqTo: 3500, q: 4}}); Sound.tone({freq: 1568, type: 'sine', dur: 0.15, vol: 0.07, delay: 0.42}); Sound.tone({freq: 2093, type: 'sine', dur: 0.22, vol: 0.05, delay: 0.5}); },
-                hit() { Sound.tone({freq: 2093, type: 'sine', dur: 0.11, vol: 0.20, attack: 0.001}); Sound.tone({freq: 3136, type: 'sine', dur: 0.075, vol: 0.09, attack: 0.001}); Sound.tone({freq: 5232, type: 'sine', dur: 0.045, vol: 0.04, attack: 0.001}); Sound.noise({dur: 0.008, vol: 0.08, type: 'highpass', freq: 6000}); },
-                gameover() { Sound.tone({freq: 220.00, type: 'sine', dur: 1.6, vol: 0.07, attack: 0.05}); Sound.tone({freq: 261.63, type: 'sine', dur: 1.6, vol: 0.06, attack: 0.05}); Sound.tone({freq: 329.63, type: 'sine', dur: 1.6, vol: 0.06, attack: 0.05}); try { if ('speechSynthesis' in window) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance('Геймовер'); u.lang = 'ru-RU'; u.rate = 0.85; u.pitch = 0.7; speechSynthesis.speak(u); } } catch(e) {} },
-                click() { Sound.noise({dur: 0.025, vol: 0.14, type: 'highpass', freq: 3200}); Sound.tone({freq: 2200, type: 'square', dur: 0.02, vol: 0.06, slideTo: 1600}); },
-                start() { Sound.tone({freq: 90, type: 'sawtooth', dur: 0.7, vol: 0.14, slideTo: 45, filter: {type: 'lowpass', freq: 600, freqTo: 120}}); Sound.noise({dur: 0.18, vol: 0.1, type: 'lowpass', freq: 600}); Sound.tone({freq: 440, type: 'square', dur: 0.4, vol: 0.09, delay: 0.28}); Sound.tone({freq: 660, type: 'square', dur: 0.4, vol: 0.08, delay: 0.35}); Sound.tone({freq: 880, type: 'sawtooth', dur: 0.6, vol: 0.09, delay: 0.42, filter: {type: 'lowpass', freq: 3000}}); },
-                combo() { Sound.tone({freq: 300, type: 'sawtooth', dur: 0.38, vol: 0.12, slideTo: 2200, filter: {type: 'bandpass', freq: 700, freqTo: 3200, q: 5}}); Sound.tone({freq: 600, type: 'square', dur: 0.18, vol: 0.06, slideTo: 1800, delay: 0.12}); },
-                record() { [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => Sound.tone({freq: f, type: 'square', dur: 0.22, vol: 0.08, delay: i * 0.08})); Sound.tone({freq: 1318.5, type: 'triangle', dur: 0.5, vol: 0.07, delay: 0.36}); },
-                powerup() { Sound.tone({freq: 440, type: 'square', dur: 0.1, vol: 0.1}); Sound.tone({freq: 554.37, type: 'square', dur: 0.1, vol: 0.1, delay: 0.1}); Sound.tone({freq: 659.25, type: 'square', dur: 0.1, vol: 0.1, delay: 0.2}); Sound.tone({freq: 880, type: 'square', dur: 0.3, vol: 0.12, delay: 0.3}); }
-            },
-            music: {
-                chords: [ { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 87.31, notes: [349.23, 440.00, 523.25] }, { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 98.00, notes: [392.00, 493.88, 587.33] } ],
-                start() { if (!Sound.ctx || this.playing) return; this.playing = true; Sound.musicPlaying = true; Sound.nextNoteTime = Sound.ctx.currentTime + 0.1; Sound.step = 0; this.tick(); },
-                stop() { this.playing = false; Sound.musicPlaying = false; if (Sound.musicTimer) { clearTimeout(Sound.musicTimer); Sound.musicTimer = null; } },
-                tick() {
-                    if (!this.playing || !Sound.ctx) return;
-                    const stepDur = 60 / Sound.BPM / 4;
-                    while (Sound.nextNoteTime < Sound.ctx.currentTime + 0.15) { this.scheduleStep(Sound.step, Sound.nextNoteTime); Sound.nextNoteTime += stepDur; Sound.step = (Sound.step + 1) % 64; }
-                    Sound.musicTimer = setTimeout(() => this.tick(), 25);
-                },
-                scheduleStep(step, time) {
-                    const bar = Math.floor(step / 16) % 4; const s = step % 16; const chord = this.chords[bar];
-                    if (s % 4 === 0) this.kick(time); if (s === 4 || s === 12) this.snare(time); if (s % 2 === 0) this.hat(time, s % 4 === 0 ? 0.045 : 0.025);
-                    if (s === 0 || s === 6 || s === 8 || s === 14) this.bass(chord.bass, time);
-                    if (s % 2 === 0) { const note = chord.notes[(s / 2) % 3]; this.arp(note, time, s % 4 === 0 ? 0.045 : 0.028); }
-                },
-                kick(time) { const ctx = Sound.ctx, o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.setValueAtTime(150, time); o.frequency.exponentialRampToValueAtTime(45, time + 0.12); g.gain.setValueAtTime(0.55, time); g.gain.exponentialRampToValueAtTime(0.001, time + 0.22); o.connect(g).connect(Sound.musicGain); o.start(time); o.stop(time + 0.25); },
-                snare(time) { const ctx = Sound.ctx, src = ctx.createBufferSource(); src.buffer = Sound.noiseBuffer; const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 1400; const g = ctx.createGain(); g.gain.setValueAtTime(0.13, time); g.gain.exponentialRampToValueAtTime(0.001, time + 0.15); src.connect(f).connect(g).connect(Sound.musicGain); src.start(time); src.stop(time + 0.18); const o = ctx.createOscillator(), g2 = ctx.createGain(); o.frequency.value = 180; g2.gain.setValueAtTime(0.09, time); g2.gain.exponentialRampToValueAtTime(0.001, time + 0.1); o.connect(g2).connect(Sound.musicGain); o.start(time); o.stop(time + 0.12); },
-                hat(time, vol) { const ctx = Sound.ctx, src = ctx.createBufferSource(); src.buffer = Sound.noiseBuffer; const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 8000; const g = ctx.createGain(); g.gain.setValueAtTime(vol, time); g.gain.exponentialRampToValueAtTime(0.001, time + 0.05); src.connect(f).connect(g).connect(Sound.musicGain); src.start(time); src.stop(time + 0.06); },
-                bass(freq, time) { const ctx = Sound.ctx, o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.Q.value = 8; f.frequency.setValueAtTime(1400, time); f.frequency.exponentialRampToValueAtTime(220, time + 0.22); o.type = 'sawtooth'; o.frequency.value = freq; g.gain.setValueAtTime(0.16, time); g.gain.exponentialRampToValueAtTime(0.001, time + 0.25); o.connect(f).connect(g).connect(Sound.musicGain); o.start(time); o.stop(time + 0.28); },
-                arp(freq, time, vol) { const ctx = Sound.ctx, o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 2400; o.type = 'square'; o.frequency.value = freq; g.gain.setValueAtTime(vol, time); g.gain.exponentialRampToValueAtTime(0.001, time + 0.12); o.connect(f).connect(g).connect(Sound.musicGain); o.start(time); o.stop(time + 0.15); }
-            }
+            sfxJump() { this.tone({freq: 250, type: 'square', dur: 0.16, vol: 0.1, slideTo: 780}); this.tone({freq: 500, type: 'triangle', dur: 0.12, vol: 0.05, slideTo: 1200, delay: 0.02}); },
+            sfxBoost() { this.tone({freq: 200, type: 'sawtooth', dur: 0.5, vol: 0.1, slideTo: 2000, filter: {type: 'bandpass', freq: 500, freqTo: 3500, q: 4}}); },
+            sfxHit() { this.tone({freq: 2093, type: 'sine', dur: 0.11, vol: 0.20}); this.noise({dur: 0.008, vol: 0.08, type: 'highpass', freq: 6000}); },
+            sfxPowerup() { this.tone({freq: 440, type: 'square', dur: 0.1, vol: 0.1}); this.tone({freq: 554, type: 'square', dur: 0.1, vol: 0.1, delay: 0.1}); this.tone({freq: 880, type: 'square', dur: 0.3, vol: 0.12, delay: 0.2}); },
+            sfxClick() { this.noise({dur: 0.025, vol: 0.14, type: 'highpass', freq: 3200}); this.tone({freq: 2200, type: 'square', dur: 0.02, vol: 0.06, slideTo: 1600}); },
+            sfxGameover() { this.tone({freq: 220, type: 'sine', dur: 1.6, vol: 0.07}); try { if ('speechSynthesis' in window) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance('Геймовер'); u.lang = 'ru-RU'; u.rate = 0.85; u.pitch = 0.7; speechSynthesis.speak(u); } } catch(e) {} }
         };
-        
-        try {
-            Sound.muted = localStorage.getItem('kotozayac_mute') === '1';
-            if (Sound.muted) {
-                document.getElementById('icon-sound-on').style.display = 'none';
-                document.getElementById('icon-sound-off').style.display = 'block';
-            }
-            const s = parseFloat(localStorage.getItem('kotozayac_sfx')); if (!isNaN(s)) Sound.sfxVolume = s;
-            const m = parseFloat(localStorage.getItem('kotozayac_musicvol')); if (!isNaN(m)) Sound.musicVolume = m;
-        } catch(e) {}
 
-        // ============ ИГРА ============
+        // Игра
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const W = canvas.width, H = canvas.height;
         const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-        const scoreEl = document.getElementById('score');
-        const livesEl = document.getElementById('lives');
-        const bestEl  = document.getElementById('best');
-
+        const scoreEl = document.getElementById('score'), livesEl = document.getElementById('lives'), bestEl = document.getElementById('best');
         if (isTouch) document.getElementById('mobile-controls').classList.add('visible');
 
-        let gameState = 'start';
-        let score = 0, lives = 3, bestScore = 0;
-        let frames = 0, difficulty = 1, prevDifficulty = 1;
-        let combo = 0;
-        let carrotsCollected = 0, carrotsMissed = 0;
-        let objectSpawnCount = 0;
-        let spawnTimer = 0;
+        let gameState = 'start', score = 0, lives = 3, bestScore = 0, frames = 0, difficulty = 1, prevDifficulty = 1;
+        let combo = 0, carrotsCollected = 0, carrotsMissed = 0, objectSpawnCount = 0, spawnTimer = 0;
         let objects = [], particles = [], clouds = [], hills = [];
-        let screenShake = 0, flash = 0;
-        let btnLeft = false, btnRight = false;
+        let screenShake = 0, flash = 0, btnLeft = false, btnRight = false, termGeneration = 0;
 
         try { bestScore = parseInt(localStorage.getItem('kotozayac_best') || '0', 10) || 0; } catch(e) {}
         bestEl.innerText = bestScore;
 
-        const GROUND_Y = H - 150;
-        const GRAVITY = 0.85;
-        const JUMP_V = -16;
+        const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
+        const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0 };
 
-        const player = {
-            x: W/2 - 40, y: GROUND_Y, width: 80, height: 80,
-            speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0
-        };
-
-        let customPlayerImg = new Image();
-        let hasCustomImg = false;
-
+        let customPlayerImg = new Image(); let hasCustomImg = false;
         try {
             const saved = localStorage.getItem('kotozayac_img');
             if (saved) {
@@ -331,22 +229,21 @@
             }
         } catch(e) {}
 
-        document.getElementById('btn-photo').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('fileInput').click(); });
+        document.getElementById('btn-photo').addEventListener('click', () => { Sound.init(); Sound.sfxClick(); document.getElementById('fileInput').click(); });
         document.getElementById('fileInput').addEventListener('change', e => {
             const file = e.target.files[0]; if (!file) return;
-            if (file.size > 2 * 1024 * 1024) { alert('Макс 2 МБ'); return; }
             const reader = new FileReader();
             reader.onload = ev => {
                 customPlayerImg.onload = () => {
                     hasCustomImg = true; document.getElementById('photo-preview').src = ev.target.result; document.getElementById('photo-preview').style.display = 'block';
-                    try { localStorage.setItem('kotozayac_img', ev.target.result); } catch(e) { alert('Не удалось сохранить'); }
+                    try { localStorage.setItem('kotozayac_img', ev.target.result); } catch(e) {}
                 };
                 customPlayerImg.src = ev.target.result;
             };
             reader.readAsDataURL(file);
         });
         document.getElementById('reset-photo-btn').addEventListener('click', () => {
-            Sound.sfx.click(); hasCustomImg = false; try { localStorage.removeItem('kotozayac_img'); } catch(e){}
+            Sound.sfxClick(); hasCustomImg = false; try { localStorage.removeItem('kotozayac_img'); } catch(e){}
             document.getElementById('photo-preview').style.display = 'none'; document.getElementById('photo-preview').src = '';
         });
 
@@ -359,7 +256,6 @@
             if (['ArrowLeft','ArrowRight','ArrowUp','Space'].includes(e.code)) e.preventDefault();
             if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') tryJump();
             if (e.code === 'KeyP' || e.code === 'Escape') togglePause();
-            
             if (gameState === 'gameover') {
                 if (e.code === 'KeyR' || e.code === 'Enter') restartGame();
                 if (e.code === 'KeyM') goToMainMenu();
@@ -379,421 +275,12 @@
             el.addEventListener('pointerdown', e => { e.preventDefault(); setter(true); el.setPointerCapture(e.pointerId); });
             el.addEventListener('pointerup', () => setter(false)); el.addEventListener('pointercancel', () => setter(false)); el.addEventListener('pointerleave', () => setter(false));
         }
-        bindBtn(document.getElementById('btn-left'),  v => btnLeft = v);
+        bindBtn(document.getElementById('btn-left'), v => btnLeft = v);
         bindBtn(document.getElementById('btn-right'), v => btnRight = v);
         document.getElementById('btn-jump').addEventListener('pointerdown', e => { e.preventDefault(); tryJump(); });
 
         function tryJump() {
             if (gameState !== 'playing') return;
             if (player.onGround) {
-                player.vy = JUMP_V; player.onGround = false;
-                Sound.sfx.jump();
-                for(let i=0; i<5; i++) particles.push({ x: player.x + player.width/2, y: player.y + player.height, vx: (Math.random()-0.5)*4, vy: Math.random()*-2, life: 1, decay: 0.05, color: '#aaa', size: 3+Math.random()*3 });
-            }
-        }
-
-        function togglePause() {
-            if (gameState === 'playing') { 
-                gameState = 'paused'; Sound.music.stop(); 
-                document.getElementById('pause-screen').classList.remove('hidden'); 
-            } 
-            else if (gameState === 'paused') { 
-                gameState = 'playing'; Sound.music.start(); 
-                document.getElementById('pause-screen').classList.add('hidden'); 
-            }
-        }
-
-        document.getElementById('btn-pause').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
-        document.getElementById('btn-mute').addEventListener('click', () => {
-            Sound.init(); Sound.resume(); Sound.setMute(!Sound.muted);
-            document.getElementById('icon-sound-on').style.display = Sound.muted ? 'none' : 'block';
-            document.getElementById('icon-sound-off').style.display = Sound.muted ? 'block' : 'none';
-            if (!Sound.muted) Sound.sfx.click();
-        });
-
-        document.getElementById('start-btn').addEventListener('click', startGame);
-        document.getElementById('resume-btn').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
-        
-        document.getElementById('menu-btn-pause').addEventListener('click', goToMainMenu);
-        document.getElementById('term-menu-btn').addEventListener('click', (e) => { e.stopPropagation(); goToMainMenu(); });
-        document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.stopPropagation(); restartGame(); });
-
-        document.getElementById('game-over-screen').addEventListener('click', () => {
-            if (gameState === 'gameover') restartGame();
-        });
-
-        function startGame() {
-            Sound.sfx.start();
-            setTimeout(() => Sound.music.start(), 700);
-            document.getElementById('start-screen').classList.add('hidden');
-            resetGame();
-            gameState = 'playing';
-        }
-
-        function goToMainMenu() {
-            Sound.sfx.click();
-            Sound.music.stop();
-            gameState = 'start';
-            resetGame();
-            document.getElementById('pause-screen').classList.add('hidden');
-            document.getElementById('game-over-screen').classList.add('hidden');
-            document.getElementById('start-screen').classList.remove('hidden');
-        }
-
-        function restartGame() {
-            termGeneration++; 
-            Sound.sfx.click(); 
-            document.getElementById('game-over-screen').classList.add('hidden');
-            resetGame(); 
-            gameState = 'playing'; 
-            Sound.music.start();
-        }
-
-        const sfxSlider = document.getElementById('slider-sfx'); const musSlider = document.getElementById('slider-music');
-        sfxSlider.value = Math.round(Sound.sfxVolume * 100); musSlider.value = Math.round(Sound.musicVolume * 100);
-        sfxSlider.addEventListener('input', () => Sound.sfxVolume = sfxSlider.value / 100);
-        musSlider.addEventListener('input', () => Sound.musicVolume = musSlider.value / 100);
-
-        function clampPlayer() { if (player.x < 0) player.x = 0; if (player.x + player.width > W) player.x = W - player.width; }
-        
-        function spawnParticles(x, y, colors, count) {
-            for (let i = 0; i < count; i++) {
-                const a = Math.random() * Math.PI * 2, s = 2 + Math.random() * 6;
-                particles.push({ x, y, vx: Math.cos(a)*s, vy: Math.sin(a)*s - 2, life: 1, decay: 0.02 + Math.random()*0.03, color: colors[(Math.random()*colors.length)|0], size: 2 + Math.random()*5 });
-            }
-        }
-
-        function spawnObject() {
-            objectSpawnCount++;
-            let type = 'rotten'; 
-            
-            if (objectSpawnCount >= 6) {
-                type = 'red';
-                objectSpawnCount = 0;
-            } else {
-                const rand = Math.random();
-                if (rand > 0.35) type = 'carrot';
-                else if (rand > 0.95) type = 'golden'; 
-            }
-            
-            objects.push({
-                x: Math.random() * (W - 40), y: -40, width: 40, height: 40,
-                speed: (3 + Math.random()*2.5) + difficulty * 0.6, type: type, wobble: Math.random() * Math.PI * 2
-            });
-        }
-
-        function drawObjects() {
-            for (const obj of objects) {
-                const cx = obj.x + obj.width/2, cy = obj.y + obj.height/2;
-                ctx.save(); ctx.translate(cx, cy);
-                
-                ctx.shadowBlur = 15;
-                if (obj.type === 'carrot') ctx.shadowColor = '#FF8C00';
-                else if (obj.type === 'golden') ctx.shadowColor = '#FFD700';
-                else if (obj.type === 'red') ctx.shadowColor = '#ff0000';
-                else ctx.shadowColor = '#3a4b22'; 
-
-                if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
-                    ctx.rotate(Math.sin(obj.wobble) * 0.15);
-                    
-                    if (obj.type === 'red') {
-                        ctx.fillStyle = '#ff2020';
-                        ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
-                        ctx.fillStyle = '#ff6060';
-                        ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
-                        ctx.fillStyle = '#fff';
-                        ctx.fillRect(-2, -2, 4, 12); ctx.fillRect(-6, 2, 12, 4);
-                        ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
-                    } else {
-                        ctx.fillStyle = obj.type === 'golden' ? '#FFD700' : '#FF8C00';
-                        ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
-                        ctx.fillStyle = obj.type === 'golden' ? '#FFF8DC' : '#FFA500';
-                        ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
-                        ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
-                        ctx.fillStyle = '#2ecc40'; ctx.fillRect(-4,-28,8,8);
-                    }
-                } else if (obj.type === 'rotten') {
-                    ctx.rotate(Math.sin(obj.wobble) * 0.2);
-                    ctx.fillStyle = '#5c4a3d';
-                    ctx.beginPath(); ctx.moveTo(-8,-8); ctx.lineTo(12,-12); ctx.lineTo(-2,20); ctx.closePath(); ctx.fill();
-                    ctx.fillStyle = '#3e2e24';
-                    ctx.fillRect(-4, -4, 6, 6); ctx.fillRect(4, 6, 5, 5);
-                    ctx.fillStyle = '#4a5d23'; ctx.fillRect(-10,-22,20,12);
-                    ctx.fillStyle = '#36441a'; ctx.fillRect(-6,-28,8,8);
-                    ctx.fillStyle = '#88cc88'; ctx.globalAlpha = 0.6 + Math.sin(frames*0.2)*0.4;
-                    ctx.fillRect(-18, 0, 4, 4); ctx.fillRect(15, -10, 4, 4); ctx.fillRect(-12, -20, 3, 3);
-                    ctx.globalAlpha = 1.0;
-                }
-                ctx.restore();
-            }
-        }
-
-        function drawPlayer() {
-            const bob = player.onGround ? Math.sin(frames * 0.1) * 3 : 0;
-            const px = player.x, py = player.y + bob;
-            const w = player.width, h = player.height;
-
-            ctx.fillStyle = 'rgba(0,0,0,0.3)';
-            ctx.beginPath(); ctx.ellipse(px + w/2, GROUND_Y + h + 5, w/2.5 * player.squash, 8 * player.stretch, 0, 0, Math.PI*2); ctx.fill();
-
-            ctx.save();
-            ctx.translate(px + w/2, py + h/2);
-            ctx.scale(player.squash, player.stretch);
-            ctx.translate(-(px + w/2), -(py + h/2));
-
-            if (hasCustomImg && customPlayerImg.complete) {
-                ctx.save(); ctx.beginPath(); ctx.arc(px + w/2, py + h/2, w/2, 0, Math.PI*2); ctx.clip();
-                const imgRatio = customPlayerImg.width / customPlayerImg.height;
-                let drawW = w, drawH = h; if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
-                ctx.drawImage(customPlayerImg, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
-                ctx.restore();
-            } else {
-                ctx.fillStyle = '#6f6f6f'; ctx.fillRect(px + 10, py - 22, 15, 32); ctx.fillRect(px + w - 25, py - 22, 15, 32);
-                ctx.fillStyle = '#e8a0a0'; ctx.fillRect(px + 14, py - 16, 7, 22); ctx.fillRect(px + w - 21, py - 16, 7, 22);
-                ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h);
-                ctx.fillStyle = '#9c9c9c'; ctx.fillRect(px + 12, py + 22, w - 24, 42);
-                ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
-                ctx.fillStyle = '#000'; ctx.fillRect(px + 20, py + 26, 10, 12); ctx.fillRect(px + w - 30, py + 26, 10, 12);
-                ctx.fillStyle = '#fff'; ctx.fillRect(px + 22, py + 28, 4, 4); ctx.fillRect(px + w - 28, py + 28, 4, 4);
-                ctx.fillStyle = '#ff9aa2'; ctx.fillRect(px + w/2 - 5, py + 46, 10, 7);
-                ctx.fillStyle = '#555';    ctx.fillRect(px + w/2 - 10, py + 57, 20, 4);
-            }
-            ctx.restore();
-        }
-
-        function drawBackground() {
-            let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-            skyGrad.addColorStop(0, '#4facfe'); skyGrad.addColorStop(1, '#00f2fe');
-            ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, W, GROUND_Y);
-
-            ctx.fillStyle = '#fff'; ctx.shadowBlur = 40; ctx.shadowColor = '#FFD700';
-            ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
-
-            ctx.fillStyle = 'rgba(255,255,255,0.9)';
-            for (const c of clouds) {
-                ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
-                ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore();
-            }
-
-            for (let i = 0; i < hills.length; i++) {
-                const h = hills[i];
-                ctx.fillStyle = i % 2 === 0 ? '#75c95e' : '#56ab3e';
-                ctx.beginPath(); ctx.moveTo(h.x, GROUND_Y); ctx.quadraticCurveTo(h.x + h.w/2, GROUND_Y - h.h, h.x + h.w, GROUND_Y); ctx.fill();
-            }
-
-            let groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, H);
-            groundGrad.addColorStop(0, '#5c4033'); groundGrad.addColorStop(1, '#3e2723');
-            ctx.fillStyle = groundGrad; ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
-            
-            ctx.fillStyle = '#4CAF50'; ctx.fillRect(0, GROUND_Y, W, 15);
-            ctx.fillStyle = '#66bb6a';
-            for(let x = 0; x < W; x += 20) {
-                ctx.fillRect(x, GROUND_Y - 5, 5, 5); ctx.fillRect(x + 10, GROUND_Y - 8, 5, 8);
-            }
-        }
-
-        function update(dt) {
-            if (gameState !== 'playing') return;
-            frames += dt * 60;
-
-            if (keys['ArrowLeft'] || keys['KeyA'] || btnLeft) player.x -= player.speed * dt * 60;
-            if (keys['ArrowRight'] || keys['KeyD'] || btnRight) player.x += player.speed * dt * 60;
-            clampPlayer();
-
-            if ((keys['ArrowLeft'] || keys['KeyA'] || btnLeft || keys['ArrowRight'] || keys['KeyD'] || btnRight) && player.onGround) {
-                player.dustTimer += dt * 60;
-                if (player.dustTimer > 5) {
-                    player.dustTimer = 0;
-                    particles.push({ x: player.x + player.width/2, y: player.y + player.height, vx: (Math.random()-0.5)*2, vy: Math.random()*-1, life: 1, decay: 0.05, color: '#aaa', size: 2+Math.random()*2 });
-                }
-            }
-
-            player.vy += GRAVITY * dt * 60;
-            player.y += player.vy * dt * 60;
-
-            if (!player.onGround) {
-                player.stretch = Math.min(1.2, 1 + Math.abs(player.vy) * 0.015);
-                player.squash = Math.max(0.8, 1 - Math.abs(player.vy) * 0.01);
-            } else {
-                player.squash += (1 - player.squash) * 0.2;
-                player.stretch += (1 - player.stretch) * 0.2;
-            }
-
-            if (player.y >= GROUND_Y) {
-                if (!player.onGround) { 
-                    for(let i=0; i<8; i++) particles.push({ x: player.x + player.width/2, y: player.y + player.height, vx: (Math.random()-0.5)*6, vy: Math.random()*-3, life: 1, decay: 0.05, color: '#4CAF50', size: 2+Math.random()*4 });
-                    player.squash = 1.3; player.stretch = 0.7;
-                }
-                player.y = GROUND_Y; player.vy = 0; player.onGround = true;
-            }
-
-            difficulty = 1 + Math.floor(score / 100);
-            if (difficulty > prevDifficulty) {
-                Sound.sfx.boost(); prevDifficulty = difficulty;
-                Sound.BPM = 115 + difficulty * 2;
-            }
-
-            spawnTimer += dt * 60;
-            const spawnInterval = Math.max(16, 50 - difficulty * 4);
-            if (spawnTimer >= spawnInterval) { spawnTimer = 0; spawnObject(); }
-
-            for (const c of clouds) { c.x -= c.speed * dt; if (c.x < -200) { c.x = W + 200; c.y = 20 + Math.random() * 150; } }
-            for (const h of hills) { h.x -= h.speed * dt; if (h.x + h.w < 0) { h.x = W + Math.random()*100; h.h = 150 + Math.random() * 100; } }
-
-            for (let i = objects.length - 1; i >= 0; i--) {
-                const obj = objects[i];
-                obj.y += obj.speed * dt * 60;
-                obj.wobble += 0.1 * dt * 60;
-
-                const hit = player.x < obj.x + obj.width && player.x + player.width > obj.x && player.y < obj.y + obj.height && player.y + player.height > obj.y;
-                
-                if (hit) {
-                    const cx = obj.x + obj.width/2, cy = obj.y + obj.height/2;
-                    if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
-                        carrotsCollected++;
-                        
-                        if (obj.type === 'red') {
-                            if (lives < 5) { lives++; livesEl.innerText = lives; }
-                            score += 25; 
-                            Sound.sfx.powerup();
-                            spawnParticles(cx, cy, ['#ff2020', '#fff', '#ffcccc'], 25);
-                        } else {
-                            combo++;
-                            let gained = obj.type === 'golden' ? 50 : 10;
-                            if (combo === 3 || combo === 5 || combo === 10 || (combo > 10 && combo % 5 === 0)) {
-                                Sound.sfx.combo(); gained += combo * 2;
-                                spawnParticles(cx, cy, ['#FFD700','#FF8C00','#fff'], 20);
-                            } else {
-                                Sound.tone({freq: obj.type === 'golden' ? 1200 : 880, type: 'square', dur: 0.06, vol: 0.05, slideTo: 1500});
-                            }
-                            score += gained;
-                            spawnParticles(cx, cy, obj.type === 'golden' ? ['#FFD700','#FFF8DC','#ffaa00'] : ['#FF8C00','#FFD700','#228B22'], 15);
-                        }
-                        scoreEl.innerText = score;
-                    } else { 
-                        combo = 0; lives--; if (lives < 0) lives = 0; livesEl.innerText = lives;
-                        Sound.sfx.hit(); spawnParticles(cx, cy, ['#5c4a3d','#ff4444','#4a5d23'], 20);
-                        screenShake = 15; flash = 0.5;
-                        if (lives <= 0) gameOver();
-                    }
-                    objects.splice(i, 1); continue;
-                }
-                
-                if (obj.y > H + 20) {
-                    if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
-                        carrotsMissed++;
-                    }
-                    objects.splice(i, 1);
-                }
-            }
-
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i]; p.x += p.vx * dt * 60; p.y += p.vy * dt * 60; p.vy += 0.25 * dt * 60; p.vx *= 0.99; p.life -= p.decay * dt * 60;
-                if (p.life <= 0) particles.splice(i, 1);
-            }
-
-            if (screenShake > 0) { screenShake *= 0.88; if (screenShake < 0.5) screenShake = 0; }
-            if (flash > 0) flash = Math.max(0, flash - 0.04 * dt * 60);
-        }
-
-        // ============ ТЕРМИНАЛЬНЫЙ ЭКРАН СМЕРТИ ============
-        let termGeneration = 0;
-        function gameOver() {
-            gameState = 'gameover';
-            const isNewRecord = score > bestScore;
-            if (isNewRecord) { bestScore = score; bestEl.innerText = bestScore; try { localStorage.setItem('kotozayac_best', String(bestScore)); } catch(e) {} }
-            
-            document.getElementById('term-buttons').style.display = 'none';
-            document.getElementById('game-over-screen').classList.remove('hidden');
-            Sound.music.stop();
-            if (isNewRecord) setTimeout(() => Sound.sfx.record(), 600); else setTimeout(() => Sound.sfx.gameover(), 300);
-            showTerminalGameOver(isNewRecord);
-        }
-
-        function showTerminalGameOver(isNewRecord) {
-            termGeneration++; const gen = termGeneration;
-            const lines = [
-                '> C:\\KOTOZAYAC\\GAME.EXE', 
-                '> system.halt();', 
-                '',
-                `> FINAL_SCORE: ${String(score).padStart(6, '0')}`,
-                `> BEST_SCORE:  ${String(bestScore).padStart(6, '0')}${isNewRecord ? '  ★ NEW RECORD ★' : ''}`,
-                '-----------------------------------',
-                `> CARROTS_EATEN: ${carrotsCollected}`,
-                `> CARROTS_MISSED: ${carrotsMissed}`,
-                '', 
-                '> WAITING FOR INPUT...', 
-                ''
-            ];
-            const container = document.getElementById('term-lines'); container.innerHTML = '';
-            const cursorLine = document.createElement('div'); cursorLine.className = 'term-line';
-            const cursor = document.createElement('span'); cursor.className = 'term-cursor'; cursorLine.appendChild(cursor); container.appendChild(cursorLine);
-            let lineIdx = 0;
-            function typeNextLine() {
-                if (gen !== termGeneration || lineIdx >= lines.length) {
-                    if (gen === termGeneration) {
-                        document.getElementById('term-buttons').style.display = 'flex';
-                    }
-                    return;
-                }
-                const text = lines[lineIdx]; const lineEl = document.createElement('div'); lineEl.className = 'term-line';
-                container.insertBefore(lineEl, cursorLine);
-                if (text.length === 0) { lineIdx++; setTimeout(typeNextLine, 80); return; }
-                let charIdx = 0;
-                const interval = setInterval(() => {
-                    if (gen !== termGeneration) { clearInterval(interval); return; }
-                    charIdx++; lineEl.textContent = text.slice(0, charIdx);
-                    if (charIdx >= text.length) { 
-                        clearInterval(interval); 
-                        Sound.tone({ freq: 1200, type: 'square', dur: 0.015, vol: 0.015 }); 
-                        lineIdx++; 
-                        setTimeout(typeNextLine, 100); 
-                    }
-                }, 20);
-            }
-            setTimeout(typeNextLine, 300);
-        }
-
-        function resetGame() {
-            score = 0; lives = 3; frames = 0; spawnTimer = 0; difficulty = 1; prevDifficulty = 1; combo = 0;
-            carrotsCollected = 0; carrotsMissed = 0; objectSpawnCount = 0;
-            objects = []; particles = []; screenShake = 0; flash = 0; btnLeft = btnRight = false;
-            Sound.BPM = 115;
-            player.x = W/2 - player.width/2; player.y = GROUND_Y; player.vy = 0; player.onGround = true; player.squash = 1; player.stretch = 1;
-            scoreEl.innerText = '0'; livesEl.innerText = '3';
-            document.getElementById('pause-screen').classList.add('hidden');
-            document.getElementById('game-over-screen').classList.add('hidden');
-            document.getElementById('term-lines').innerHTML = '';
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            ctx.save();
-            if (screenShake > 0) ctx.translate((Math.random()-0.5)*screenShake, (Math.random()-0.5)*screenShake);
-            
-            drawBackground();
-            drawObjects();
-            drawPlayer();
-            
-            for (const p of particles) {
-                ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.color;
-                ctx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
-            }
-            ctx.globalAlpha = 1;
-            ctx.restore();
-
-            if (flash > 0) { ctx.fillStyle = `rgba(255,40,40,${flash * 0.6})`; ctx.fillRect(0, 0, W, H); }
-        }
-
-        let lastTime = performance.now();
-        function loop(now) {
-            let dt = (now - lastTime) / 1000; lastTime = now; if (dt > 0.1) dt = 0.1;
-            update(dt); draw();
-            requestAnimationFrame(loop);
-        }
-
-        resetGame();
-        requestAnimationFrame(loop);
-    </script>
-</body>
-</html>
+                player.vy = JUMP_V; player.onGround = false; Sound.sfxJump();
+                for(let i=0; i<5; i++) particles.push({ x: player.x + player.width/2, y: player.y + player.height, vx: (Math.random()-0.
