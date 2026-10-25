@@ -30,7 +30,7 @@
         }
         canvas { display: block; width: 100%; height: 100%; }
 
-        /* Стильный HUD */
+        /* HUD */
         #hud {
             position: absolute; top: 15px; left: 15px; right: 15px;
             display: flex; align-items: center; gap: 10px; z-index: 10;
@@ -44,6 +44,11 @@
             box-shadow: 0 0 10px rgba(0, 255, 204, 0.1), inset 0 0 10px rgba(0, 255, 204, 0.1);
             backdrop-filter: blur(8px);
         }
+        .hud-icon { width: 20px; height: 20px; fill: currentColor; }
+        .icon-carrot { color: #FF8C00; }
+        .icon-heart { color: #ff4444; }
+        .icon-trophy { color: #FFD700; }
+        
         .hud-btn {
             background: rgba(15, 15, 25, 0.7); border: 2px solid rgba(0, 255, 204, 0.3);
             color: var(--neon); width: 44px; height: 44px; border-radius: 10px;
@@ -68,20 +73,23 @@
             margin-bottom: 15px; text-align: center; line-height: 1.4; }
         h2 { color: #fff; font-size: 24px; text-shadow: 0 0 10px #fff; margin-bottom: 20px; }
         .subtitle { color: #888; font-size: 12px; margin-bottom: 40px; text-shadow: 2px 2px 0 #000; }
+        
         .btn {
             background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000;
             border: none; border-radius: 8px;
             padding: 16px 36px; font-size: 16px; font-family: inherit; font-weight: bold; cursor: pointer;
             box-shadow: 0 6px 0 #005a47, 0 10px 20px rgba(0, 255, 204, 0.4);
             transition: transform 0.1s, box-shadow 0.1s; 
-            margin: 8px;
+            margin: 8px; text-align: center;
         }
         .btn:active { transform: translateY(6px); box-shadow: 0 0 0 #005a47, 0 2px 10px rgba(0, 255, 204, 0.4); }
+        
         .btn-secondary {
-            background: linear-gradient(180deg, #444, #222); color: #fff;
+            background: linear-gradient(180deg, #555, #333); color: #fff;
             box-shadow: 0 6px 0 #111, 0 8px 10px rgba(0,0,0,0.5);
             font-size: 12px; padding: 14px 24px;
         }
+        .btn-secondary:active { transform: translateY(6px); box-shadow: 0 0 0 #111, 0 2px 5px rgba(0,0,0,0.5); }
 
         .slider-wrap { display: flex; align-items: center; gap: 12px;
             background: rgba(255,255,255,0.05); padding: 10px 16px; border-radius: 10px;
@@ -115,7 +123,7 @@
         #game-over-screen {
             background: #000 !important; backdrop-filter: none !important;
             justify-content: flex-start !important; align-items: flex-start !important;
-            padding: 40px 30px; overflow: hidden; cursor: pointer;
+            padding: 40px 30px; overflow: hidden;
         }
         #game-over-screen::before {
             content: ''; position: absolute; inset: 0;
@@ -137,6 +145,14 @@
             box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
         }
         @keyframes termBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+        
+        .term-btn-group { position: relative; z-index: 5; margin-top: 30px; display: flex; gap: 15px; }
+        .term-btn {
+            background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41;
+            padding: 12px 24px; font-family: 'Courier New', monospace; font-weight: bold; font-size: 16px;
+            cursor: pointer; text-shadow: 0 0 5px #00ff41; transition: all 0.2s; text-transform: uppercase;
+        }
+        .term-btn:hover { background: rgba(0, 255, 65, 0.3); box-shadow: 0 0 15px #00ff41; }
 
         @media (max-width: 600px) {
             h1 { font-size: 24px; } h2 { font-size: 18px; }
@@ -147,6 +163,7 @@
             #game-over-screen { padding: 25px 15px; }
             #terminal { font-size: 12px; }
             .term-cursor { width: 8px; height: 14px; }
+            .term-btn { font-size: 12px; padding: 10px 16px; }
         }
     </style>
 </head>
@@ -155,9 +172,18 @@
         <canvas id="gameCanvas" width="800" height="600"></canvas>
 
         <div id="hud">
-            <div class="hud-item">🍎 <span id="score">0</span></div>
-            <div class="hud-item">❤️ <span id="lives">3</span></div>
-            <div class="hud-item">🏆 <span id="best">0</span></div>
+            <div class="hud-item">
+                <svg class="hud-icon icon-carrot" viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg>
+                <span id="score">0</span>
+            </div>
+            <div class="hud-item">
+                <svg class="hud-icon icon-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span id="lives">3</span>
+            </div>
+            <div class="hud-item">
+                <svg class="hud-icon icon-trophy" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+                <span id="best">0</span>
+            </div>
             <div style="flex:1"></div>
             <img id="photo-preview" alt="Фото">
             <button id="btn-mute" class="hud-btn" title="Звук">🔊</button>
@@ -166,12 +192,14 @@
             <button id="btn-install" class="hud-btn" title="Установить" style="display:none;">📲</button>
         </div>
 
+        <!-- Главное меню -->
         <div id="start-screen" class="overlay">
             <h1>КОТОЗАЯЦ</h1>
             <div class="subtitle">ПРЫЖОК В КУБЫ</div>
             <button id="start-btn" class="btn">ИГРАТЬ</button>
         </div>
 
+        <!-- Пауза -->
         <div id="pause-screen" class="overlay hidden">
             <h2>ПАУЗА</h2>
             <div class="slider-wrap">
@@ -183,12 +211,18 @@
                 <input type="range" id="slider-music" min="0" max="100" value="35">
             </div>
             <button id="resume-btn" class="btn">ПРОДОЛЖИТЬ</button>
+            <button id="menu-btn-pause" class="btn btn-secondary">В ГЛАВНОЕ МЕНЮ</button>
             <button id="reset-photo-btn" class="btn btn-secondary">СБРОСИТЬ ФОТО</button>
         </div>
 
+        <!-- Терминал смерти -->
         <div id="game-over-screen" class="overlay hidden">
             <div id="terminal">
                 <div id="term-lines"></div>
+                <div class="term-btn-group" id="term-buttons" style="display:none;">
+                    <button class="term-btn" id="term-restart-btn">Заново</button>
+                    <button class="term-btn" id="term-menu-btn">В меню</button>
+                </div>
             </div>
         </div>
 
@@ -263,7 +297,8 @@
                 click() { Sound.noise({dur: 0.025, vol: 0.14, type: 'highpass', freq: 3200}); Sound.tone({freq: 2200, type: 'square', dur: 0.02, vol: 0.06, slideTo: 1600}); },
                 start() { Sound.tone({freq: 90, type: 'sawtooth', dur: 0.7, vol: 0.14, slideTo: 45, filter: {type: 'lowpass', freq: 600, freqTo: 120}}); Sound.noise({dur: 0.18, vol: 0.1, type: 'lowpass', freq: 600}); Sound.tone({freq: 440, type: 'square', dur: 0.4, vol: 0.09, delay: 0.28}); Sound.tone({freq: 660, type: 'square', dur: 0.4, vol: 0.08, delay: 0.35}); Sound.tone({freq: 880, type: 'sawtooth', dur: 0.6, vol: 0.09, delay: 0.42, filter: {type: 'lowpass', freq: 3000}}); },
                 combo() { Sound.tone({freq: 300, type: 'sawtooth', dur: 0.38, vol: 0.12, slideTo: 2200, filter: {type: 'bandpass', freq: 700, freqTo: 3200, q: 5}}); Sound.tone({freq: 600, type: 'square', dur: 0.18, vol: 0.06, slideTo: 1800, delay: 0.12}); },
-                record() { [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => Sound.tone({freq: f, type: 'square', dur: 0.22, vol: 0.08, delay: i * 0.08})); Sound.tone({freq: 1318.5, type: 'triangle', dur: 0.5, vol: 0.07, delay: 0.36}); }
+                record() { [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => Sound.tone({freq: f, type: 'square', dur: 0.22, vol: 0.08, delay: i * 0.08})); Sound.tone({freq: 1318.5, type: 'triangle', dur: 0.5, vol: 0.07, delay: 0.36}); },
+                powerup() { Sound.tone({freq: 440, type: 'square', dur: 0.1, vol: 0.1}); Sound.tone({freq: 554.37, type: 'square', dur: 0.1, vol: 0.1, delay: 0.1}); Sound.tone({freq: 659.25, type: 'square', dur: 0.1, vol: 0.1, delay: 0.2}); Sound.tone({freq: 880, type: 'square', dur: 0.3, vol: 0.12, delay: 0.3}); }
             },
             music: {
                 chords: [ { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 87.31, notes: [349.23, 440.00, 523.25] }, { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 98.00, notes: [392.00, 493.88, 587.33] } ],
@@ -311,6 +346,7 @@
         let frames = 0, difficulty = 1, prevDifficulty = 1;
         let combo = 0;
         let carrotsCollected = 0, carrotsMissed = 0;
+        let objectSpawnCount = 0;
         let spawnTimer = 0;
         let objects = [], particles = [], clouds = [], hills = [];
         let screenShake = 0, flash = 0;
@@ -358,7 +394,6 @@
             document.getElementById('photo-preview').style.display = 'none'; document.getElementById('photo-preview').src = '';
         });
 
-        // Генерация параллакса
         for (let i = 0; i < 6; i++) clouds.push({ x: Math.random() * W, y: 20 + Math.random() * 150, speed: 10 + Math.random() * 20, scale: 0.4 + Math.random() * 0.6 });
         for (let i = 0; i < 5; i++) hills.push({ x: i * 250 - 100, y: GROUND_Y, w: 300 + Math.random() * 200, h: 150 + Math.random() * 100, speed: 2 });
 
@@ -368,7 +403,12 @@
             if (['ArrowLeft','ArrowRight','ArrowUp','Space'].includes(e.code)) e.preventDefault();
             if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') tryJump();
             if (e.code === 'KeyP' || e.code === 'Escape') togglePause();
-            if ((e.code === 'KeyR' || e.code === 'Enter' || e.code === 'Space') && gameState === 'gameover') restart();
+            
+            // Управление на экране смерти
+            if (gameState === 'gameover') {
+                if (e.code === 'KeyR' || e.code === 'Enter') restartGame();
+                if (e.code === 'KeyM') goToMainMenu();
+            }
         });
         window.addEventListener('keyup', e => keys[e.code] = false);
         window.addEventListener('blur', () => { btnLeft = btnRight = false; for (const k in keys) keys[k] = false; });
@@ -398,11 +438,17 @@
         }
 
         function togglePause() {
-            Sound.sfx.click();
-            if (gameState === 'playing') { gameState = 'paused'; Sound.music.stop(); document.getElementById('pause-screen').classList.remove('hidden'); } 
-            else if (gameState === 'paused') { gameState = 'playing'; Sound.music.start(); document.getElementById('pause-screen').classList.add('hidden'); }
+            if (gameState === 'playing') { 
+                gameState = 'paused'; Sound.music.stop(); 
+                document.getElementById('pause-screen').classList.remove('hidden'); 
+            } 
+            else if (gameState === 'paused') { 
+                gameState = 'playing'; Sound.music.start(); 
+                document.getElementById('pause-screen').classList.add('hidden'); 
+            }
         }
-        document.getElementById('btn-pause').addEventListener('click', togglePause);
+
+        document.getElementById('btn-pause').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
         document.getElementById('btn-mute').addEventListener('click', () => {
             Sound.init(); Sound.resume(); Sound.setMute(!Sound.muted);
             document.getElementById('btn-mute').textContent = Sound.muted ? '🔇' : '🔊';
@@ -410,17 +456,46 @@
         });
         document.getElementById('btn-mute').textContent = Sound.muted ? '🔇' : '🔊';
 
-        document.getElementById('start-btn').addEventListener('click', () => {
-            Sound.init(); Sound.resume(); Sound.sfx.start();
+        // Кнопки меню
+        document.getElementById('start-btn').addEventListener('click', startGame);
+        document.getElementById('resume-btn').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
+        document.getElementById('restart-btn').addEventListener('click', restartGame);
+        
+        // Кнопки "В меню"
+        document.getElementById('menu-btn-pause').addEventListener('click', goToMainMenu);
+        document.getElementById('term-menu-btn').addEventListener('click', (e) => { e.stopPropagation(); goToMainMenu(); });
+        document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.stopPropagation(); restartGame(); });
+
+        // Клик по терминалу (рестарт)
+        document.getElementById('game-over-screen').addEventListener('click', () => {
+            if (gameState === 'gameover') restartGame();
+        });
+
+        function startGame() {
+            Sound.sfx.start();
             setTimeout(() => Sound.music.start(), 700);
             document.getElementById('start-screen').classList.add('hidden');
-            resetGame(); gameState = 'playing';
-        });
-        document.getElementById('resume-btn').addEventListener('click', togglePause);
-        document.getElementById('game-over-screen').addEventListener('click', () => { if (gameState === 'gameover') restart(); });
-        function restart() {
-            termGeneration++; Sound.sfx.click(); document.getElementById('game-over-screen').classList.add('hidden');
-            resetGame(); gameState = 'playing'; Sound.music.start();
+            resetGame();
+            gameState = 'playing';
+        }
+
+        function goToMainMenu() {
+            Sound.sfx.click();
+            Sound.music.stop();
+            gameState = 'start';
+            resetGame();
+            document.getElementById('pause-screen').classList.add('hidden');
+            document.getElementById('game-over-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+        }
+
+        function restartGame() {
+            termGeneration++; // Сбрасываем печать терминала
+            Sound.sfx.click(); 
+            document.getElementById('game-over-screen').classList.add('hidden');
+            resetGame(); 
+            gameState = 'playing'; 
+            Sound.music.start();
         }
 
         const sfxSlider = document.getElementById('slider-sfx'); const musSlider = document.getElementById('slider-music');
@@ -438,10 +513,18 @@
         }
 
         function spawnObject() {
-            const rand = Math.random();
-            let type = 'rotten'; // Заменили блок на гнилую морковку
-            if (rand > 0.35) type = 'carrot';
-            if (rand > 0.95) type = 'golden'; 
+            objectSpawnCount++;
+            let type = 'rotten'; 
+            
+            // Раз в 6 объектов (если повезет и это не гнилая) спавним красную
+            if (objectSpawnCount >= 6) {
+                type = 'red';
+                objectSpawnCount = 0;
+            } else {
+                const rand = Math.random();
+                if (rand > 0.35) type = 'carrot';
+                else if (rand > 0.95) type = 'golden'; 
+            }
             
             objects.push({
                 x: Math.random() * (W - 40), y: -40, width: 40, height: 40,
@@ -454,32 +537,43 @@
                 const cx = obj.x + obj.width/2, cy = obj.y + obj.height/2;
                 ctx.save(); ctx.translate(cx, cy);
                 
-                // Свечение
                 ctx.shadowBlur = 15;
                 if (obj.type === 'carrot') ctx.shadowColor = '#FF8C00';
                 else if (obj.type === 'golden') ctx.shadowColor = '#FFD700';
-                else ctx.shadowColor = '#3a4b22'; // Темно-зеленое свечение для гнили
+                else if (obj.type === 'red') ctx.shadowColor = '#ff0000';
+                else ctx.shadowColor = '#3a4b22'; 
 
-                if (obj.type === 'carrot' || obj.type === 'golden') {
+                if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
                     ctx.rotate(Math.sin(obj.wobble) * 0.15);
-                    ctx.fillStyle = obj.type === 'golden' ? '#FFD700' : '#FF8C00';
-                    ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
-                    ctx.fillStyle = obj.type === 'golden' ? '#FFF8DC' : '#FFA500';
-                    ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
-                    ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
-                    ctx.fillStyle = '#2ecc40'; ctx.fillRect(-4,-28,8,8);
+                    
+                    if (obj.type === 'red') {
+                        // КРАСНАЯ МОРКОВКА (Аптечка)
+                        ctx.fillStyle = '#ff2020';
+                        ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
+                        ctx.fillStyle = '#ff6060';
+                        ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
+                        // Крест
+                        ctx.fillStyle = '#fff';
+                        ctx.fillRect(-2, -2, 4, 12); ctx.fillRect(-6, 2, 12, 4);
+                        // Ботва
+                        ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
+                    } else {
+                        // Обычная или Золотая
+                        ctx.fillStyle = obj.type === 'golden' ? '#FFD700' : '#FF8C00';
+                        ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
+                        ctx.fillStyle = obj.type === 'golden' ? '#FFF8DC' : '#FFA500';
+                        ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
+                        ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
+                        ctx.fillStyle = '#2ecc40'; ctx.fillRect(-4,-28,8,8);
+                    }
                 } else if (obj.type === 'rotten') {
                     ctx.rotate(Math.sin(obj.wobble) * 0.2);
-                    // Гнилая морковь (темно-коричневая, кривая)
                     ctx.fillStyle = '#5c4a3d';
                     ctx.beginPath(); ctx.moveTo(-8,-8); ctx.lineTo(12,-12); ctx.lineTo(-2,20); ctx.closePath(); ctx.fill();
-                    // Пятна гнили
                     ctx.fillStyle = '#3e2e24';
                     ctx.fillRect(-4, -4, 6, 6); ctx.fillRect(4, 6, 5, 5);
-                    // Увядшая ботва
                     ctx.fillStyle = '#4a5d23'; ctx.fillRect(-10,-22,20,12);
                     ctx.fillStyle = '#36441a'; ctx.fillRect(-6,-28,8,8);
-                    // Споры/вонь
                     ctx.fillStyle = '#88cc88'; ctx.globalAlpha = 0.6 + Math.sin(frames*0.2)*0.4;
                     ctx.fillRect(-18, 0, 4, 4); ctx.fillRect(15, -10, 4, 4); ctx.fillRect(-12, -20, 3, 3);
                     ctx.globalAlpha = 1.0;
@@ -522,42 +616,33 @@
         }
 
         function drawBackground() {
-            // Яркое чистое небо
             let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-            skyGrad.addColorStop(0, '#4facfe'); 
-            skyGrad.addColorStop(1, '#00f2fe');
+            skyGrad.addColorStop(0, '#4facfe'); skyGrad.addColorStop(1, '#00f2fe');
             ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, W, GROUND_Y);
 
-            // Солнце
             ctx.fillStyle = '#fff'; ctx.shadowBlur = 40; ctx.shadowColor = '#FFD700';
             ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
 
-            // Пышные облака
             ctx.fillStyle = 'rgba(255,255,255,0.9)';
             for (const c of clouds) {
                 ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
                 ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore();
             }
 
-            // Холмы на фоне (Параллакс)
             for (let i = 0; i < hills.length; i++) {
                 const h = hills[i];
                 ctx.fillStyle = i % 2 === 0 ? '#75c95e' : '#56ab3e';
                 ctx.beginPath(); ctx.moveTo(h.x, GROUND_Y); ctx.quadraticCurveTo(h.x + h.w/2, GROUND_Y - h.h, h.x + h.w, GROUND_Y); ctx.fill();
             }
 
-            // Земля
             let groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, H);
             groundGrad.addColorStop(0, '#5c4033'); groundGrad.addColorStop(1, '#3e2723');
             ctx.fillStyle = groundGrad; ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
             
-            // Травяной покров
             ctx.fillStyle = '#4CAF50'; ctx.fillRect(0, GROUND_Y, W, 15);
-            // Травинки
             ctx.fillStyle = '#66bb6a';
             for(let x = 0; x < W; x += 20) {
-                ctx.fillRect(x, GROUND_Y - 5, 5, 5);
-                ctx.fillRect(x + 10, GROUND_Y - 8, 5, 8);
+                ctx.fillRect(x, GROUND_Y - 5, 5, 5); ctx.fillRect(x + 10, GROUND_Y - 8, 5, 8);
             }
         }
 
@@ -606,7 +691,6 @@
             const spawnInterval = Math.max(16, 50 - difficulty * 4);
             if (spawnTimer >= spawnInterval) { spawnTimer = 0; spawnObject(); }
 
-            // Движение фона
             for (const c of clouds) { c.x -= c.speed * dt; if (c.x < -200) { c.x = W + 200; c.y = 20 + Math.random() * 150; } }
             for (const h of hills) { h.x -= h.speed * dt; if (h.x + h.w < 0) { h.x = W + Math.random()*100; h.h = 150 + Math.random() * 100; } }
 
@@ -619,19 +703,28 @@
                 
                 if (hit) {
                     const cx = obj.x + obj.width/2, cy = obj.y + obj.height/2;
-                    if (obj.type === 'carrot' || obj.type === 'golden') {
-                        carrotsCollected++; // СЧИТАЕМ СОБРАННЫЕ
-                        combo++;
-                        let gained = obj.type === 'golden' ? 50 : 10;
-                        if (combo === 3 || combo === 5 || combo === 10 || (combo > 10 && combo % 5 === 0)) {
-                            Sound.sfx.combo(); gained += combo * 2;
-                            spawnParticles(cx, cy, ['#FFD700','#FF8C00','#fff'], 20);
+                    if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
+                        carrotsCollected++;
+                        
+                        if (obj.type === 'red') {
+                            if (lives < 5) { lives++; livesEl.innerText = lives; }
+                            score += 25; // Даем очки в любом случае
+                            Sound.sfx.powerup();
+                            spawnParticles(cx, cy, ['#ff2020', '#fff', '#ffcccc'], 25);
                         } else {
-                            Sound.tone({freq: obj.type === 'golden' ? 1200 : 880, type: 'square', dur: 0.06, vol: 0.05, slideTo: 1500});
+                            combo++;
+                            let gained = obj.type === 'golden' ? 50 : 10;
+                            if (combo === 3 || combo === 5 || combo === 10 || (combo > 10 && combo % 5 === 0)) {
+                                Sound.sfx.combo(); gained += combo * 2;
+                                spawnParticles(cx, cy, ['#FFD700','#FF8C00','#fff'], 20);
+                            } else {
+                                Sound.tone({freq: obj.type === 'golden' ? 1200 : 880, type: 'square', dur: 0.06, vol: 0.05, slideTo: 1500});
+                            }
+                            score += gained;
+                            spawnParticles(cx, cy, obj.type === 'golden' ? ['#FFD700','#FFF8DC','#ffaa00'] : ['#FF8C00','#FFD700','#228B22'], 15);
                         }
-                        score += gained; scoreEl.innerText = score;
-                        spawnParticles(cx, cy, obj.type === 'golden' ? ['#FFD700','#FFF8DC','#ffaa00'] : ['#FF8C00','#FFD700','#228B22'], 15);
-                    } else { // Гнилая морковка
+                        scoreEl.innerText = score;
+                    } else { 
                         combo = 0; lives--; if (lives < 0) lives = 0; livesEl.innerText = lives;
                         Sound.sfx.hit(); spawnParticles(cx, cy, ['#5c4a3d','#ff4444','#4a5d23'], 20);
                         screenShake = 15; flash = 0.5;
@@ -640,10 +733,8 @@
                     objects.splice(i, 1); continue;
                 }
                 
-                // Если объект упал за экран
                 if (obj.y > H + 20) {
-                    // СЧИТАЕМ ПРОПУЩЕННЫЕ (только хорошие морковки)
-                    if (obj.type === 'carrot' || obj.type === 'golden') {
+                    if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
                         carrotsMissed++;
                     }
                     objects.splice(i, 1);
@@ -665,6 +756,8 @@
             gameState = 'gameover';
             const isNewRecord = score > bestScore;
             if (isNewRecord) { bestScore = score; bestEl.innerText = bestScore; try { localStorage.setItem('kotozayac_best', String(bestScore)); } catch(e) {} }
+            
+            document.getElementById('term-buttons').style.display = 'none';
             document.getElementById('game-over-screen').classList.remove('hidden');
             Sound.music.stop();
             if (isNewRecord) setTimeout(() => Sound.sfx.record(), 600); else setTimeout(() => Sound.sfx.gameover(), 300);
@@ -683,7 +776,7 @@
                 `> CARROTS_EATEN: ${carrotsCollected}`,
                 `> CARROTS_MISSED: ${carrotsMissed}`,
                 '', 
-                '> [ENTER] / клик / R — REBOOT', 
+                '> WAITING FOR INPUT...', 
                 ''
             ];
             const container = document.getElementById('term-lines'); container.innerHTML = '';
@@ -691,7 +784,13 @@
             const cursor = document.createElement('span'); cursor.className = 'term-cursor'; cursorLine.appendChild(cursor); container.appendChild(cursorLine);
             let lineIdx = 0;
             function typeNextLine() {
-                if (gen !== termGeneration || lineIdx >= lines.length) return;
+                if (gen !== termGeneration || lineIdx >= lines.length) {
+                    // Показываем кнопки после окончания печати
+                    if (gen === termGeneration) {
+                        document.getElementById('term-buttons').style.display = 'flex';
+                    }
+                    return;
+                }
                 const text = lines[lineIdx]; const lineEl = document.createElement('div'); lineEl.className = 'term-line';
                 container.insertBefore(lineEl, cursorLine);
                 if (text.length === 0) { lineIdx++; setTimeout(typeNextLine, 80); return; }
@@ -699,7 +798,12 @@
                 const interval = setInterval(() => {
                     if (gen !== termGeneration) { clearInterval(interval); return; }
                     charIdx++; lineEl.textContent = text.slice(0, charIdx);
-                    if (charIdx >= text.length) { clearInterval(interval); Sound.tone({ freq: 1200, type: 'square', dur: 0.015, vol: 0.015 }); lineIdx++; setTimeout(typeNextLine, 100); }
+                    if (charIdx >= text.length) { 
+                        clearInterval(interval); 
+                        Sound.tone({ freq: 1200, type: 'square', dur: 0.015, vol: 0.015 }); 
+                        lineIdx++; 
+                        setTimeout(typeNextLine, 100); 
+                    }
                 }, 20);
             }
             setTimeout(typeNextLine, 300);
@@ -707,7 +811,7 @@
 
         function resetGame() {
             score = 0; lives = 3; frames = 0; spawnTimer = 0; difficulty = 1; prevDifficulty = 1; combo = 0;
-            carrotsCollected = 0; carrotsMissed = 0; // Сбрасываем статистику
+            carrotsCollected = 0; carrotsMissed = 0; objectSpawnCount = 0;
             objects = []; particles = []; screenShake = 0; flash = 0; btnLeft = btnRight = false;
             Sound.BPM = 115;
             player.x = W/2 - player.width/2; player.y = GROUND_Y; player.vy = 0; player.onGround = true; player.squash = 1; player.stretch = 1;
