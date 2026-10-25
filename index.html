@@ -6,19 +6,13 @@
     <title>Котозаяц: Прыжок в Кубы</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --primary: #4CAF50; 
-            --neon: #00ffcc; 
-            --bg: #0f0f13; 
-        }
+        :root { --neon: #00ffcc; --bg: #0f0f13; }
         * { box-sizing: border-box; }
         body {
             margin: 0; padding: 0; background-color: var(--bg);
             display: flex; justify-content: center; align-items: center;
             height: 100vh; font-family: 'Press Start 2P', 'Courier New', monospace;
-            overflow: hidden; touch-action: none;
-            -webkit-user-select: none; user-select: none;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            overflow: hidden; touch-action: none; user-select: none;
             background-image: radial-gradient(circle at 50% 50%, #1e1e28 0%, #0f0f13 100%);
         }
         #game-container {
@@ -37,12 +31,9 @@
             pointer-events: none;
         }
         .hud-item {
-            background: rgba(15, 15, 25, 0.7);
-            padding: 10px 14px; border-radius: 10px;
+            background: rgba(15, 15, 25, 0.85); padding: 10px 14px; border-radius: 10px;
             color: white; font-size: 14px; display: flex; align-items: center; gap: 8px;
-            border: 2px solid rgba(0, 255, 204, 0.3);
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.1), inset 0 0 10px rgba(0, 255, 204, 0.1);
-            backdrop-filter: blur(8px);
+            border: 2px solid rgba(0, 255, 204, 0.3); backdrop-filter: blur(8px);
         }
         .hud-icon { width: 20px; height: 20px; fill: currentColor; }
         .icon-carrot { color: #FF8C00; }
@@ -50,50 +41,38 @@
         .icon-trophy { color: #FFD700; }
         
         .hud-btn {
-            background: rgba(15, 15, 25, 0.7); border: 2px solid rgba(0, 255, 204, 0.3);
+            background: rgba(15, 15, 25, 0.85); border: 2px solid rgba(0, 255, 204, 0.3);
             color: var(--neon); width: 44px; height: 44px; border-radius: 10px;
-            cursor: pointer; font-size: 18px; display: flex; justify-content: center; align-items: center;
-            backdrop-filter: blur(8px); transition: all 0.2s;
-            pointer-events: auto; font-family: inherit;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            backdrop-filter: blur(8px); transition: all 0.2s; pointer-events: auto;
+            padding: 0;
         }
-        .hud-btn:active { transform: scale(0.9); box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); }
+        .hud-btn svg { width: 22px; height: 22px; fill: currentColor; }
+        .hud-btn:active { transform: scale(0.9); }
         .hud-btn:hover { border-color: var(--neon); color: #fff; }
 
         /* Оверлеи */
         .overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(5, 5, 10, 0.85); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 20;
-            backdrop-filter: blur(10px); transition: opacity 0.3s;
+            background: rgba(5, 5, 10, 0.9); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 20; backdrop-filter: blur(10px);
         }
-        .overlay.hidden { display: none; opacity: 0; pointer-events: none; }
-        h1 { color: var(--neon); font-size: 36px;
-            text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon), 4px 4px 0 #000;
-            margin-bottom: 15px; text-align: center; line-height: 1.4; }
+        .overlay.hidden { display: none !important; }
+        h1 { color: var(--neon); font-size: 36px; text-shadow: 0 0 10px var(--neon); margin-bottom: 15px; text-align: center; }
         h2 { color: #fff; font-size: 24px; text-shadow: 0 0 10px #fff; margin-bottom: 20px; }
-        .subtitle { color: #888; font-size: 12px; margin-bottom: 40px; text-shadow: 2px 2px 0 #000; }
+        .subtitle { color: #888; font-size: 12px; margin-bottom: 40px; }
         
         .btn {
             background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000;
-            border: none; border-radius: 8px;
-            padding: 16px 36px; font-size: 16px; font-family: inherit; font-weight: bold; cursor: pointer;
-            box-shadow: 0 6px 0 #005a47, 0 10px 20px rgba(0, 255, 204, 0.4);
-            transition: transform 0.1s, box-shadow 0.1s; 
-            margin: 8px; text-align: center;
+            border: none; border-radius: 8px; padding: 16px 36px; font-size: 16px; 
+            font-family: inherit; font-weight: bold; cursor: pointer;
+            box-shadow: 0 6px 0 #005a47; transition: transform 0.1s; margin: 8px; text-align: center;
         }
-        .btn:active { transform: translateY(6px); box-shadow: 0 0 0 #005a47, 0 2px 10px rgba(0, 255, 204, 0.4); }
-        
-        .btn-secondary {
-            background: linear-gradient(180deg, #555, #333); color: #fff;
-            box-shadow: 0 6px 0 #111, 0 8px 10px rgba(0,0,0,0.5);
-            font-size: 12px; padding: 14px 24px;
-        }
-        .btn-secondary:active { transform: translateY(6px); box-shadow: 0 0 0 #111, 0 2px 5px rgba(0,0,0,0.5); }
+        .btn:active { transform: translateY(6px); box-shadow: 0 0 0 #005a47; }
+        .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 6px 0 #111; font-size: 12px; padding: 14px 24px; }
+        .btn-secondary:active { box-shadow: 0 0 0 #111; }
 
-        .slider-wrap { display: flex; align-items: center; gap: 12px;
-            background: rgba(255,255,255,0.05); padding: 10px 16px; border-radius: 10px;
-            margin: 6px 0; width: 280px; border: 1px solid rgba(255,255,255,0.1); }
+        .slider-wrap { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.1); padding: 10px 16px; border-radius: 10px; margin: 6px 0; width: 280px; }
         .slider-wrap label { color: #fff; font-size: 10px; flex: 0 0 50px; }
         .slider-wrap input[type=range] { flex: 1; accent-color: var(--neon); }
 
@@ -105,64 +84,34 @@
         }
         .control-btn {
             width: 80px; height: 80px; border-radius: 50%;
-            background: rgba(0, 255, 204, 0.1); border: 3px solid rgba(0, 255, 204, 0.5);
+            background: rgba(0, 255, 204, 0.15); border: 3px solid rgba(0, 255, 204, 0.6);
             color: var(--neon); font-size: 28px; display: flex; justify-content: center; align-items: center;
-            pointer-events: auto; touch-action: none; user-select: none;
-            backdrop-filter: blur(5px); transition: all 0.1s;
-            font-family: inherit; box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            pointer-events: auto; user-select: none; backdrop-filter: blur(5px);
         }
-        .control-btn:active { background: rgba(0, 255, 204, 0.4); transform: scale(0.95); }
-        .control-btn.jump { background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.5); color: #FFD700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
-        .control-btn.jump:active { background: rgba(255, 215, 0, 0.4); }
+        .control-btn:active { background: rgba(0, 255, 204, 0.5); }
+        .control-btn.jump { background: rgba(255, 215, 0, 0.15); border-color: rgba(255, 215, 0, 0.6); color: #FFD700; }
+        .control-btn.jump:active { background: rgba(255, 215, 0, 0.5); }
         #mobile-controls.visible { display: flex; }
 
-        #photo-preview { width: 40px; height: 40px; border-radius: 50%;
-            object-fit: cover; display: none; border: 2px solid var(--neon); box-shadow: 0 0 10px var(--neon); }
+        #photo-preview { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; display: none; border: 2px solid var(--neon); }
 
-        /* Экран смерти (Терминал) */
-        #game-over-screen {
-            background: #000 !important; backdrop-filter: none !important;
-            justify-content: flex-start !important; align-items: flex-start !important;
-            padding: 40px 30px; overflow: hidden;
-        }
-        #game-over-screen::before {
-            content: ''; position: absolute; inset: 0;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.4) 0px, rgba(0,0,0,0.4) 2px, transparent 2px, transparent 4px);
-            pointer-events: none; z-index: 1; animation: scanmove 6s linear infinite;
-        }
-        @keyframes scanmove { 0% { background-position: 0 0; } 100% { background-position: 0 80px; } }
-        #terminal {
-            position: relative; z-index: 2; font-family: 'Courier New', Consolas, monospace;
-            font-size: 16px; line-height: 1.8; color: #00ff41;
-            text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
-            animation: hueShift 6s linear infinite; width: 100%; max-width: 720px; word-wrap: break-word;
-        }
+        /* Терминал */
+        #game-over-screen { background: #000 !important; justify-content: flex-start !important; align-items: flex-start !important; padding: 40px 30px; }
+        #terminal { font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.8; color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; width: 100%; }
         @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-        .term-line { margin: 0; min-height: 1.8em; white-space: pre-wrap; font-family: inherit; color: inherit; }
-        .term-cursor {
-            display: inline-block; width: 10px; height: 18px; background: currentColor;
-            margin-left: 4px; vertical-align: -3px; animation: termBlink 0.9s steps(2) infinite;
-            box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
-        }
-        @keyframes termBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+        .term-line { margin: 0; min-height: 1.8em; white-space: pre-wrap; }
+        .term-btn-group { margin-top: 30px; display: flex; gap: 15px; }
+        .term-btn { background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; padding: 12px 24px; font-family: inherit; font-weight: bold; cursor: pointer; text-transform: uppercase; }
         
-        .term-btn-group { position: relative; z-index: 5; margin-top: 30px; display: flex; gap: 15px; }
-        .term-btn {
-            background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41;
-            padding: 12px 24px; font-family: 'Courier New', monospace; font-weight: bold; font-size: 16px;
-            cursor: pointer; text-shadow: 0 0 5px #00ff41; transition: all 0.2s; text-transform: uppercase;
-        }
-        .term-btn:hover { background: rgba(0, 255, 65, 0.3); box-shadow: 0 0 15px #00ff41; }
-
         @media (max-width: 600px) {
             h1 { font-size: 24px; } h2 { font-size: 18px; }
             .hud-item { font-size: 10px; padding: 8px 10px; }
-            .hud-btn { width: 36px; height: 36px; font-size: 14px; }
+            .hud-btn { width: 36px; height: 36px; }
+            .hud-btn svg { width: 18px; height: 18px; }
             .btn { font-size: 12px; padding: 14px 20px; }
             .slider-wrap { width: 240px; }
             #game-over-screen { padding: 25px 15px; }
             #terminal { font-size: 12px; }
-            .term-cursor { width: 8px; height: 14px; }
             .term-btn { font-size: 12px; padding: 10px 16px; }
         }
     </style>
@@ -186,36 +135,35 @@
             </div>
             <div style="flex:1"></div>
             <img id="photo-preview" alt="Фото">
-            <button id="btn-mute" class="hud-btn" title="Звук">🔊</button>
-            <button id="btn-photo" class="hud-btn" title="Загрузить фото">📷</button>
-            <button id="btn-pause" class="hud-btn" title="Пауза">⏸</button>
-            <button id="btn-install" class="hud-btn" title="Установить" style="display:none;">📲</button>
+            
+            <!-- НОВЫЕ ИКОНКИ ТУТ -->
+            <button id="btn-mute" class="hud-btn" title="Звук">
+                <svg id="icon-sound-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                <svg id="icon-sound-off" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            </button>
+            <button id="btn-photo" class="hud-btn" title="Загрузить фото">
+                <svg viewBox="0 0 24 24"><path d="M12 17c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0-8c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm7-5h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>
+            </button>
+            <button id="btn-pause" class="hud-btn" title="Пауза">
+                <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
         </div>
 
-        <!-- Главное меню -->
         <div id="start-screen" class="overlay">
             <h1>КОТОЗАЯЦ</h1>
             <div class="subtitle">ПРЫЖОК В КУБЫ</div>
             <button id="start-btn" class="btn">ИГРАТЬ</button>
         </div>
 
-        <!-- Пауза -->
         <div id="pause-screen" class="overlay hidden">
             <h2>ПАУЗА</h2>
-            <div class="slider-wrap">
-                <label>SFX</label>
-                <input type="range" id="slider-sfx" min="0" max="100" value="70">
-            </div>
-            <div class="slider-wrap">
-                <label>MUSIC</label>
-                <input type="range" id="slider-music" min="0" max="100" value="35">
-            </div>
+            <div class="slider-wrap"><label>SFX</label><input type="range" id="slider-sfx" min="0" max="100" value="70"></div>
+            <div class="slider-wrap"><label>MUSIC</label><input type="range" id="slider-music" min="0" max="100" value="35"></div>
             <button id="resume-btn" class="btn">ПРОДОЛЖИТЬ</button>
             <button id="menu-btn-pause" class="btn btn-secondary">В ГЛАВНОЕ МЕНЮ</button>
             <button id="reset-photo-btn" class="btn btn-secondary">СБРОСИТЬ ФОТО</button>
         </div>
 
-        <!-- Терминал смерти -->
         <div id="game-over-screen" class="overlay hidden">
             <div id="terminal">
                 <div id="term-lines"></div>
@@ -247,6 +195,7 @@
             const swCode = `self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>self.clients.claim());self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`;
             window.addEventListener('load', () => navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], {type:'text/javascript'}))).catch(()=>{}));
         }
+        
         let deferredPrompt;
         const installBtn = document.getElementById('btn-install');
         window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'flex'; });
@@ -269,9 +218,11 @@
                 for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
             },
             resume() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); },
-            setMute(m) { this.muted = m; if (this.master) this.master.gain.value = m ? 0 : 1; try { localStorage.setItem('kotozayac_mute', m ? '1' : '0'); } catch(e){} },
-            setSfxVolume(v) { this.sfxVolume = v; if (this.sfxGain) this.sfxGain.gain.value = v; try { localStorage.setItem('kotozayac_sfx', String(v)); } catch(e){} },
-            setMusicVolume(v) { this.musicVolume = v; if (this.musicGain) this.musicGain.gain.value = v; try { localStorage.setItem('kotozayac_musicvol', String(v)); } catch(e){} },
+            setMute(m) { 
+                this.muted = m; 
+                if (this.master) this.master.gain.value = m ? 0 : 1; 
+                try { localStorage.setItem('kotozayac_mute', m ? '1' : '0'); } catch(e){}
+            },
             tone({freq, type='sine', dur=0.2, vol=0.1, slideTo=null, delay=0, attack=0.005, filter=null, gainNode=null}) {
                 if (!this.ctx) return;
                 const t = this.ctx.currentTime + delay; const osc = this.ctx.createOscillator(); const g = this.ctx.createGain();
@@ -323,8 +274,13 @@
                 arp(freq, time, vol) { const ctx = Sound.ctx, o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 2400; o.type = 'square'; o.frequency.value = freq; g.gain.setValueAtTime(vol, time); g.gain.exponentialRampToValueAtTime(0.001, time + 0.12); o.connect(f).connect(g).connect(Sound.musicGain); o.start(time); o.stop(time + 0.15); }
             }
         };
+        
         try {
             Sound.muted = localStorage.getItem('kotozayac_mute') === '1';
+            if (Sound.muted) {
+                document.getElementById('icon-sound-on').style.display = 'none';
+                document.getElementById('icon-sound-off').style.display = 'block';
+            }
             const s = parseFloat(localStorage.getItem('kotozayac_sfx')); if (!isNaN(s)) Sound.sfxVolume = s;
             const m = parseFloat(localStorage.getItem('kotozayac_musicvol')); if (!isNaN(m)) Sound.musicVolume = m;
         } catch(e) {}
@@ -404,7 +360,6 @@
             if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') tryJump();
             if (e.code === 'KeyP' || e.code === 'Escape') togglePause();
             
-            // Управление на экране смерти
             if (gameState === 'gameover') {
                 if (e.code === 'KeyR' || e.code === 'Enter') restartGame();
                 if (e.code === 'KeyM') goToMainMenu();
@@ -451,22 +406,18 @@
         document.getElementById('btn-pause').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
         document.getElementById('btn-mute').addEventListener('click', () => {
             Sound.init(); Sound.resume(); Sound.setMute(!Sound.muted);
-            document.getElementById('btn-mute').textContent = Sound.muted ? '🔇' : '🔊';
+            document.getElementById('icon-sound-on').style.display = Sound.muted ? 'none' : 'block';
+            document.getElementById('icon-sound-off').style.display = Sound.muted ? 'block' : 'none';
             if (!Sound.muted) Sound.sfx.click();
         });
-        document.getElementById('btn-mute').textContent = Sound.muted ? '🔇' : '🔊';
 
-        // Кнопки меню
         document.getElementById('start-btn').addEventListener('click', startGame);
         document.getElementById('resume-btn').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
-        document.getElementById('restart-btn').addEventListener('click', restartGame);
         
-        // Кнопки "В меню"
         document.getElementById('menu-btn-pause').addEventListener('click', goToMainMenu);
         document.getElementById('term-menu-btn').addEventListener('click', (e) => { e.stopPropagation(); goToMainMenu(); });
         document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.stopPropagation(); restartGame(); });
 
-        // Клик по терминалу (рестарт)
         document.getElementById('game-over-screen').addEventListener('click', () => {
             if (gameState === 'gameover') restartGame();
         });
@@ -490,7 +441,7 @@
         }
 
         function restartGame() {
-            termGeneration++; // Сбрасываем печать терминала
+            termGeneration++; 
             Sound.sfx.click(); 
             document.getElementById('game-over-screen').classList.add('hidden');
             resetGame(); 
@@ -500,8 +451,8 @@
 
         const sfxSlider = document.getElementById('slider-sfx'); const musSlider = document.getElementById('slider-music');
         sfxSlider.value = Math.round(Sound.sfxVolume * 100); musSlider.value = Math.round(Sound.musicVolume * 100);
-        sfxSlider.addEventListener('input', () => Sound.setSfxVolume(sfxSlider.value / 100));
-        musSlider.addEventListener('input', () => Sound.setMusicVolume(musSlider.value / 100));
+        sfxSlider.addEventListener('input', () => Sound.sfxVolume = sfxSlider.value / 100);
+        musSlider.addEventListener('input', () => Sound.musicVolume = musSlider.value / 100);
 
         function clampPlayer() { if (player.x < 0) player.x = 0; if (player.x + player.width > W) player.x = W - player.width; }
         
@@ -516,7 +467,6 @@
             objectSpawnCount++;
             let type = 'rotten'; 
             
-            // Раз в 6 объектов (если повезет и это не гнилая) спавним красную
             if (objectSpawnCount >= 6) {
                 type = 'red';
                 objectSpawnCount = 0;
@@ -547,18 +497,14 @@
                     ctx.rotate(Math.sin(obj.wobble) * 0.15);
                     
                     if (obj.type === 'red') {
-                        // КРАСНАЯ МОРКОВКА (Аптечка)
                         ctx.fillStyle = '#ff2020';
                         ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
                         ctx.fillStyle = '#ff6060';
                         ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
-                        // Крест
                         ctx.fillStyle = '#fff';
                         ctx.fillRect(-2, -2, 4, 12); ctx.fillRect(-6, 2, 12, 4);
-                        // Ботва
                         ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
                     } else {
-                        // Обычная или Золотая
                         ctx.fillStyle = obj.type === 'golden' ? '#FFD700' : '#FF8C00';
                         ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
                         ctx.fillStyle = obj.type === 'golden' ? '#FFF8DC' : '#FFA500';
@@ -708,7 +654,7 @@
                         
                         if (obj.type === 'red') {
                             if (lives < 5) { lives++; livesEl.innerText = lives; }
-                            score += 25; // Даем очки в любом случае
+                            score += 25; 
                             Sound.sfx.powerup();
                             spawnParticles(cx, cy, ['#ff2020', '#fff', '#ffcccc'], 25);
                         } else {
@@ -785,7 +731,6 @@
             let lineIdx = 0;
             function typeNextLine() {
                 if (gen !== termGeneration || lineIdx >= lines.length) {
-                    // Показываем кнопки после окончания печати
                     if (gen === termGeneration) {
                         document.getElementById('term-buttons').style.display = 'flex';
                     }
