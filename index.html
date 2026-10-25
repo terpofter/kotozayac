@@ -120,18 +120,12 @@
 
         /* АРТ ЗАЙЦА В ТЕРМИНАЛЕ */
         #cmd-art-container {
-            margin-top: 20px; 
-            display: none; 
-            text-align: left;
-            pointer-events: none;
+            margin-top: 20px; display: none; text-align: left; pointer-events: none;
         }
         #cmd-art {
-            max-width: 120px;
-            max-height: 120px;
-            border-radius: 8px;
+            max-width: 120px; max-height: 120px; border-radius: 8px;
             filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); 
-            box-shadow: 0 0 10px #00ff41;
-            border: 2px solid #00ff41;
+            box-shadow: 0 0 10px #00ff41; border: 2px solid #00ff41;
         }
 
         /* МАГАЗИН */
@@ -190,7 +184,6 @@
                 <span id="coins">0</span>
             </div>
             
-            <!-- НОВЫЕ ЧАСЫ МСК -->
             <div class="hud-item" style="border-color: rgba(0, 255, 204, 0.6); box-shadow: 0 0 10px rgba(0,255,204,0.2);">
                 <svg class="hud-icon icon-clock" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
                 <span id="clock-msk">00:00</span>
@@ -235,7 +228,6 @@
                     <button class="term-btn" id="term-restart-btn">Заново</button>
                     <button class="term-btn" id="term-menu-btn">В меню</button>
                 </div>
-                <!-- АРТ ЗАЙЦА ЗДЕСЬ -->
                 <div id="cmd-art-container">
                     <img src="cat.png" id="cmd-art" alt="System Cat">
                 </div>
@@ -250,22 +242,26 @@
     </div>
 
     <script>
-        // ============ ЧАСЫ МСК ============
+        // ============ ДЕНЬ / НОЧЬ И ЧАСЫ ============
+        let isNight = false;
+
         function updateMoscowClock() {
             const now = new Date();
-            // Получаем время по Москве
+            // Получаем строку времени
             const mskString = now.toLocaleTimeString('ru-RU', { 
-                timeZone: 'Europe/Moscow', 
-                hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
+                timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit', second: '2-digit'
             });
             document.getElementById('clock-msk').innerText = mskString;
+            
+            // Определяем час для дня/ночи
+            const hour = parseInt(now.toLocaleTimeString('en-US', { timeZone: 'Europe/Moscow', hour12: false, hour: '2-digit' }), 10);
+            
+            // С 22:00 до 10:00 - НОЧЬ
+            isNight = (hour >= 22 || hour < 10);
         }
         
-        // Обновляем часы каждую секунду
         setInterval(updateMoscowClock, 1000);
-        updateMoscowClock(); // И сразу при загрузке
+        updateMoscowClock(); 
 
         // ============ ЗВУК ============
         const Sound = {
@@ -677,28 +673,85 @@
             ctx.restore();
         }
 
+        // ============ НОВЫЙ ФОН (ДЕНЬ/НОЧЬ) ============
         function drawBackground() {
-            let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-            skyGrad.addColorStop(0, '#4facfe'); skyGrad.addColorStop(1, '#00f2fe');
-            ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, W, GROUND_Y);
-            ctx.fillStyle = '#fff'; ctx.shadowBlur = 40; ctx.shadowColor = '#FFD700';
-            ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
+            if (isNight) {
+                // НОЧНОЙ ФОН
+                let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+                skyGrad.addColorStop(0, '#0a0f24');
+                skyGrad.addColorStop(1, '#1a2245');
+                ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, W, GROUND_Y);
 
-            ctx.fillStyle = 'rgba(255,255,255,0.9)';
-            for (const c of clouds) {
-                ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
-                ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore();
+                // Звезды
+                ctx.fillStyle = '#ffffff';
+                for (let i = 0; i < 60; i++) {
+                    let sx = (i * 137) % W;
+                    let sy = (i * 73) % (GROUND_Y - 100);
+                    // Мерцание
+                    if (Math.sin(frames * 0.05 + i) > 0) {
+                        ctx.globalAlpha = 0.5 + Math.sin(frames * 0.1 + i) * 0.5;
+                        ctx.fillRect(sx, sy, 2, 2);
+                    }
+                }
+                ctx.globalAlpha = 1;
+
+                // Луна
+                ctx.fillStyle = '#e2e8f0'; ctx.shadowBlur = 40; ctx.shadowColor = '#a0aec0';
+                ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); 
+                ctx.shadowBlur = 0;
+                // Кратеры луны
+                ctx.fillStyle = '#cbd5e1';
+                ctx.beginPath(); ctx.arc(W - 160, 90, 12, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(W - 130, 115, 8, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(W - 140, 80, 6, 0, Math.PI*2); ctx.fill();
+
+                // Ночные облака (полупрозрачные)
+                ctx.fillStyle = 'rgba(255,255,255,0.15)';
+                for (const c of clouds) {
+                    ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
+                    ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore();
+                }
+            } else {
+                // ДНЕВНОЙ ФОН
+                let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+                skyGrad.addColorStop(0, '#4facfe'); skyGrad.addColorStop(1, '#00f2fe');
+                ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, W, GROUND_Y);
+                
+                // Солнце
+                ctx.fillStyle = '#fff'; ctx.shadowBlur = 40; ctx.shadowColor = '#FFD700';
+                ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
+
+                // Дневные облака
+                ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                for (const c of clouds) {
+                    ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
+                    ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore();
+                }
             }
 
+            // Холмы (темнее ночью)
             for (let i = 0; i < hills.length; i++) {
-                const h = hills[i]; ctx.fillStyle = i % 2 === 0 ? '#75c95e' : '#56ab3e';
+                const h = hills[i]; 
+                if (isNight) {
+                    ctx.fillStyle = i % 2 === 0 ? '#1c2e1e' : '#132215';
+                } else {
+                    ctx.fillStyle = i % 2 === 0 ? '#75c95e' : '#56ab3e';
+                }
                 ctx.beginPath(); ctx.moveTo(h.x, GROUND_Y); ctx.quadraticCurveTo(h.x + h.w/2, GROUND_Y - h.h, h.x + h.w, GROUND_Y); ctx.fill();
             }
 
+            // Земля (темнее ночью)
             let groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, H);
-            groundGrad.addColorStop(0, '#5c4033'); groundGrad.addColorStop(1, '#3e2723');
+            if (isNight) {
+                groundGrad.addColorStop(0, '#2b1d14'); groundGrad.addColorStop(1, '#0f0806');
+            } else {
+                groundGrad.addColorStop(0, '#5c4033'); groundGrad.addColorStop(1, '#3e2723');
+            }
             ctx.fillStyle = groundGrad; ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
-            ctx.fillStyle = '#4CAF50'; ctx.fillRect(0, GROUND_Y, W, 15);
+            
+            // Трава (темнее ночью)
+            ctx.fillStyle = isNight ? '#215c2c' : '#4CAF50'; 
+            ctx.fillRect(0, GROUND_Y, W, 15);
         }
 
         function update(dt) {
