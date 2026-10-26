@@ -28,7 +28,6 @@
         }
         canvas { display: block; width: 100%; height: 100%; }
 
-        /* HUD */
         #hud {
             position: absolute; top: 15px; left: 15px; right: 15px;
             display: flex; align-items: center; gap: 8px; z-index: 10;
@@ -54,7 +53,6 @@
         .hud-btn svg { width: 20px; height: 20px; fill: currentColor; }
         .hud-btn:active { transform: scale(0.9); }
 
-        /* Оверлеи (Меню) */
         .overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(5, 5, 10, 0.95); display: flex; flex-direction: column;
@@ -79,7 +77,6 @@
         .btn-danger { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; box-shadow: 0 5px 0 #800000; font-size: 13px; padding: 8px 16px; max-width: 200px; }
         .btn-danger:active { box-shadow: 0 0 0 #800000; }
 
-        /* Мобильное управление */
         #mobile-controls {
             position: absolute; bottom: 20px; left: 0; right: 0;
             display: none; justify-content: space-between; padding: 0 25px;
@@ -96,7 +93,6 @@
         .control-btn.jump:active { background: rgba(255, 215, 0, 0.5); }
         #mobile-controls.visible { display: flex; }
 
-        /* Терминал Смерти */
         #game-over-screen { background: #000 !important; justify-content: flex-start !important; align-items: flex-start !important; padding: 30px 20px; }
         #terminal { font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; line-height: 1.8; color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; width: 100%; letter-spacing: 0; display: flex; flex-direction: column; }
         @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
@@ -107,7 +103,6 @@
         #cmd-art-container { margin-top: 15px; display: none; text-align: left; pointer-events: none; }
         #cmd-art { max-width: 100px; max-height: 100px; border-radius: 8px; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); box-shadow: 0 0 10px #00ff41; border: 2px solid #00ff41; }
 
-        /* МАГАЗИН И АЧИВКИ */
         .shop-balance { font-size: 22px; color: #FFD700; margin-bottom: 15px; text-shadow: 0 0 10px #FFD700; text-align: center; }
         #shop-items, #ach-items { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; max-width: 700px; margin-bottom: 15px; }
         .shop-item, .ach-item { display: flex; flex-direction: column; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; border: 2px solid rgba(0, 255, 204, 0.2); width: 150px; text-align: center; }
@@ -118,29 +113,19 @@
         .shop-buy-btn.equipped { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
         .ach-btn.claimed { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
         
-        /* ========================================= */
-        /* ПЛАВАЮЩАЯ АДМИНКА (С УЛУЧШЕННЫМ RGB) */
-        /* ========================================= */
-        
-        /* Бэкдроп - блокирует клики за админкой */
+        /* ПЛАВАЮЩАЯ АДМИНКА */
         #admin-backdrop {
             position: absolute; inset: 0; z-index: 998;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            backdrop-filter: blur(2px);
+            background: rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(2px);
         }
-
         #floating-admin {
             position: absolute; top: 50px; left: 50px; z-index: 999;
             width: 580px; max-width: calc(100% - 20px); height: 380px;
             display: none; flex-direction: column;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
-            border-radius: 12px;
-            /* КРАСИВАЯ RGB РАМКА (ВИДИМАЯ) */
+            user-select: none; border-radius: 12px;
             border: 4px solid transparent;
-            background: 
-                linear-gradient(#0f0f13, #0f0f13) padding-box,
+            background: linear-gradient(#0f0f13, #0f0f13) padding-box,
                 linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000) border-box;
             background-size: 100% 100%, 400% 100%;
             animation: rgbBorder 4s linear infinite, rgbGlow 3s ease-in-out infinite alternate;
@@ -154,26 +139,17 @@
             0% { box-shadow: 0 0 15px rgba(255,0,128,0.5), 0 10px 40px rgba(0,0,0,0.8); }
             100% { box-shadow: 0 0 30px rgba(0,255,255,0.6), 0 10px 40px rgba(0,0,0,0.8); }
         }
-        
         .adm-inner {
-            background: rgba(10, 10, 15, 0.98);
-            width: 100%; height: 100%;
-            border-radius: 8px;
-            display: flex; flex-direction: column;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 15, 0.98); width: 100%; height: 100%;
+            border-radius: 8px; display: flex; flex-direction: column;
+            overflow: hidden; backdrop-filter: blur(10px);
         }
-
         .adm-header-drag {
-            background: rgba(0,0,0,0.5);
-            padding: 10px 15px;
-            cursor: grab;
+            background: rgba(0,0,0,0.5); padding: 10px 15px; cursor: grab;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             color: #fff; font-weight: bold; font-size: 13px;
-            letter-spacing: 2px;
-            touch-action: none;
-            flex-shrink: 0;
+            letter-spacing: 2px; touch-action: none; flex-shrink: 0;
         }
         .adm-header-drag:active { cursor: grabbing; }
         .adm-hdr-btn {
@@ -185,15 +161,9 @@
         .adm-hdr-btn:hover { transform: scale(1.2); }
         #adm-close-btn { color: #ff4444; font-weight: bold; }
         #adm-min-btn { color: #00ffcc; }
-
-        /* Свернутое состояние */
         #floating-admin.collapsed { height: auto; }
         #floating-admin.collapsed .adm-body { display: none; }
-
-        .adm-body {
-            display: flex; flex: 1; overflow: hidden;
-        }
-
+        .adm-body { display: flex; flex: 1; overflow: hidden; }
         .adm-sidebar {
             width: 130px; background: rgba(0,0,0,0.3);
             border-right: 1px solid rgba(255,255,255,0.05);
@@ -211,23 +181,18 @@
             color: #00ffcc; border-left-color: #00ffcc;
             background: rgba(0, 255, 204, 0.1); font-weight: bold;
         }
-
         .adm-content {
             flex: 1; padding: 12px; overflow-y: auto;
             display: flex; flex-direction: column; gap: 8px;
         }
-        
         .adm-tab-content { display: none; flex-direction: column; gap: 8px; }
         .adm-tab-content.active { display: flex; }
-
         .adm-item {
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(255,255,255,0.03); padding: 8px 12px;
             border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);
         }
         .adm-item-label { color: #ccc; font-size: 12px; }
-        
-        /* ТУМБЛЕРЫ */
         .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
@@ -241,7 +206,6 @@
         }
         input:checked + .slider { background-color: #00ffcc; }
         input:checked + .slider:before { transform: translateX(20px); }
-
         .adm-action-btn {
             background: rgba(255,255,255,0.1); color: #fff;
             border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
@@ -250,15 +214,12 @@
         }
         .adm-action-btn:hover { background: rgba(0,255,204,0.2); border-color: #00ffcc; color: #00ffcc; }
         .adm-action-btn:active { transform: scale(0.95); }
-
         .adm-input {
             background: #000; border: 1px solid #444; color: #fff;
             padding: 5px; border-radius: 4px; width: 70px;
             font-size: 12px; outline: none;
         }
         .adm-input:focus { border-color: #00ffcc; }
-
-        /* Бейдж "ADMIN" в HUD */
         #admin-badge {
             background: rgba(255,0,85,0.2); border-color: #ff0055; color: #ff0055;
             cursor: pointer; pointer-events: auto; display: none;
@@ -294,10 +255,8 @@
     <div id="game-container">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-        <!-- БЭКДРОП АДМИНКИ -->
         <div id="admin-backdrop"></div>
 
-        <!-- ПЛАВАЮЩАЯ АДМИНКА -->
         <div id="floating-admin">
             <div class="adm-inner">
                 <div class="adm-header-drag" id="adm-drag-handle">
@@ -357,7 +316,7 @@
                             </div></div>
                             <div class="adm-item">
                                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                                    <span class="adm-item-label" style="color:#ff4444;">Вызвать Босса</span>
+                                    <span class="adm-item-label" style="color:#ff4444;">Босс</span>
                                     <button class="adm-action-btn" style="border-color:#ff4444; color:#ff4444;" onclick="admSpawnBoss()">СПАВН</button>
                                 </div>
                             </div>
@@ -472,13 +431,13 @@
     </div>
 
     <script>
-        // ============ ПРОВЕРКА ССЫЛКИ ============
+        // ============ ССЫЛКА НА АДМИНКУ ============
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('id') === '1') {
             document.getElementById('admin-badge').style.display = 'flex';
         }
 
-        // ============ АДМИНКА ОТКРЫТИЕ/ЗАКРЫТИЕ ============
+        // ============ АДМИНКА ============
         const adminWindow = document.getElementById('floating-admin');
         const adminBackdrop = document.getElementById('admin-backdrop');
 
@@ -487,33 +446,22 @@
             adminBackdrop.style.display = 'block';
             adminWindow.style.display = 'flex';
         };
-
         window.closeAdmin = function() {
             if (typeof Sound !== 'undefined') Sound.sfx.click();
             adminBackdrop.style.display = 'none';
             adminWindow.style.display = 'none';
         };
-
         document.getElementById('adm-close-btn').addEventListener('click', closeAdmin);
         adminBackdrop.addEventListener('click', closeAdmin);
 
-        // Свернуть / Развернуть
         function toggleMinimize() {
             const isCollapsed = adminWindow.classList.toggle('collapsed');
             document.getElementById('adm-min-btn').textContent = isCollapsed ? '▲' : '▼';
             if (typeof Sound !== 'undefined') Sound.sfx.click();
-            if (isCollapsed) {
-                // Сдвигаем к верху при сворачивании
-                adminWindow.style.top = '10px';
-                adminWindow.style.left = '10px';
-            }
+            if (isCollapsed) { adminWindow.style.top = '10px'; adminWindow.style.left = '10px'; }
         }
-        document.getElementById('adm-min-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMinimize();
-        });
+        document.getElementById('adm-min-btn').addEventListener('click', (e) => { e.stopPropagation(); toggleMinimize(); });
 
-        // ============ ПЕРЕТАСКИВАНИЕ + СВАЙП ============
         const dragHandle = document.getElementById('adm-drag-handle');
         let isDragging = false, offsetX = 0, offsetY = 0;
         let dragStartX = 0, dragStartY = 0, dragStartTime = 0;
@@ -521,47 +469,32 @@
         dragHandle.addEventListener('pointerdown', (e) => {
             if (e.target.closest('.adm-hdr-btn')) return;
             isDragging = true;
-            dragStartX = e.clientX;
-            dragStartY = e.clientY;
-            dragStartTime = Date.now();
+            dragStartX = e.clientX; dragStartY = e.clientY; dragStartTime = Date.now();
             offsetX = e.clientX - adminWindow.getBoundingClientRect().left;
             offsetY = e.clientY - adminWindow.getBoundingClientRect().top;
             dragHandle.setPointerCapture(e.pointerId);
         });
-
         dragHandle.addEventListener('pointermove', (e) => {
             if (!isDragging) return;
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
+            let newX = e.clientX - offsetX, newY = e.clientY - offsetY;
             const rect = adminWindow.getBoundingClientRect();
-            if (newX < 0) newX = 0;
-            if (newY < 0) newY = 0;
+            if (newX < 0) newX = 0; if (newY < 0) newY = 0;
             if (newX + rect.width > window.innerWidth) newX = window.innerWidth - rect.width;
             if (newY + rect.height > window.innerHeight) newY = window.innerHeight - rect.height;
-            adminWindow.style.left = newX + 'px';
-            adminWindow.style.top = newY + 'px';
+            adminWindow.style.left = newX + 'px'; adminWindow.style.top = newY + 'px';
         });
-
         dragHandle.addEventListener('pointerup', (e) => {
             if (!isDragging) return;
             isDragging = false;
             const totalTime = Date.now() - dragStartTime;
-            const dy = e.clientY - dragStartY;
-            const dx = e.clientX - dragStartX;
-            const isQuick = totalTime < 400;
-            const isVertical = Math.abs(dy) > 80 && Math.abs(dx) < 25;
-            
-            if (isQuick && isVertical) {
-                if (dy > 0 && !adminWindow.classList.contains('collapsed')) {
-                    toggleMinimize();
-                } else if (dy < 0 && adminWindow.classList.contains('collapsed')) {
-                    toggleMinimize();
-                }
+            const dy = e.clientY - dragStartY, dx = e.clientX - dragStartX;
+            if (totalTime < 400 && Math.abs(dy) > 80 && Math.abs(dx) < 25) {
+                if (dy > 0 && !adminWindow.classList.contains('collapsed')) toggleMinimize();
+                else if (dy < 0 && adminWindow.classList.contains('collapsed')) toggleMinimize();
             }
         });
         dragHandle.addEventListener('pointercancel', () => { isDragging = false; });
 
-        // Вкладки
         document.querySelectorAll('.adm-tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.adm-tab-btn').forEach(b => b.classList.remove('active'));
@@ -572,35 +505,24 @@
             });
         });
 
-        // Год мод
         document.getElementById('tog-god').addEventListener('change', function() {
             godMode = this.checked;
             if(godMode && gameState === 'playing') lives = 999;
         });
 
-        // ============ ВРЕМЯ И СЕЗОНЫ ============
-        let isNight = false;
-        let currentSeason = 'summer';
-        let forceTime = null; 
-        let godMode = false;
-        let debugFPS = false;
-        let debugHitboxes = false;
+        // ============ ВРЕМЯ ============
+        let isNight = false, currentSeason = 'summer';
+        let forceTime = null, godMode = false, debugFPS = false, debugHitboxes = false;
 
         function updateMoscowClock() {
             const now = new Date();
             const mskOffset = 3 * 60 * 60 * 1000; 
             const mskTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + mskOffset);
-            const hours = mskTime.getHours();
-            const minutes = mskTime.getMinutes();
-            const seconds = mskTime.getSeconds();
-            const month = mskTime.getMonth();
-            
+            const hours = mskTime.getHours(), minutes = mskTime.getMinutes(), seconds = mskTime.getSeconds(), month = mskTime.getMonth();
             document.getElementById('clock-msk').innerText = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            
             if (forceTime === 'day') isNight = false;
             else if (forceTime === 'night') isNight = true;
             else isNight = (hours >= 22 || hours < 10);
-
             if (month === 11 || month === 0 || month === 1) currentSeason = 'winter';
             else if (month >= 2 && month <= 4) currentSeason = 'spring';
             else if (month >= 5 && month <= 7) currentSeason = 'summer';
@@ -643,13 +565,46 @@
                 jump() { Sound.tone({freq: 250, type: 'square', dur: 0.16, vol: 0.1, slideTo: 780}); Sound.tone({freq: 500, type: 'triangle', dur: 0.12, vol: 0.05, slideTo: 1200, delay: 0.02}); },
                 hit() { Sound.tone({freq: 2093, type: 'sine', dur: 0.11, vol: 0.2}); Sound.noise({dur: 0.008, vol: 0.08, type: 'highpass', freq: 6000}); },
                 bossHit() { Sound.tone({freq: 300, type: 'sawtooth', dur: 0.2, vol: 0.2, slideTo: 100}); },
-                gameover() { Sound.tone({freq: 220, type: 'sine', dur: 1.6, vol: 0.07}); try { if ('speechSynthesis' in window) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance('Геймовер'); u.lang = 'ru-RU'; u.rate = 0.85; u.pitch = 0.7; speechSynthesis.speak(u); } } catch(e) {} },
                 click() { Sound.noise({dur: 0.025, vol: 0.14, type: 'highpass', freq: 3200}); Sound.tone({freq: 2200, type: 'square', dur: 0.02, vol: 0.06, slideTo: 1600}); },
                 start() { Sound.tone({freq: 90, type: 'sawtooth', dur: 0.7, vol: 0.14, slideTo: 45, filter: {type: 'lowpass', freq: 600, freqTo: 120}}); Sound.tone({freq: 440, type: 'square', dur: 0.4, vol: 0.09, delay: 0.28}); },
                 powerup() { Sound.tone({freq: 440, type: 'square', dur: 0.1, vol: 0.1}); Sound.tone({freq: 880, type: 'square', dur: 0.3, vol: 0.12, delay: 0.1}); },
                 buy() { Sound.tone({freq: 880, type: 'sine', dur: 0.1, vol: 0.1}); Sound.tone({freq: 1200, type: 'sine', dur: 0.3, vol: 0.1, delay: 0.1}); },
                 drop() { Sound.tone({freq: 600, type: 'sawtooth', dur: 1.5, vol: 0.15, slideTo: 100}); },
-                smash() { Sound.tone({freq: 100, type: 'square', dur: 0.5, vol: 0.3, slideTo: 20}); Sound.noise({dur: 0.4, vol: 0.3, type: 'lowpass', freq: 400}); }
+                smash() { Sound.tone({freq: 100, type: 'square', dur: 0.5, vol: 0.3, slideTo: 20}); Sound.noise({dur: 0.4, vol: 0.3, type: 'lowpass', freq: 400}); },
+                
+                // === 4 РАЗНЫХ ЗВУКА СМЕРТИ ===
+                death0() { // Грустный тромбон
+                    [392, 370, 349, 330, 311, 294].forEach((f, i) => {
+                        Sound.tone({freq: f, type: 'sawtooth', dur: 0.28, vol: 0.13, delay: i * 0.16, filter: {type: 'lowpass', freq: 2000}});
+                    });
+                },
+                death1() { // NES Game Over
+                    Sound.tone({freq: 659, type: 'square', dur: 0.14, vol: 0.15});
+                    Sound.tone({freq: 523, type: 'square', dur: 0.14, vol: 0.15, delay: 0.14});
+                    Sound.tone({freq: 440, type: 'square', dur: 0.14, vol: 0.15, delay: 0.28});
+                    Sound.tone({freq: 349, type: 'square', dur: 0.4, vol: 0.15, delay: 0.42});
+                    Sound.tone({freq: 262, type: 'square', dur: 0.7, vol: 0.12, delay: 0.82});
+                    Sound.tone({freq: 131, type: 'triangle', dur: 0.7, vol: 0.1, delay: 0.82});
+                },
+                death2() { // Минорный аккорд
+                    Sound.tone({freq: 220.00, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05});
+                    Sound.tone({freq: 261.63, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05});
+                    Sound.tone({freq: 311.13, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05});
+                    Sound.tone({freq: 329.63, type: 'triangle', dur: 1.8, vol: 0.08, attack: 0.05});
+                },
+                death3() { // Глитч-спуск
+                    for (let i = 0; i < 10; i++) {
+                        Sound.tone({freq: 900 - i * 80, type: 'sawtooth', dur: 0.08, vol: 0.12, delay: i * 0.06});
+                    }
+                    Sound.noise({dur: 0.3, vol: 0.1, type: 'lowpass', freq: 800, delay: 0.7});
+                },
+                deathJingle() {
+                    const v = deathVariation;
+                    if (v === 0) Sound.sfx.death0();
+                    else if (v === 1) Sound.sfx.death1();
+                    else if (v === 2) Sound.sfx.death2();
+                    else Sound.sfx.death3();
+                }
             },
             music: {
                 chords: [ { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 87.31, notes: [349.23, 440.00, 523.25] }, { bass: 110.00, notes: [440.00, 523.25, 659.25] }, { bass: 98.00, notes: [392.00, 493.88, 587.33] } ],
@@ -789,14 +744,13 @@
         let objects = [], particles = [], clouds = [], hills = [], weather = [], trail = [];
         let screenShake = 0, flash = 0, btnLeft = false, btnRight = false, termGeneration = 0;
         
-        let deathTimer = 0, giantCarrot = null;
+        let deathTimer = 0, giantCarrot = null, deathVariation = 0;
+        let rabbitOpacity = 1, rabbitScaleY = 1, rabbitScaleX = 1, rabbitOffsetY = 0, rabbitRotation = 0;
         let nextBossScore = 500, boss = null;
 
         try { bestScore = parseInt(localStorage.getItem('kotozayac_best') || '0', 10) || 0; } catch(e) {}
 
         const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
-        
-        // player.y - это НИЗ (ноги)
         const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0, magnetTimer: 0, hasShield: false };
 
         const IMAGES = { classic: { idle: new Image(), jump: new Image(), hit: new Image() }, mafia: { idle: new Image(), jump: new Image(), hit: new Image() }, cosmos: { idle: new Image(), jump: new Image(), hit: new Image() }, coca: { idle: new Image(), jump: new Image(), hit: new Image() }, sushi: { idle: new Image(), jump: new Image(), hit: new Image() }, pancakes: { idle: new Image(), jump: new Image(), hit: new Image() } };
@@ -810,7 +764,6 @@
         for (let i = 0; i < 6; i++) clouds.push({ x: Math.random() * W, y: 20 + Math.random() * 150, speed: 10 + Math.random() * 20, scale: 0.4 + Math.random() * 0.6 });
         for (let i = 0; i < 5; i++) hills.push({ x: i * 250 - 100, y: GROUND_Y, w: 300 + Math.random() * 200, h: 150 + Math.random() * 100, speed: 2 });
 
-        // ===== УПРАВЛЕНИЕ =====
         const keys = {};
         window.addEventListener('keydown', e => {
             Sound.init(); Sound.resume(); keys[e.code] = true;
@@ -839,7 +792,6 @@
             else if (gameState === 'paused') { gameState = 'playing'; Sound.music.start(); document.getElementById('pause-screen').classList.add('hidden'); }
         }
 
-        // ===== КНОПКИ МЕНЮ =====
         document.getElementById('btn-pause').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
         document.getElementById('btn-mute').addEventListener('click', () => { Sound.init(); Sound.resume(); Sound.setMute(!Sound.muted); document.getElementById('icon-sound-on').style.display = Sound.muted ? 'none' : 'block'; document.getElementById('icon-sound-off').style.display = Sound.muted ? 'block' : 'none'; if (!Sound.muted) Sound.sfx.click(); });
         document.getElementById('btn-play').addEventListener('click', startGame);
@@ -856,30 +808,22 @@
         document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); restartGame(); });
         document.getElementById('game-over-screen').addEventListener('click', (e) => { if (e.target.id === 'game-over-screen' && gameState === 'gameover') restartGame(); });
 
-        // ===== ФУНКЦИИ АДМИНКИ =====
         window.admSpawn = function(type) {
             if (gameState !== 'playing') { alert('Сначала запусти игру!'); return; }
             objects.push({ x: Math.random() * (W - 40), y: -40, width: 40, height: 40, speed: 3, type: type, wobble: 0 });
         }
-
         window.admSpawnBoss = function() {
             if (gameState !== 'playing') { alert('Сначала запусти игру!'); return; }
             boss = { x: W/2 - 100, y: -250, width: 200, height: 200, hp: 3, timer: 0, dir: 1, entering: true };
             Sound.music.stop(); Sound.sfx.bossHit();
         }
-
         window.chaosCatRain = function() {
             if (gameState !== 'playing') return;
-            for(let i=0; i<50; i++) {
-                particles.push({ x: Math.random() * W, y: -100 - Math.random()*200, vx: (Math.random()-0.5)*2, vy: 2+Math.random()*4, life: 3, decay: 0.005, color: '#fff', size: 10+Math.random()*20 });
-            }
+            for(let i=0; i<50; i++) particles.push({ x: Math.random() * W, y: -100 - Math.random()*200, vx: (Math.random()-0.5)*2, vy: 2+Math.random()*4, life: 3, decay: 0.005, color: '#fff', size: 10+Math.random()*20 });
         }
-
         window.chaosRain = function() {
             if (gameState !== 'playing') return;
-            for(let i=0; i<100; i++) {
-                weather.push({ x: Math.random() * W, y: -Math.random()*H, size: 4, speed: 10, drift: 0 });
-            }
+            for(let i=0; i<100; i++) weather.push({ x: Math.random() * W, y: -Math.random()*H, size: 4, speed: 10, drift: 0 });
         }
 
         function startGame() { Sound.sfx.start(); setTimeout(() => Sound.music.start(), 700); document.getElementById('hub-screen').classList.add('hidden'); resetGame(); gameState = 'playing'; }
@@ -904,7 +848,6 @@
                 else if (rand > 0.85) type = 'shield';
             }
             let speedMultiplier = 1; if (shopItems['slowStart'] && score < 100) speedMultiplier = 0.7;
-
             objects.push({ x: Math.random() * (W - 40), y: -40, width: 40, height: 40, speed: ((3 + Math.random()*2.5) + difficulty * 0.6) * speedMultiplier, type: type, wobble: Math.random() * Math.PI * 2 });
         }
 
@@ -944,18 +887,19 @@
                     ctx.fillStyle = '#3e2e24'; ctx.fillRect(-4, -4, 6, 6);
                     ctx.fillStyle = '#4a5d23'; ctx.fillRect(-10,-22,20,12);
                 }
-                
-                if (debugHitboxes) {
-                    ctx.strokeStyle = 'red'; ctx.lineWidth = 2;
-                    ctx.strokeRect(-obj.width/2, -obj.height/2, obj.width, obj.height);
-                }
+                if (debugHitboxes) { ctx.strokeStyle = 'red'; ctx.lineWidth = 2; ctx.strokeRect(-obj.width/2, -obj.height/2, obj.width, obj.height); }
                 ctx.restore();
             }
         }
 
         function drawPlayer() {
+            // Пропускаем отрисовку в некоторых вариациях смерти
+            if (gameState === 'dying' && deathVariation === 1 && deathTimer > 20) return; // Испарился
+            if (gameState === 'dying' && deathVariation === 3 && deathTimer > 30) return; // Утонул в земле
+            if (gameState === 'dying' && deathVariation === 2 && deathTimer > 60) return; // Улетел
+
             for(let i=0; i<trail.length; i++) {
-                let t = trail[i]; let alpha = (i / trail.length) * 0.5;
+                let t = trail[i]; let alpha = (i / trail.length) * 0.5 * rabbitOpacity;
                 ctx.globalAlpha = alpha;
                 ctx.fillStyle = player.hasShield ? '#00ffcc' : '#fff';
                 ctx.fillRect(t.x + 20, t.y - player.height + 20, 40, 40);
@@ -964,11 +908,14 @@
 
             const bob = player.onGround ? Math.sin(frames * 0.1) * 3 : 0;
             const px = player.x;
-            const py = player.y - player.height + bob;
+            const py = player.y - player.height + bob + rabbitOffsetY;
             const w = player.width, h = player.height;
 
-            ctx.fillStyle = 'rgba(0,0,0,0.3)';
-            ctx.beginPath(); ctx.ellipse(px + w/2, player.y + 5, w/2.5 * player.squash, 8 * player.stretch, 0, 0, Math.PI*2); ctx.fill();
+            // Тень
+            if (rabbitOpacity > 0.3) {
+                ctx.fillStyle = `rgba(0,0,0,${0.3 * rabbitOpacity})`;
+                ctx.beginPath(); ctx.ellipse(px + w/2, player.y + 5, w/2.5 * player.squash * rabbitScaleX, 8 * player.stretch * rabbitScaleY, 0, 0, Math.PI*2); ctx.fill();
+            }
 
             if (player.hasShield) {
                 ctx.strokeStyle = '#00ffcc'; ctx.lineWidth = 4;
@@ -978,7 +925,11 @@
             }
 
             ctx.save();
-            ctx.translate(px + w/2, py + h/2); ctx.scale(player.squash, player.stretch); ctx.translate(-(px + w/2), -(py + h/2));
+            ctx.globalAlpha = rabbitOpacity;
+            ctx.translate(px + w/2, py + h/2); 
+            ctx.rotate(rabbitRotation);
+            ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY); 
+            ctx.translate(-(px + w/2), -(py + h/2));
 
             let currentSprite = null; const skinImgs = IMAGES[activeSkin] || IMAGES.classic;
             if (flash > 0 && skinImgs.hit.complete && skinImgs.hit.naturalWidth > 0) currentSprite = skinImgs.hit; 
@@ -990,13 +941,11 @@
                 if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
                 ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
             } else {
-                ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h); ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
+                ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h); 
+                ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
             }
             
-            if (debugHitboxes) {
-                ctx.strokeStyle = 'lime'; ctx.lineWidth = 2;
-                ctx.strokeRect(px, py, w, h);
-            }
+            if (debugHitboxes) { ctx.strokeStyle = 'lime'; ctx.lineWidth = 2; ctx.strokeRect(px, py, w, h); }
             ctx.restore();
         }
 
@@ -1044,16 +993,97 @@
             for (const c of clouds) { c.x -= c.speed * dt; if (c.x < -200) { c.x = W + 200; c.y = 20 + Math.random() * 150; } }
             for (const h of hills) { h.x -= h.speed * dt; if (h.x + h.w < 0) { h.x = W + Math.random()*100; h.h = 150 + Math.random() * 100; } }
             
+            // ===== АНИМАЦИЯ СМЕРТИ =====
             if (gameState === 'dying') {
                 deathTimer += dt * 60;
-                if (giantCarrot) {
-                    giantCarrot.y += giantCarrot.vy * dt * 60;
-                    if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
-                        giantCarrot.y = player.y - 30 - giantCarrot.height/2; giantCarrot = null;
-                        screenShake = 30; flash = 1; Sound.sfx.smash(); spawnParticles(player.x + player.width/2, player.y - 20, ['#5c4a3d','#ff4444','#3a4b22'], 40);
-                        setTimeout(() => { if(gameState === 'dying') gameOver(); }, 1000);
+                
+                // ВАРИАЦИЯ 0: Сплющивание
+                if (deathVariation === 0) {
+                    if (giantCarrot) {
+                        giantCarrot.y += giantCarrot.vy * dt * 60;
+                        giantCarrot.vy += 0.5 * dt * 60;
+                        if (giantCarrot.y + giantCarrot.height/2 > player.y - 10) {
+                            giantCarrot.y = player.y - 10 - giantCarrot.height/2;
+                            giantCarrot.vy = 0;
+                            screenShake = 30; flash = 1; Sound.sfx.smash();
+                            spawnParticles(player.x + player.width/2, player.y - 20, ['#5c4a3d','#ff4444','#3a4b22'], 40);
+                            // Заяц расплющивается
+                            rabbitScaleY = 0.1;
+                            rabbitScaleX = 2.5;
+                            rabbitOffsetY = 30;
+                        }
                     }
+                    if (deathTimer > 90) gameOver();
                 }
+                
+                // ВАРИАЦИЯ 1: Испарение
+                else if (deathVariation === 1) {
+                    if (giantCarrot) {
+                        giantCarrot.y += giantCarrot.vy * dt * 60;
+                        giantCarrot.vy += 0.5 * dt * 60;
+                        if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
+                            giantCarrot.y = player.y - 30 - giantCarrot.height/2;
+                            giantCarrot.vy = 0;
+                            screenShake = 30; flash = 1; Sound.sfx.smash();
+                            // Заяц взрывается частицами
+                            for (let i = 0; i < 50; i++) {
+                                const a = Math.random() * Math.PI * 2;
+                                const s = 3 + Math.random() * 8;
+                                particles.push({
+                                    x: player.x + player.width/2, y: player.y - player.height/2,
+                                    vx: Math.cos(a)*s, vy: Math.sin(a)*s - 3,
+                                    life: 1, decay: 0.015, color: ['#8a8a8a','#aaa','#666','#fff'][Math.floor(Math.random()*4)],
+                                    size: 4 + Math.random()*8
+                                });
+                            }
+                            rabbitOpacity = 0;
+                        }
+                    }
+                    if (deathTimer > 60) gameOver();
+                }
+                
+                // ВАРИАЦИЯ 2: Улетает
+                else if (deathVariation === 2) {
+                    if (giantCarrot) {
+                        giantCarrot.y += giantCarrot.vy * dt * 60;
+                        giantCarrot.vy += 0.5 * dt * 60;
+                        if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
+                            giantCarrot.y = player.y - 30 - giantCarrot.height/2;
+                            giantCarrot.vy = 0;
+                            screenShake = 25; flash = 1; Sound.sfx.smash();
+                            player.vy = -20; // Заяц подлетает
+                        }
+                    }
+                    // Заяц улетает вверх и падает
+                    rabbitOffsetY += player.vy * dt * 60;
+                    player.vy += 0.6 * dt * 60;
+                    rabbitRotation += 0.15 * dt * 60;
+                    
+                    // Если заяц за пределами экрана или достиг низа - исчезает
+                    if (rabbitOffsetY > 100) rabbitOpacity = Math.max(0, rabbitOpacity - 0.05 * dt * 60);
+                    
+                    if (deathTimer > 100) gameOver();
+                }
+                
+                // ВАРИАЦИЯ 3: Проваливается сквозь землю
+                else if (deathVariation === 3) {
+                    if (giantCarrot) {
+                        giantCarrot.y += giantCarrot.vy * dt * 60;
+                        giantCarrot.vy += 0.5 * dt * 60;
+                        if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
+                            giantCarrot.y = player.y - 30 - giantCarrot.height/2;
+                            giantCarrot.vy = 0;
+                            screenShake = 20; flash = 1; Sound.sfx.smash();
+                        }
+                    }
+                    // Заяц тонет в земле
+                    if (deathTimer > 20) {
+                        rabbitOffsetY += 3 * dt * 60;
+                        rabbitOpacity = Math.max(0, 1 - (rabbitOffsetY / 120));
+                    }
+                    if (deathTimer > 90) gameOver();
+                }
+                
                 if (screenShake > 0) screenShake *= 0.9;
                 if (flash > 0) flash -= 0.02 * dt * 60;
                 return; 
@@ -1097,7 +1127,6 @@
                 if (w.y > H) weather.splice(i, 1);
             }
 
-            // БОСС
             if (score >= nextBossScore && !boss && gameState === 'playing') {
                 boss = { x: W/2 - 100, y: -250, width: 200, height: 200, hp: 3, timer: 0, dir: 1, entering: true };
                 Sound.music.stop(); Sound.sfx.bossHit();
@@ -1111,7 +1140,6 @@
                     boss.x += 3 * boss.dir * dt * 60;
                     if (boss.x > W - boss.width) boss.dir = -1;
                     if (boss.x < 0) boss.dir = 1;
-                    
                     boss.timer += dt * 60;
                     if (boss.timer > 90) {
                         boss.timer = 0;
@@ -1129,7 +1157,6 @@
 
             for (let i = objects.length - 1; i >= 0; i--) {
                 const obj = objects[i]; 
-                
                 if (player.magnetTimer > 0 && (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red')) {
                     let dx = (player.x + player.width/2) - (obj.x + obj.width/2);
                     let dy = (player.y - player.height/2) - (obj.y + obj.height/2);
@@ -1197,7 +1224,6 @@
                         Sound.sfx.hit();
                         screenShake = 10;
                         spawnParticles(boss.x + boss.width/2, boss.y + boss.height/2, ['#ff0000', '#ffaa00'], 30);
-                        
                         if (boss.hp <= 0) {
                             score += 500; coins += 100;
                             achievements['boss1'] = true;
@@ -1234,7 +1260,18 @@
         function triggerDeathAnimation() {
             if (godMode) return;
             gameState = 'dying'; deathTimer = 0; Sound.music.stop(); Sound.sfx.drop(); 
-            giantCarrot = { x: player.x + player.width/2 - 100, y: -300, width: 200, height: 200, vy: 10 };
+            
+            // Выбираем случайную вариацию смерти
+            deathVariation = Math.floor(Math.random() * 4);
+            
+            // Сброс анимационных переменных
+            rabbitOpacity = 1;
+            rabbitScaleX = 1;
+            rabbitScaleY = 1;
+            rabbitOffsetY = 0;
+            rabbitRotation = 0;
+            
+            giantCarrot = { x: player.x + player.width/2 - 100, y: -300, width: 200, height: 200, vy: 8 };
         }
 
         function gameOver() {
@@ -1248,7 +1285,14 @@
             document.getElementById('term-buttons').style.display = 'none';
             document.getElementById('cmd-art-container').style.display = 'none';
             document.getElementById('game-over-screen').classList.remove('hidden');
-            if (isNewRecord) setTimeout(() => Sound.sfx.buy(), 600); else setTimeout(() => Sound.sfx.gameover(), 300);
+            
+            // Играем вариативный звук смерти
+            if (isNewRecord) {
+                setTimeout(() => Sound.sfx.buy(), 300);
+            } else {
+                setTimeout(() => Sound.sfx.deathJingle(), 200);
+            }
+            
             showTerminalGameOver(isNewRecord);
         }
 
@@ -1299,11 +1343,10 @@
             carrotsCollected = 0; carrotsMissed = 0; objectSpawnCount = 0;
             objects = []; particles = []; screenShake = 0; flash = 0; btnLeft = btnRight = false;
             giantCarrot = null; deathTimer = 0; boss = null; nextBossScore = 500; trail = [];
+            rabbitOpacity = 1; rabbitScaleX = 1; rabbitScaleY = 1; rabbitOffsetY = 0; rabbitRotation = 0;
             player.magnetTimer = 0; player.hasShield = false;
             Sound.BPM = 115;
-            
             player.x = W/2 - player.width/2; player.y = GROUND_Y; player.vy = 0; player.onGround = true; player.squash = 1; player.stretch = 1;
-            
             scoreEl.innerText = '0'; livesEl.innerText = lives;
             document.getElementById('pause-screen').classList.add('hidden');
             document.getElementById('game-over-screen').classList.add('hidden');
@@ -1372,4 +1415,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-</html>
+    </html>
