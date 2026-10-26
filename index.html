@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>КОТО-ЗАЯЦ: НЕОНОВЫЙ ПРЫЖОК</title>
+    <title>КОТОЗАЙЧИК</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
@@ -22,7 +22,6 @@
             letter-spacing: 1px;
         }
         
-        /* МАСШТАБИРОВАНИЕ */
         #game-container {
             position: relative; width: 100%; height: 100%;
             max-width: 1200px; max-height: 100vh;
@@ -159,7 +158,7 @@
         .death-stat-value { color: #fff; font-size: 22px; }
         .death-stat.coin .death-stat-value { color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
 
-        /* ТИР */
+        /* СТРЕЛЯЛКА */
         #shooter-screen { background: radial-gradient(circle at 50% 50%, #1a0f1a 0%, #0f0f13 100%); }
         .shooter-container { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 700px; }
         .shooter-info { display: flex; justify-content: space-between; width: 100%; padding: 0 20px; font-size: 20px; color: #fff; }
@@ -269,7 +268,7 @@
         <div id="floating-admin">
             <div class="adm-inner">
                 <div class="adm-header-drag" id="adm-drag-handle">
-                    <span>🎮 KOTOZAYAC ADMIN PANEL</span>
+                    <span>🎮 КОТОЗАЙЧИК ADMIN PANEL</span>
                     <div style="display:flex;gap:8px;align-items:center;">
                         <button id="adm-min-btn" class="adm-hdr-btn">▼</button>
                         <button id="adm-close-btn" class="adm-hdr-btn">✖</button>
@@ -323,7 +322,7 @@
         </div>
 
         <div id="hub-screen" class="overlay">
-            <h1>КОТО-ЗАЯЦ</h1>
+            <h1>КОТОЗАЙЧИК</h1>
             <div class="subtitle">НЕОНОВЫЙ ПРЫЖОК</div>
             
             <div class="menu-grid">
@@ -333,7 +332,7 @@
                 
                 <div class="menu-row">
                     <button id="shooter-btn" class="btn-rgb" style="--neon-color: #ff0055; --neon-rgb: 255, 0, 85;">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg> ТИР
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg> СТРЕЛЯЛКА
                     </button>
                     <button id="clicker-btn" class="btn-rgb" style="--neon-color: #ff8c00; --neon-rgb: 255, 140, 0;">
                         <svg viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z"/></svg> КЛИКЕР
@@ -364,15 +363,17 @@
             </button>
         </div>
 
-        <!-- ТИР -->
+        <!-- СТРЕЛЯЛКА -->
         <div id="shooter-screen" class="overlay hidden">
-            <h2>ТИР</h2>
+            <h2>СТРЕЛЯЛКА</h2>
             <div class="shooter-container">
                 <div class="shooter-info">
                     <div>СЧЁТ: <span id="shooter-score" style="color:#ff0055;">0</span></div>
+                    <div>ЖИЗНИ: <span id="shooter-lives" style="color:#ff4444;">3</span></div>
                 </div>
+                <div style="color:#aaa; font-size:12px; margin-bottom:5px;">WASD / Стрелки — Ходить, ЛКМ — Стрелять</div>
                 <canvas id="shooterCanvas" width="600" height="450"></canvas>
-                <button id="shooter-close-btn" class="btn-secondary">НАЗАД</button>
+                <button id="shooter-close-btn" class="btn-secondary">ВЫЙТИ</button>
             </div>
         </div>
 
@@ -391,12 +392,10 @@
         <div id="changelog-screen" class="overlay hidden">
             <h2>📜 ЧТО НОВОГО</h2>
             <div class="changelog-box">
-                <h3>Версия 5.1 (ФИКС ВСЕГО)</h3>
-                <p><span class="c-mod">[/]</span> Возвращены ВСЕ достижения</p>
-                <p><span class="c-mod">[/]</span> Исправлена кнопка "Играть"</p>
-                <p><span class="c-mod">[/]</span> В "Зорком Глазе" снова используются спрайты (cat.png)</p>
-                <p><span class="c-add">[+]</span> Новая мини-игра "ТИР"</p>
-                <p><span class="c-add">[+]</span> Шлейф за мышкой</p>
+                <h3>Версия 6.0 (СТРЕЛЯЛКА)</h3>
+                <p><span class="c-add">[+]</span> Полностью новая мини-игра "СТРЕЛЯЛКА" (ходим, стреляем по котам-мафиози)</p>
+                <p><span class="c-mod">[/]</span> Шлейф за мышкой стал полупрозрачным</p>
+                <p><span class="c-mod">[/]</span> Игра переименована в "КОТОЗАЙЧИК"</p>
             </div>
             <button id="changelog-close-btn" class="btn-secondary">ЗАКРЫТЬ</button>
         </div>
@@ -463,7 +462,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('id') === '1') document.getElementById('admin-badge').style.display = 'flex';
 
-        // ============ ШЛЕЙФ ЗА МЫШКОЙ ============
+        // ============ ПОЛУПРОЗРАЧНЫЙ ШЛЕЙФ ЗА МЫШКОЙ ============
         let mouseX = 0, mouseY = 0;
         let trailParticles = [];
         const trailCanvas = document.createElement('canvas');
@@ -486,7 +485,9 @@
                 trailParticles.push({
                     x: mouseX, y: mouseY,
                     vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2,
-                    life: 1, color: `hsl(${Math.random()*60 + 160}, 100%, 60%)`, size: Math.random()*4+2
+                    life: 0.8, // Чуть меньше жизни
+                    color: `hsla(${Math.random()*60 + 160}, 100%, 60%, 0.3)`, // Полупрозрачный цвет
+                    size: Math.random()*4+2
                 });
             }
         });
@@ -497,7 +498,9 @@
                     trailParticles.push({
                         x: mouseX, y: mouseY,
                         vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2,
-                        life: 1, color: `hsl(${Math.random()*60 + 160}, 100%, 60%)`, size: Math.random()*4+2
+                        life: 0.8,
+                        color: `hsla(${Math.random()*60 + 160}, 100%, 60%, 0.3)`,
+                        size: Math.random()*4+2
                     });
                 }
             }
@@ -508,9 +511,9 @@
             for (let i = trailParticles.length - 1; i >= 0; i--) {
                 let p = trailParticles[i];
                 p.x += p.vx; p.y += p.vy;
-                p.life -= 0.03;
+                p.life -= 0.02;
                 if (p.life <= 0) { trailParticles.splice(i, 1); continue; }
-                tCtx.globalAlpha = p.life;
+                tCtx.globalAlpha = p.life * 0.7; // Умножаем на 0.7 для мягкости
                 tCtx.fillStyle = p.color;
                 tCtx.beginPath();
                 tCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2);
@@ -524,7 +527,6 @@
         // ============ ВРЕМЯ ============
         let isNight = false;
         let forceTime = null, godMode = false;
-        let aimEnabled = false;
 
         function updateMoscowClock() {
             const now = new Date();
@@ -573,7 +575,7 @@
         document.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); });
         try { Sound.muted = localStorage.getItem('kotozayac_mute') === '1'; } catch(e) {}
 
-        // ============ ДАННЫЕ И АЧИВКИ ============
+        // ============ ДАННЫЕ ============
         let coins = 0, shopItems = {}, activeSkin = 'classic', achievements = {}, totalCarrots = 0, totalDeaths = 0, clickerTotal = 0, bossKills = 0, totalJumps = 0, colorBest = 0, shooterBest = 0;
         
         const SHOP_CONFIG = [
@@ -582,7 +584,6 @@
             { id: 'classic', type: 'skin', name: 'Классика', desc: 'Обычный заяц', price: 0 }
         ];
 
-        // ВОЗВРАЩЕНЫ ВСЕ АЧИВКИ
         const ACH_CONFIG = [
             { id: 'eat10', name: 'Новичок', desc: 'Съешь 10 морковок', target: 10, reward: 100, getVal: () => totalCarrots },
             { id: 'eat50', name: 'Обжора', desc: 'Съешь 50 морковок', target: 50, reward: 500, getVal: () => totalCarrots },
@@ -596,9 +597,8 @@
             { id: 'click100', name: 'Кликер-маньяк', desc: '100 кликов в кликере', target: 100, reward: 300, getVal: () => clickerTotal },
             { id: 'click1000', name: 'Кликер-Бог', desc: '1000 кликов в кликере', target: 1000, reward: 2000, getVal: () => clickerTotal },
             { id: 'jump100', name: 'Прыгун', desc: 'Прыгни 100 раз', target: 100, reward: 400, getVal: () => totalJumps },
-            { id: 'skins3', name: 'Модник', desc: 'Купи 3 скина', target: 3, reward: 500, getVal: () => Object.keys(shopItems).filter(k => !['classic','extraLife','slowStart'].includes(k)).length },
             { id: 'color10', name: 'Зоркий Глаз', desc: '10 очков в Зорком Глазе', target: 10, reward: 500, getVal: () => colorBest },
-            { id: 'shoot10', name: 'Снайпер', desc: '10 очков в Тире', target: 10, reward: 500, getVal: () => shooterBest }
+            { id: 'shoot10', name: 'Снайпер', desc: '10 очков в Стрелялке', target: 10, reward: 500, getVal: () => shooterBest }
         ];
 
         function loadData() {
@@ -688,69 +688,197 @@
             document.getElementById('ach-header').innerText = `ДОСТИЖЕНИЯ (${overallPercent}%)`;
         }
 
-        // ============ ТИР ============
+        // ============ НОВАЯ СТРЕЛЯЛКА ============
         const shooterCanvas = document.getElementById('shooterCanvas');
         const sCtx = shooterCanvas.getContext('2d');
-        let shooterActive = false, shooterScore = 0, targets = [], shooterTimer = 0;
-        let shooterMouse = {x: 300, y: 225};
+        let shooterActive = false;
+        let sPlayer = { x: 300, y: 225, r: 20, speed: 5, hp: 3 };
+        let sEnemies = [];
+        let sBullets = [];
+        let sMouse = { x: 300, y: 225 };
+        let sScore = 0;
+        let sSpawnTimer = 0;
+        let sKeys = {};
+
+        // Загружаем спрайт мафии
+        const mafiaImg = new Image();
+        mafiaImg.src = 'cat_mafia.png';
 
         shooterCanvas.addEventListener('mousemove', e => {
             const r = shooterCanvas.getBoundingClientRect();
-            shooterMouse.x = (e.clientX - r.left) * (shooterCanvas.width / r.width);
-            shooterMouse.y = (e.clientY - r.top) * (shooterCanvas.height / r.height);
+            sMouse.x = (e.clientX - r.left) * (shooterCanvas.width / r.width);
+            sMouse.y = (e.clientY - r.top) * (shooterCanvas.height / r.height);
         });
-        shooterCanvas.addEventListener('mousedown', () => {
+        
+        shooterCanvas.addEventListener('mousedown', (e) => {
             if(!shooterActive) return;
             Sound.sfx.shoot();
-            for(let i = targets.length - 1; i >= 0; i--) {
-                let t = targets[i];
-                if(Math.hypot(shooterMouse.x - t.x, shooterMouse.y - t.y) < t.r) {
-                    targets.splice(i, 1);
-                    shooterScore++; coins += 2;
-                    document.getElementById('shooter-score').innerText = shooterScore;
-                    updateCoinUI();
-                    if(shooterScore > shooterBest) { shooterBest = shooterScore; saveData(); }
-                    break;
-                }
+            // Стреляем в сторону мыши
+            let angle = Math.atan2(sMouse.y - sPlayer.y, sMouse.x - sPlayer.x);
+            sBullets.push({
+                x: sPlayer.x, y: sPlayer.y,
+                vx: Math.cos(angle) * 10,
+                vy: Math.sin(angle) * 10,
+                r: 5
+            });
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (shooterActive) {
+                sKeys[e.code] = true;
+                if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code)) e.preventDefault();
             }
         });
+        window.addEventListener('keyup', e => { sKeys[e.code] = false; });
+
         function openShooter() {
-            Sound.sfx.click(); shooterActive = true; shooterScore = 0; targets = [];
+            Sound.sfx.click();
+            shooterActive = true;
+            sPlayer = { x: 300, y: 225, r: 20, speed: 5, hp: 3 };
+            sEnemies = [];
+            sBullets = [];
+            sScore = 0;
             document.getElementById('shooter-score').innerText = '0';
+            document.getElementById('shooter-lives').innerText = '3';
             document.getElementById('hub-screen').classList.add('hidden');
             document.getElementById('shooter-screen').classList.remove('hidden');
             shooterLoop();
         }
+
         function closeShooter() {
-            Sound.sfx.click(); shooterActive = false;
+            Sound.sfx.click();
+            shooterActive = false;
             document.getElementById('shooter-screen').classList.add('hidden');
             document.getElementById('hub-screen').classList.remove('hidden');
             renderAch();
         }
+
         function shooterLoop() {
             if(!shooterActive) return;
-            sCtx.fillStyle = '#111'; sCtx.fillRect(0,0,shooterCanvas.width, shooterCanvas.height);
-            shooterTimer++;
-            if(shooterTimer % 30 === 0 && targets.length < 5) {
-                targets.push({ x: Math.random() * (shooterCanvas.width - 100) + 50, y: Math.random() * (shooterCanvas.height - 200) + 50, r: Math.random() * 20 + 20, color: `hsl(${Math.random()*360}, 100%, 60%)`, speed: Math.random() * 2 + 1 });
+            
+            // Очистка
+            sCtx.fillStyle = '#111'; 
+            sCtx.fillRect(0,0,shooterCanvas.width, shooterCanvas.height);
+
+            // Сетка для красоты
+            sCtx.strokeStyle = 'rgba(255,255,255,0.05)';
+            sCtx.lineWidth = 1;
+            for(let i=0; i<shooterCanvas.width; i+=40) { sCtx.beginPath(); sCtx.moveTo(i,0); sCtx.lineTo(i,shooterCanvas.height); sCtx.stroke(); }
+            for(let i=0; i<shooterCanvas.height; i+=40) { sCtx.beginPath(); sCtx.moveTo(0,i); sCtx.lineTo(shooterCanvas.width,i); sCtx.stroke(); }
+
+            // Движение игрока
+            if (sKeys['KeyW'] || sKeys['ArrowUp']) sPlayer.y -= sPlayer.speed;
+            if (sKeys['KeyS'] || sKeys['ArrowDown']) sPlayer.y += sPlayer.speed;
+            if (sKeys['KeyA'] || sKeys['ArrowLeft']) sPlayer.x -= sPlayer.speed;
+            if (sKeys['KeyD'] || sKeys['ArrowRight']) sPlayer.x += sPlayer.speed;
+            
+            // Ограничение по краям
+            sPlayer.x = Math.max(sPlayer.r, Math.min(shooterCanvas.width - sPlayer.r, sPlayer.x));
+            sPlayer.y = Math.max(sPlayer.r, Math.min(shooterCanvas.height - sPlayer.r, sPlayer.y));
+
+            // Спавн врагов
+            sSpawnTimer++;
+            if (sSpawnTimer > 60 && sEnemies.length < 10) {
+                sSpawnTimer = 0;
+                let side = Math.floor(Math.random() * 4);
+                let ex, ey;
+                if (side === 0) { ex = Math.random() * shooterCanvas.width; ey = -30; }
+                else if (side === 1) { ex = shooterCanvas.width + 30; ey = Math.random() * shooterCanvas.height; }
+                else if (side === 2) { ex = Math.random() * shooterCanvas.width; ey = shooterCanvas.height + 30; }
+                else { ex = -30; ey = Math.random() * shooterCanvas.height; }
+                
+                sEnemies.push({ x: ex, y: ey, r: 25, speed: 1.5, hp: 2 });
             }
-            targets.forEach(t => {
-                t.y += t.speed;
-                if(t.y > shooterCanvas.height + 50) t.y = -50;
-                sCtx.beginPath(); sCtx.arc(t.x, t.y, t.r, 0, Math.PI*2);
-                sCtx.fillStyle = t.color; sCtx.fill();
-                sCtx.lineWidth = 3; sCtx.strokeStyle = '#fff'; sCtx.stroke();
-            });
-            sCtx.strokeStyle = '#ff0055'; sCtx.lineWidth = 2;
-            sCtx.beginPath(); sCtx.arc(shooterMouse.x, shooterMouse.y, 15, 0, Math.PI*2); sCtx.stroke();
-            sCtx.beginPath(); sCtx.moveTo(shooterMouse.x - 20, shooterMouse.y); sCtx.lineTo(shooterMouse.x + 20, shooterMouse.y); sCtx.stroke();
-            sCtx.beginPath(); sCtx.moveTo(shooterMouse.x, shooterMouse.y - 20); sCtx.lineTo(shooterMouse.x, shooterMouse.y + 20); sCtx.stroke();
+
+            // Обновление врагов
+            for (let i = sEnemies.length - 1; i >= 0; i--) {
+                let e = sEnemies[i];
+                let angle = Math.atan2(sPlayer.y - e.y, sPlayer.x - e.x);
+                e.x += Math.cos(angle) * e.speed;
+                e.y += Math.sin(angle) * e.speed;
+
+                // Столкновение с игроком
+                if (Math.hypot(sPlayer.x - e.x, sPlayer.y - e.y) < sPlayer.r + e.r) {
+                    sPlayer.hp--;
+                    document.getElementById('shooter-lives').innerText = sPlayer.hp;
+                    Sound.sfx.hit();
+                    sEnemies.splice(i, 1);
+                    if (sPlayer.hp <= 0) {
+                        shooterActive = false;
+                        alert(`Ты проиграл! Твой счёт: ${sScore}`);
+                        closeShooter();
+                        return;
+                    }
+                    continue;
+                }
+
+                // Рисуем врага
+                if (mafiaImg.complete && mafiaImg.naturalWidth > 0) {
+                    sCtx.drawImage(mafiaImg, e.x - e.r*1.5, e.y - e.r*1.5, e.r*3, e.r*3);
+                } else {
+                    // Заглушка если нет картинки
+                    sCtx.fillStyle = '#444';
+                    sCtx.beginPath(); sCtx.arc(e.x, e.y, e.r, 0, Math.PI*2); sCtx.fill();
+                    sCtx.fillStyle = '#fff'; sCtx.font = '20px Arial'; sCtx.textAlign = 'center'; sCtx.textBaseline = 'middle'; sCtx.fillText('M', e.x, e.y);
+                }
+            }
+
+            // Обновление пуль
+            for (let i = sBullets.length - 1; i >= 0; i--) {
+                let b = sBullets[i];
+                b.x += b.vx; b.y += b.vy;
+                
+                // Выход за экран
+                if (b.x < 0 || b.x > shooterCanvas.width || b.y < 0 || b.y > shooterCanvas.height) {
+                    sBullets.splice(i, 1); continue;
+                }
+
+                // Попадание во врага
+                let hit = false;
+                for (let j = sEnemies.length - 1; j >= 0; j--) {
+                    let e = sEnemies[j];
+                    if (Math.hypot(b.x - e.x, b.y - e.y) < e.r + b.r) {
+                        e.hp--;
+                        hit = true;
+                        if (e.hp <= 0) {
+                            sEnemies.splice(j, 1);
+                            sScore += 10;
+                            coins += 2;
+                            document.getElementById('shooter-score').innerText = sScore;
+                            updateCoinUI();
+                            if (sScore > shooterBest) { shooterBest = sScore; saveData(); }
+                        }
+                        break;
+                    }
+                }
+                if (hit) { sBullets.splice(i, 1); continue; }
+
+                // Рисуем пулю
+                sCtx.fillStyle = '#ff0055';
+                sCtx.shadowBlur = 10; sCtx.shadowColor = '#ff0055';
+                sCtx.beginPath(); sCtx.arc(b.x, b.y, b.r, 0, Math.PI*2); sCtx.fill();
+                sCtx.shadowBlur = 0;
+            }
+
+            // Рисуем игрока
+            sCtx.fillStyle = '#00ffcc';
+            sCtx.shadowBlur = 15; sCtx.shadowColor = '#00ffcc';
+            sCtx.beginPath(); sCtx.arc(sPlayer.x, sPlayer.y, sPlayer.r, 0, Math.PI*2); sCtx.fill();
+            sCtx.shadowBlur = 0;
+
+            // Прицел
+            sCtx.strokeStyle = 'rgba(255, 0, 85, 0.5)'; sCtx.lineWidth = 1;
+            sCtx.beginPath(); sCtx.arc(sMouse.x, sMouse.y, 15, 0, Math.PI*2); sCtx.stroke();
+            sCtx.beginPath(); sCtx.moveTo(sMouse.x - 20, sMouse.y); sCtx.lineTo(sMouse.x + 20, sMouse.y); sCtx.stroke();
+            sCtx.beginPath(); sCtx.moveTo(sMouse.x, sMouse.y - 20); sCtx.lineTo(sMouse.x, sMouse.y + 20); sCtx.stroke();
+
             requestAnimationFrame(shooterLoop);
         }
+
         document.getElementById('shooter-btn').addEventListener('click', openShooter);
         document.getElementById('shooter-close-btn').addEventListener('click', closeShooter);
 
-        // ============ ЗОРКИЙ ГЛАЗ (СПРАЙТЫ ВОЗВРАЩЕНЫ) ============
+        // ============ ЗОРКИЙ ГЛАЗ ============
         let colorActive = false, colorScore = 0, colorTargetIndex = 0, colorBaseHue = 0, colorOffset = 30;
         document.getElementById('color-best').innerText = colorBest;
         
@@ -764,7 +892,6 @@
             for (let i = 0; i < 8; i++) {
                 const cell = document.createElement('div'); cell.className = 'color-cell';
                 const hue = i === colorTargetIndex ? (colorBaseHue + colorOffset) % 360 : colorBaseHue;
-                // ИСПОЛЬЗУЕМ CAT.PNG С ФИЛЬТРОМ
                 cell.innerHTML = `<img src="cat.png" style="filter: hue-rotate(${hue}deg) saturate(2) brightness(1.2);">`;
                 cell.onclick = () => handleColorClick(i);
                 grid.appendChild(cell);
@@ -789,7 +916,7 @@
         document.getElementById('clicker-close-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('clicker-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); });
         document.getElementById('clicker-area').addEventListener('click', () => { coins++; clickerTotal++; updateCoinUI(); saveData(); Sound.sfx.click(); });
 
-        // ============ ИГРА ============
+        // ============ ОСНОВНАЯ ИГРА ============
         const canvas = document.getElementById('gameCanvas'); const ctx = canvas.getContext('2d');
         const W = canvas.width, H = canvas.height;
         
@@ -861,7 +988,6 @@
             else if (gameState === 'paused') { gameState = 'playing'; document.getElementById('pause-screen').classList.add('hidden'); }
         }
 
-        // БЕЗОПАСНЫЙ ЗАПУСК ИГРЫ
         function startGame() {
             try {
                 Sound.init(); 
@@ -904,7 +1030,7 @@
                 else if (rand > 0.95) type = 'golden'; 
                 else if (rand > 0.9) type = 'magnet'; 
                 else if (rand > 0.85) type = 'shield'; 
-                else type = 'rotten'; // ГНИЛЫЕ МОРКОВКИ
+                else type = 'rotten';
             }
             objects.push({ x: Math.random() * (W - 40), y: -40, width: 40, height: 40, speed: ((3 + Math.random()*2.5) + difficulty * 0.6), type: type, wobble: Math.random() * Math.PI * 2 });
         }
@@ -965,7 +1091,6 @@
             if (currentSprite.complete && currentSprite.naturalWidth > 0) {
                 ctx.drawImage(currentSprite, px, py, w, h);
             } else {
-                // Векторный котик, если картинки нет
                 ctx.fillStyle = '#e0e0e0';
                 ctx.beginPath(); ctx.ellipse(px + w/2, py + h/2, w/2, h/2, 0, 0, Math.PI*2); ctx.fill();
                 ctx.beginPath(); ctx.moveTo(px + w*0.2, py + h*0.3); ctx.lineTo(px + w*0.35, py); ctx.lineTo(px + w*0.5, py + h*0.3); ctx.fill();
@@ -1171,4 +1296,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-                    </html>
+    </html>
