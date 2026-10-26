@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     
     <style>
-        :root { --neon: #00ffcc; --bg: #0f0f13; --admin: #ff0055; }
+        :root { --neon: #00ffcc; --bg: #0f0f13; }
         * { box-sizing: border-box; }
         body {
             margin: 0; padding: 0; background-color: var(--bg);
@@ -54,81 +54,31 @@
         .hud-btn svg { width: 22px; height: 22px; fill: currentColor; }
         .hud-btn:active { transform: scale(0.9); }
 
-        /* Оверлеи */
+        /* Оверлеи (Меню) */
         .overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(5, 5, 10, 0.95); display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 20; backdrop-filter: blur(10px);
-            overflow-y: auto; padding: 20px;
+            overflow-y: auto; padding: 15px;
         }
         .overlay.hidden { display: none !important; }
         
-        h1 { color: var(--neon); font-size: 64px; text-shadow: 0 0 20px var(--neon); margin: 0 0 10px 0; text-align: center; letter-spacing: 4px; }
-        h2 { color: #fff; font-size: 36px; text-shadow: 0 0 10px #fff; margin-bottom: 20px; letter-spacing: 2px; text-align: center; }
-        .subtitle { color: #aaa; font-size: 20px; margin-bottom: 20px; letter-spacing: 2px; text-align: center; }
+        h1 { color: var(--neon); font-size: 50px; text-shadow: 0 0 20px var(--neon); margin: 0 0 5px 0; text-align: center; letter-spacing: 2px; }
+        h2 { color: #fff; font-size: 28px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
+        .subtitle { color: #aaa; font-size: 16px; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
         
+        /* УМЕНЬШЕННЫЕ КНОПКИ МЕНЮ */
         .btn {
             background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000;
-            border: none; border-radius: 8px; padding: 15px 40px; font-size: 24px; 
-            font-family: inherit; cursor: pointer; box-shadow: 0 6px 0 #005a47; transition: transform 0.1s; margin: 8px; text-align: center;
-            text-transform: uppercase; position: relative; z-index: 30; width: 100%; max-width: 350px;
+            border: none; border-radius: 8px; padding: 12px 30px; font-size: 20px; 
+            font-family: inherit; cursor: pointer; box-shadow: 0 5px 0 #005a47; transition: transform 0.1s; margin: 6px; text-align: center;
+            text-transform: uppercase; position: relative; z-index: 30; width: 100%; max-width: 280px;
         }
-        .btn:active { transform: translateY(6px); box-shadow: 0 0 0 #005a47; }
-        .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 6px 0 #111; font-size: 18px; padding: 12px 24px; }
+        .btn:active { transform: translateY(5px); box-shadow: 0 0 0 #005a47; }
+        .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 5px 0 #111; font-size: 16px; padding: 10px 20px; }
         .btn-secondary:active { box-shadow: 0 0 0 #111; }
-        .btn-danger { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; box-shadow: 0 6px 0 #800000; font-size: 16px; padding: 10px 20px; max-width: 250px; }
+        .btn-danger { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; box-shadow: 0 5px 0 #800000; font-size: 14px; padding: 8px 16px; max-width: 200px; }
         .btn-danger:active { box-shadow: 0 0 0 #800000; }
-        
-        /* АДМИН ПАНЕЛЬ */
-        .admin-panel {
-            background: rgba(10, 10, 15, 0.95); border: 3px solid var(--admin); border-radius: 16px;
-            padding: 20px; max-width: 750px; width: 100%; 
-            box-shadow: 0 0 30px rgba(255, 0, 85, 0.3);
-            display: flex; flex-direction: column; gap: 15px;
-        }
-        .adm-header {
-            text-align: center; color: var(--admin); font-size: 32px; font-weight: bold;
-            text-shadow: 0 0 10px var(--admin); border-bottom: 2px solid rgba(255, 0, 85, 0.3);
-            padding-bottom: 10px; margin-bottom: 10px;
-        }
-        .adm-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-        }
-        .adm-section {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 85, 0.2);
-            border-radius: 10px; padding: 10px;
-        }
-        .adm-section-title {
-            color: #fff; font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 5px;
-        }
-        .adm-btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
-        .adm-t-btn {
-            background: rgba(255, 0, 85, 0.1); border: 1px solid var(--admin); color: var(--admin);
-            padding: 6px 12px; font-family: inherit; font-size: 14px; cursor: pointer;
-            text-transform: uppercase; transition: all 0.2s; border-radius: 4px;
-            flex: 1; min-width: 60px;
-        }
-        .adm-t-btn:hover { background: var(--admin); color: #000; }
-        .adm-t-btn:active { transform: scale(0.95); }
-        .adm-t-btn.active { background: var(--admin); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--admin); }
-        
-        .term-input {
-            background: #000; border: 1px solid var(--admin); color: #fff;
-            font-family: inherit; font-size: 16px; padding: 5px 10px; width: 80px;
-            outline: none; border-radius: 4px;
-        }
-        .term-console-input {
-            background: transparent; border: none; color: #00ff41;
-            font-family: 'Courier New', monospace; font-size: 16px; outline: none; flex: 1;
-            margin-left: 5px;
-        }
-        .console-box {
-            background: #000; border: 1px solid var(--admin); border-radius: 6px;
-            padding: 10px; display: flex; align-items: center;
-            font-family: 'Courier New', monospace; color: #00ff41;
-            font-size: 16px; grid-column: span 2;
-        }
 
         /* Мобильное управление */
         #mobile-controls {
@@ -137,9 +87,9 @@
             z-index: 15; pointer-events: none; gap: 15px;
         }
         .control-btn {
-            width: 80px; height: 80px; border-radius: 50%;
+            width: 70px; height: 70px; border-radius: 50%;
             background: rgba(0, 255, 204, 0.15); border: 3px solid rgba(0, 255, 204, 0.6);
-            color: var(--neon); font-size: 32px; display: flex; justify-content: center; align-items: center;
+            color: var(--neon); font-size: 28px; display: flex; justify-content: center; align-items: center;
             pointer-events: auto; user-select: none; backdrop-filter: blur(5px);
         }
         .control-btn:active { background: rgba(0, 255, 204, 0.5); }
@@ -148,52 +98,291 @@
         #mobile-controls.visible { display: flex; }
 
         /* Терминал Смерти */
-        #game-over-screen { background: #000 !important; justify-content: flex-start !important; align-items: flex-start !important; padding: 40px 30px; }
-        #terminal { font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; line-height: 1.8; color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; width: 100%; letter-spacing: 0; display: flex; flex-direction: column; }
+        #game-over-screen { background: #000 !important; justify-content: flex-start !important; align-items: flex-start !important; padding: 30px 20px; }
+        #terminal { font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; line-height: 1.8; color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; width: 100%; letter-spacing: 0; display: flex; flex-direction: column; }
         @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
         .term-line { margin: 0; min-height: 1.8em; white-space: pre-wrap; }
-        .term-btn-group { margin-top: 30px; display: flex; gap: 15px; position: relative; z-index: 100; }
-        .term-btn { background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; padding: 12px 24px; font-family: inherit; font-size: 20px; cursor: pointer; text-transform: uppercase; pointer-events: auto; }
+        .term-btn-group { margin-top: 20px; display: flex; gap: 10px; position: relative; z-index: 100; }
+        .term-btn { background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; padding: 10px 20px; font-family: inherit; font-size: 16px; cursor: pointer; text-transform: uppercase; pointer-events: auto; }
         .term-btn:hover { background: rgba(0, 255, 65, 0.3); }
-
-        #cmd-art-container { margin-top: 20px; display: none; text-align: left; pointer-events: none; }
-        #cmd-art { max-width: 120px; max-height: 120px; border-radius: 8px; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); box-shadow: 0 0 10px #00ff41; border: 2px solid #00ff41; }
+        #cmd-art-container { margin-top: 15px; display: none; text-align: left; pointer-events: none; }
+        #cmd-art { max-width: 100px; max-height: 100px; border-radius: 8px; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); box-shadow: 0 0 10px #00ff41; border: 2px solid #00ff41; }
 
         /* МАГАЗИН И АЧИВКИ */
-        .shop-balance { font-size: 28px; color: #FFD700; margin-bottom: 20px; text-shadow: 0 0 10px #FFD700; text-align: center; }
-        #shop-items, #ach-items { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%; max-width: 700px; margin-bottom: 20px; }
-        .shop-item, .ach-item { display: flex; flex-direction: column; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 2px solid rgba(0, 255, 204, 0.2); width: 200px; text-align: center; }
-        .shop-item-title, .ach-item-title { color: #fff; font-size: 18px; margin-bottom: 10px; }
-        .shop-buy-btn, .ach-btn { background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px; font-family: inherit; cursor: pointer; box-shadow: 0 4px 0 #b37400; width: 100%; margin-top: 10px; }
-        .shop-buy-btn:active, .ach-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #b37400; }
-        .shop-buy-btn:disabled, .ach-btn:disabled { background: #444; color: #888; box-shadow: 0 4px 0 #222; transform: none; pointer-events: none; }
-        .shop-buy-btn.equipped { background: #00ffcc; box-shadow: 0 4px 0 #005a47; color: #000; }
-        .ach-btn.claimed { background: #00ffcc; box-shadow: 0 4px 0 #005a47; color: #000; }
+        .shop-balance { font-size: 24px; color: #FFD700; margin-bottom: 15px; text-shadow: 0 0 10px #FFD700; text-align: center; }
+        #shop-items, #ach-items { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; max-width: 700px; margin-bottom: 15px; }
+        .shop-item, .ach-item { display: flex; flex-direction: column; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; border: 2px solid rgba(0, 255, 204, 0.2); width: 160px; text-align: center; }
+        .shop-item-title, .ach-item-title { color: #fff; font-size: 16px; margin-bottom: 5px; }
+        .shop-buy-btn, .ach-btn { background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; border: none; border-radius: 6px; padding: 8px 15px; font-size: 14px; font-family: inherit; cursor: pointer; box-shadow: 0 3px 0 #b37400; width: 100%; margin-top: 8px; }
+        .shop-buy-btn:active, .ach-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #b37400; }
+        .shop-buy-btn:disabled, .ach-btn:disabled { background: #444; color: #888; box-shadow: 0 3px 0 #222; transform: none; pointer-events: none; }
+        .shop-buy-btn.equipped { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
+        .ach-btn.claimed { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
         
+        /* ========================================= */
+        /* НОВАЯ ПЛАВАЮЩАЯ АДМИНКА (В СТИЛЕ CELESTIAL) */
+        /* ========================================= */
+        #floating-admin {
+            position: absolute; top: 50px; left: 50px; z-index: 1000;
+            width: 600px; max-width: 95%; height: 380px;
+            background: #0f0f13;
+            border-radius: 12px;
+            display: none; /* Скрыта по умолчанию */
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Шрифт как в читах */
+            user-select: none;
+            overflow: hidden;
+        }
+        
+        /* RGB АНИМИРОВАННАЯ РАМКА */
+        #floating-admin::before {
+            content: '';
+            position: absolute; inset: -3px; z-index: -1;
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400%;
+            border-radius: 15px;
+            animation: glowing 20s linear infinite;
+        }
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        /* ВНУТРЕННЯЯ ЧАСТЬ (ЧТОБЫ БЫЛ ВИДЕН ФОН) */
+        .adm-inner {
+            background: rgba(10, 10, 15, 0.95);
+            width: 100%; height: 100%;
+            border-radius: 10px;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .adm-header-drag {
+            background: rgba(0,0,0,0.5);
+            padding: 10px 15px;
+            cursor: grab;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #fff; font-weight: bold; font-size: 14px;
+            letter-spacing: 2px;
+        }
+        .adm-header-drag:active { cursor: grabbing; }
+        #adm-close-btn { background: none; border: none; color: #ff4444; font-size: 18px; cursor: pointer; font-weight: bold; }
+
+        .adm-body {
+            display: flex; flex: 1; overflow: hidden;
+        }
+
+        /* ЛЕВОЕ МЕНЮ (ВКЛАДКИ) */
+        .adm-sidebar {
+            width: 140px; background: rgba(0,0,0,0.3);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            display: flex; flex-direction: column; padding: 10px 0;
+            overflow-y: auto;
+        }
+        .adm-tab-btn {
+            background: none; border: none; color: #888;
+            padding: 12px 15px; text-align: left; font-size: 14px;
+            cursor: pointer; transition: all 0.2s; font-family: inherit;
+            border-left: 3px solid transparent;
+        }
+        .adm-tab-btn:hover { color: #ccc; background: rgba(255,255,255,0.05); }
+        .adm-tab-btn.active {
+            color: #00ffcc; border-left-color: #00ffcc;
+            background: rgba(0, 255, 204, 0.1); font-weight: bold;
+        }
+
+        /* ПРАВАЯ ЧАСТЬ (КОНТЕНТ) */
+        .adm-content {
+            flex: 1; padding: 15px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        
+        .adm-tab-content { display: none; flex-direction: column; gap: 10px; }
+        .adm-tab-content.active { display: flex; }
+
+        /* ЭЛЕМЕНТЫ УПРАВЛЕНИЯ (КАК В ЧИТАХ) */
+        .adm-item {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.03); padding: 10px 15px;
+            border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .adm-item-label { color: #ccc; font-size: 13px; }
+        
+        /* ТУМБЛЕРЫ (SWITCH) */
+        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #333; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 14px; width: 14px;
+            left: 3px; bottom: 3px; background-color: white;
+            transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #00ffcc; }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* КНОПКИ ДЕЙСТВИЙ */
+        .adm-action-btn {
+            background: rgba(255,255,255,0.1); color: #fff;
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
+            padding: 5px 10px; font-size: 12px; cursor: pointer;
+            transition: all 0.1s;
+        }
+        .adm-action-btn:hover { background: rgba(0,255,204,0.2); border-color: #00ffcc; color: #00ffcc; }
+        .adm-action-btn:active { transform: scale(0.95); }
+
+        /* ВВОД ЧИСЕЛ */
+        .adm-input {
+            background: #000; border: 1px solid #444; color: #fff;
+            padding: 5px; border-radius: 4px; width: 80px;
+            font-size: 12px; outline: none;
+        }
+        .adm-input:focus { border-color: #00ffcc; }
+
         @media (max-width: 600px) {
-            h1 { font-size: 40px; } h2 { font-size: 28px; }
-            .subtitle { font-size: 16px; }
-            .hud-item { font-size: 14px; padding: 6px 8px; gap: 4px; }
+            h1 { font-size: 36px; } h2 { font-size: 22px; }
+            .subtitle { font-size: 14px; }
+            .hud-item { font-size: 14px; padding: 5px 8px; gap: 4px; }
             .hud-icon { width: 16px; height: 16px; }
             .hud-btn { width: 34px; height: 34px; }
             .hud-btn svg { width: 16px; height: 16px; }
-            .btn { font-size: 18px; padding: 12px 24px; }
-            #game-over-screen { padding: 25px 15px; }
+            .btn { font-size: 16px; padding: 10px 20px; max-width: 240px; }
+            #game-over-screen { padding: 20px 10px; }
             #terminal { font-size: 14px; }
-            .term-btn { font-size: 16px; padding: 10px 16px; }
-            #cmd-art { max-width: 80px; max-height: 80px; }
-            .shop-item, .ach-item { width: 45%; padding: 10px; }
-            .shop-item-title, .ach-item-title { font-size: 14px; }
-            .shop-buy-btn, .ach-btn { font-size: 14px; padding: 8px 10px; }
+            .term-btn { font-size: 14px; padding: 8px 12px; }
+            #cmd-art { max-width: 70px; max-height: 70px; }
+            .shop-item, .ach-item { width: 45%; padding: 8px; }
+            .shop-item-title, .ach-item-title { font-size: 13px; }
+            .shop-buy-btn, .ach-btn { font-size: 12px; padding: 6px 8px; }
             
-            .adm-grid { grid-template-columns: 1fr; }
-            .admin-panel { padding: 15px; }
+            /* Мобильная админка */
+            #floating-admin { width: 95%; height: 400px; left: 2.5%; top: 20px; }
+            .adm-sidebar { width: 100px; }
+            .adm-tab-btn { font-size: 12px; padding: 10px 8px; }
+            .adm-item { padding: 8px; flex-direction: column; align-items: flex-start; gap: 8px; }
+            .adm-item > div { width: 100%; display: flex; justify-content: space-between; align-items: center; }
         }
     </style>
 </head>
 <body>
     <div id="game-container">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+        <!-- НОВАЯ ПЛАВАЮЩАЯ АДМИНКА -->
+        <div id="floating-admin">
+            <div class="adm-inner">
+                <div class="adm-header-drag" id="adm-drag-handle">
+                    <span>KOTOZAYAC ADMIN</span>
+                    <button id="adm-close-btn">✖</button>
+                </div>
+                <div class="adm-body">
+                    <!-- Левое меню -->
+                    <div class="adm-sidebar">
+                        <button class="adm-tab-btn active" data-target="tab-player">👤 Игрок</button>
+                        <button class="adm-tab-btn" data-target="tab-spawn">📦 Спавн</button>
+                        <button class="adm-tab-btn" data-target="tab-world">🌍 Мир</button>
+                        <button class="adm-tab-btn" data-target="tab-chaos">🔥 Хаос</button>
+                        <button class="adm-tab-btn" data-target="tab-debug">🛠 Дебаг</button>
+                    </div>
+                    <!-- Контент -->
+                    <div class="adm-content">
+                        <!-- Игрок -->
+                        <div id="tab-player" class="adm-tab-content active">
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label">Бессмертие (God Mode)</span>
+                                    <label class="switch"><input type="checkbox" id="tog-god"><span class="slider"></span></label>
+                                </div>
+                            </div>
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label">Магнит (9999 сек)</span>
+                                    <button class="adm-action-btn" onclick="player.magnetTimer = 9999">ВКЛ</button>
+                                </div>
+                            </div>
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label">Выдать Щит</span>
+                                    <button class="adm-action-btn" onclick="player.hasShield = true">ВКЛ</button>
+                                </div>
+                            </div>
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label">Добавить Монеты</span>
+                                    <div style="display:flex; gap:5px;">
+                                        <input type="number" id="adm-coins-input" class="adm-input" value="1000">
+                                        <button class="adm-action-btn" onclick="coins += parseInt(document.getElementById('adm-coins-input').value)||0; updateCoinUI(); saveData();">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Спавн -->
+                        <div id="tab-spawn" class="adm-tab-content">
+                            <div class="adm-item"><div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
+                                <button class="adm-action-btn" onclick="admSpawn('carrot')">🥕 Морковь</button>
+                                <button class="adm-action-btn" onclick="admSpawn('golden')">✨ Золотая</button>
+                                <button class="adm-action-btn" onclick="admSpawn('red')">🔴 Аптечка</button>
+                                <button class="adm-action-btn" onclick="admSpawn('rotten')">🪵 Гнилая</button>
+                                <button class="adm-action-btn" onclick="admSpawn('magnet')">🧲 Магнит</button>
+                                <button class="adm-action-btn" onclick="admSpawn('shield')">🛡 Щит</button>
+                            </div></div>
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label" style="color:#ff4444;">Вызвать Босса</span>
+                                    <button class="adm-action-btn" style="border-color:#ff4444; color:#ff4444;" onclick="admSpawnBoss()">СПАВН</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Мир -->
+                        <div id="tab-world" class="adm-tab-content">
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label">Время</span>
+                                    <div style="display:flex; gap:5px;">
+                                        <button class="adm-action-btn" onclick="forceTime='day'; updateMoscowClock();">День</button>
+                                        <button class="adm-action-btn" onclick="forceTime='night'; updateMoscowClock();">Ночь</button>
+                                        <button class="adm-action-btn" onclick="forceTime=null; updateMoscowClock();">Авто</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Хаос -->
+                        <div id="tab-chaos" class="adm-tab-content">
+                            <div class="adm-item"><div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
+                                <button class="adm-action-btn" onclick="chaosCatRain()">Котопад</button>
+                                <button class="adm-action-btn" onclick="chaosRain()">Дождь</button>
+                                <button class="adm-action-btn" onclick="triggerDeathAnimation()">Fake GameOver</button>
+                            </div></div>
+                        </div>
+
+                        <!-- Дебаг -->
+                        <div id="tab-debug" class="adm-tab-content">
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label">Показывать FPS</span>
+                                    <label class="switch"><input type="checkbox" id="tog-fps" onchange="debugFPS = this.checked"><span class="slider"></span></label>
+                                </div>
+                            </div>
+                            <div class="adm-item">
+                                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                    <span class="adm-item-label">Показывать Хитбоксы</span>
+                                    <label class="switch"><input type="checkbox" id="tog-hitbox" onchange="debugHitboxes = this.checked"><span class="slider"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="hud">
             <div class="hud-item"><svg class="hud-icon icon-carrot" viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg><span id="score">0</span></div>
@@ -218,9 +407,9 @@
             <h1>КОТОЗАЯЦ</h1>
             <div class="subtitle">ГЛАВНОЕ МЕНЮ</div>
             <button id="btn-play" class="btn">ПРЫЖОК В КУБЫ</button>
-            <button id="shop-btn" class="btn" style="background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; box-shadow: 0 6px 0 #b37400;">🛒 МАГАЗИН</button>
-            <button id="ach-btn" class="btn" style="background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000; box-shadow: 0 6px 0 #005a47;">🏆 АЧИВКИ</button>
-            <button id="btn-admin-link" class="btn btn-danger" style="display: none; background: linear-gradient(180deg, #ff0055, #cc0044); box-shadow: 0 6px 0 #80002a;">⚙️ АДМИН</button>
+            <button id="shop-btn" class="btn" style="background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; box-shadow: 0 5px 0 #b37400;">🛒 МАГАЗИН</button>
+            <button id="ach-btn" class="btn" style="background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000; box-shadow: 0 5px 0 #005a47;">🏆 АЧИВКИ</button>
+            <button id="btn-admin-link" class="btn btn-danger" style="display: none; background: linear-gradient(180deg, #ff0055, #cc0044); box-shadow: 0 5px 0 #80002a;">⚙️ АДМИН</button>
             <button id="btn-reset-all" class="btn btn-danger">СБРОСИТЬ ВСЁ</button>
         </div>
 
@@ -236,90 +425,6 @@
             <div class="shop-balance">Баланс: <span id="ach-coins">0</span> 🥕</div>
             <div id="ach-items"></div>
             <button id="ach-close-btn" class="btn">НАЗАД</button>
-        </div>
-
-        <!-- НОВАЯ ВЕБ АДМИНКА -->
-        <div id="admin-screen" class="overlay hidden">
-            <div class="admin-panel">
-                <div class="adm-header">┌─ ADMIN PANEL ─┐</div>
-                
-                <div class="adm-grid">
-                    <div class="adm-section">
-                        <div class="adm-section-title">[ИГРОК]</div>
-                        <div class="adm-btn-row">
-                            <button id="adm-god" class="adm-t-btn">Бессмертие: ВЫКЛ</button>
-                            <button class="adm-t-btn" onclick="player.magnetTimer = 9999">Магнит</button>
-                            <button class="adm-t-btn" onclick="player.hasShield = true">Щит</button>
-                        </div>
-                    </div>
-                    
-                    <div class="adm-section">
-                        <div class="adm-section-title">[ВРЕМЯ]</div>
-                        <div class="adm-btn-row">
-                            <button class="adm-t-btn" onclick="forceTime='day'; updateMoscowClock();">День</button>
-                            <button class="adm-t-btn" onclick="forceTime='night'; updateMoscowClock();">Ночь</button>
-                            <button class="adm-t-btn" onclick="forceTime=null; updateMoscowClock();">Авто</button>
-                        </div>
-                    </div>
-
-                    <div class="adm-section" style="grid-column: span 2;">
-                        <div class="adm-section-title">[СПАВН]</div>
-                        <div class="adm-btn-row">
-                            <button class="adm-t-btn" onclick="admSpawn('carrot')">🥕 Морковь</button>
-                            <button class="adm-t-btn" onclick="admSpawn('golden')">✨ Золотая</button>
-                            <button class="adm-t-btn" onclick="admSpawn('red')">🔴 Аптечка</button>
-                            <button class="adm-t-btn" onclick="admSpawn('rotten')">🪵 Гнилая</button>
-                            <button class="adm-t-btn" onclick="admSpawn('magnet')">🧲 Магнит</button>
-                            <button class="adm-t-btn" onclick="admSpawn('shield')">🛡 Щит</button>
-                            <button class="adm-t-btn" onclick="admSpawnBoss()" style="flex: 100%; border-color: #ff0000; color: #ff0000; margin-top: 5px;">ВЫЗВАТЬ БОССА</button>
-                        </div>
-                    </div>
-
-                    <div class="adm-section">
-                        <div class="adm-section-title">[ЭКОНОМИКА]</div>
-                        <div class="adm-btn-row">
-                            <input id="adm-coins-input" type="number" class="term-input" value="0">
-                            <button class="adm-t-btn" onclick="coins = parseInt(document.getElementById('adm-coins-input').value) || 0; updateCoinUI(); saveData();">Применить</button>
-                            <button class="adm-t-btn" onclick="coins = 0; updateCoinUI(); saveData();">Сброс</button>
-                        </div>
-                    </div>
-
-                    <div class="adm-section">
-                        <div class="adm-section-title">[ДЕБАГ]</div>
-                        <div class="adm-btn-row">
-                            <label style="color:#fff; font-size:14px; display:flex; align-items:center; cursor:pointer;">
-                                <input type="checkbox" id="dbg-fps" onchange="debugFPS = this.checked" style="margin-right:5px;"> FPS
-                            </label>
-                            <label style="color:#fff; font-size:14px; display:flex; align-items:center; cursor:pointer;">
-                                <input type="checkbox" id="dbg-hitbox" onchange="debugHitboxes = this.checked" style="margin-right:5px;"> Хитбоксы
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="adm-section">
-                        <div class="adm-section-title">[ХАОС]</div>
-                        <div class="adm-btn-row">
-                            <button class="adm-t-btn" onclick="chaosCatRain()">Котопад</button>
-                            <button class="adm-t-btn" onclick="chaosRain()">Дождь</button>
-                            <button class="adm-t-btn" onclick="triggerDeathAnimation()">Fake GO</button>
-                        </div>
-                    </div>
-
-                    <div class="adm-section">
-                        <div class="adm-section-title">[СИСТЕМА]</div>
-                        <div class="adm-btn-row">
-                            <button class="adm-t-btn" onclick="goToHub();" style="border-color: #00ff41; color: #00ff41;">В МЕНЮ</button>
-                            <button class="adm-t-btn" onclick="if(confirm('Сброс?')) { localStorage.clear(); location.reload(); }" style="border-color: #ff4444; color: #ff4444;">СБРОС</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="console-box">
-                    > <input id="adm-console" type="text" class="term-console-input" placeholder="введи команду (help)..." autocomplete="off">
-                </div>
-                
-                <button class="btn btn-secondary" id="admin-close-btn" style="margin-top: 10px;">ЗАКРЫТЬ ПАНЕЛЬ</button>
-            </div>
         </div>
 
         <div id="pause-screen" class="overlay hidden">
@@ -352,6 +457,68 @@
         if (urlParams.get('id') === '1') {
             document.getElementById('btn-admin-link').style.display = 'block';
         }
+
+        // ============ ПЛАВАЮЩЕЕ ОКНО АДМИНКИ ============
+        const adminWindow = document.getElementById('floating-admin');
+        const dragHandle = document.getElementById('adm-drag-handle');
+        let isDragging = false, offsetX = 0, offsetY = 0;
+
+        // Открытие/Закрытие
+        document.getElementById('btn-admin-link').addEventListener('click', () => {
+            Sound.sfx.click();
+            document.getElementById('hub-screen').classList.add('hidden');
+            adminWindow.style.display = 'flex';
+        });
+        document.getElementById('adm-close-btn').addEventListener('click', () => {
+            Sound.sfx.click();
+            adminWindow.style.display = 'none';
+            document.getElementById('hub-screen').classList.remove('hidden');
+        });
+
+        // Логика перетаскивания (Мышь + Тач)
+        dragHandle.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - adminWindow.getBoundingClientRect().left;
+            offsetY = e.clientY - adminWindow.getBoundingClientRect().top;
+            dragHandle.setPointerCapture(e.pointerId);
+        });
+
+        dragHandle.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            let newX = e.clientX - offsetX;
+            let newY = e.clientY - offsetY;
+            
+            // Ограничиваем, чтобы не улетело за экран
+            const rect = adminWindow.getBoundingClientRect();
+            if (newX < 0) newX = 0;
+            if (newY < 0) newY = 0;
+            if (newX + rect.width > window.innerWidth) newX = window.innerWidth - rect.width;
+            if (newY + rect.height > window.innerHeight) newY = window.innerHeight - rect.height;
+
+            adminWindow.style.left = newX + 'px';
+            adminWindow.style.top = newY + 'px';
+        });
+
+        dragHandle.addEventListener('pointerup', () => { isDragging = false; });
+        dragHandle.addEventListener('pointercancel', () => { isDragging = false; });
+
+        // Переключение вкладок
+        document.querySelectorAll('.adm-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.adm-tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.adm-tab-content').forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.target).classList.add('active');
+                Sound.sfx.click();
+            });
+        });
+
+        // Привязка тумблера God Mode
+        document.getElementById('tog-god').addEventListener('change', function() {
+            godMode = this.checked;
+            if(godMode && gameState === 'playing') lives = 999;
+        });
 
         // ============ ВРЕМЯ И СЕЗОНЫ ============
         let isNight = false;
@@ -506,7 +673,7 @@
             document.getElementById('coins').innerText = coins;
             document.getElementById('shop-coins').innerText = coins;
             document.getElementById('ach-coins').innerText = coins;
-            document.getElementById('adm-coins-input').value = coins;
+            if (document.getElementById('adm-coins-input')) document.getElementById('adm-coins-input').value = coins;
         }
 
         function renderShop() {
@@ -626,12 +793,6 @@
         document.getElementById('ach-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('hub-screen').classList.add('hidden'); document.getElementById('ach-screen').classList.remove('hidden'); renderAch(); });
         document.getElementById('ach-close-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('ach-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); });
         
-        document.getElementById('btn-admin-link').addEventListener('click', () => {
-            Sound.sfx.click();
-            document.getElementById('hub-screen').classList.add('hidden');
-            document.getElementById('admin-screen').classList.remove('hidden');
-        });
-
         document.getElementById('btn-reset-all').addEventListener('click', () => { if(confirm('Точно сбросить ВЕСЬ прогресс?')) { localStorage.clear(); location.reload(); } });
         document.getElementById('resume-btn').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
         document.getElementById('menu-btn-pause').addEventListener('click', goToHub);
@@ -639,18 +800,7 @@
         document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); restartGame(); });
         document.getElementById('game-over-screen').addEventListener('click', (e) => { if (e.target.id === 'game-over-screen' && gameState === 'gameover') restartGame(); });
 
-        // ===== АДМИНКА ЛОГИКА =====
-        document.getElementById('admin-close-btn').addEventListener('click', () => {
-            Sound.sfx.click(); document.getElementById('admin-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden');
-        });
-        
-        document.getElementById('adm-god').addEventListener('click', () => {
-            godMode = !godMode;
-            document.getElementById('adm-god').innerText = 'Бессмертие: ' + (godMode ? 'ВКЛ' : 'ВЫКЛ');
-            document.getElementById('adm-god').className = 'adm-t-btn ' + (godMode ? 'active' : '');
-            if(godMode && gameState === 'playing') lives = 999;
-        });
-
+        // ===== ФУНКЦИИ АДМИНКИ =====
         function admSpawn(type) {
             if (gameState !== 'playing') { alert('Сначала запусти игру!'); return; }
             objects.push({ x: Math.random() * (W - 40), y: -40, width: 40, height: 40, speed: 3, type: type, wobble: 0 });
@@ -675,23 +825,6 @@
                 weather.push({ x: Math.random() * W, y: -Math.random()*H, size: 4, speed: 10, drift: 0 });
             }
         }
-
-        // КОНСОЛЬ
-        document.getElementById('adm-console').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const cmd = e.target.value.trim().toLowerCase();
-                e.target.value = '';
-                if (cmd === 'help') { alert('Команды: coins [число], god on/off, spawn [тип], die, night, day'); }
-                else if (cmd.startsWith('coins ')) { coins = parseInt(cmd.split(' ')[1]) || 0; updateCoinUI(); saveData(); }
-                else if (cmd === 'god on') { godMode = true; document.getElementById('adm-god').className = 'adm-t-btn active'; document.getElementById('adm-god').innerText = 'Бессмертие: ВКЛ'; }
-                else if (cmd === 'god off') { godMode = false; document.getElementById('adm-god').className = 'adm-t-btn'; document.getElementById('adm-god').innerText = 'Бессмертие: ВЫКЛ'; }
-                else if (cmd.startsWith('spawn ')) { admSpawn(cmd.split(' ')[1]); }
-                else if (cmd === 'die') { triggerDeathAnimation(); }
-                else if (cmd === 'night') { forceTime = 'night'; updateMoscowClock(); }
-                else if (cmd === 'day') { forceTime = 'day'; updateMoscowClock(); }
-                else { alert('Неизвестная команда. Введи help'); }
-            }
-        });
 
         function startGame() { Sound.sfx.start(); setTimeout(() => Sound.music.start(), 700); document.getElementById('hub-screen').classList.add('hidden'); resetGame(); gameState = 'playing'; }
         function goToHub() { Sound.sfx.click(); Sound.music.stop(); gameState = 'hub'; resetGame(); document.getElementById('pause-screen').classList.add('hidden'); document.getElementById('game-over-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); updateCoinUI(); }
@@ -1184,4 +1317,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-    </html
+    </html>
