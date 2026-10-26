@@ -32,14 +32,14 @@
         #hud {
             position: absolute; top: 15px; left: 15px; right: 15px;
             display: flex; align-items: center; gap: 8px; z-index: 10;
-            pointer-events: none;
+            pointer-events: none; flex-wrap: wrap;
         }
         .hud-item {
             background: rgba(15, 15, 25, 0.85); padding: 8px 12px; border-radius: 10px;
-            color: white; font-size: 20px; display: flex; align-items: center; gap: 6px;
+            color: white; font-size: 18px; display: flex; align-items: center; gap: 6px;
             border: 2px solid rgba(0, 255, 204, 0.3); backdrop-filter: blur(8px);
         }
-        .hud-icon { width: 22px; height: 22px; fill: currentColor; }
+        .hud-icon { width: 20px; height: 20px; fill: currentColor; }
         .icon-carrot { color: #FF8C00; }
         .icon-heart { color: #ff4444; }
         .icon-coin { color: #FFD700; }
@@ -47,11 +47,11 @@
         
         .hud-btn {
             background: rgba(15, 15, 25, 0.85); border: 2px solid rgba(0, 255, 204, 0.3);
-            color: var(--neon); width: 44px; height: 44px; border-radius: 10px;
+            color: var(--neon); width: 42px; height: 42px; border-radius: 10px;
             cursor: pointer; display: flex; justify-content: center; align-items: center;
             backdrop-filter: blur(8px); transition: all 0.2s; pointer-events: auto; padding: 0;
         }
-        .hud-btn svg { width: 22px; height: 22px; fill: currentColor; }
+        .hud-btn svg { width: 20px; height: 20px; fill: currentColor; }
         .hud-btn:active { transform: scale(0.9); }
 
         /* Оверлеи (Меню) */
@@ -63,21 +63,20 @@
         }
         .overlay.hidden { display: none !important; }
         
-        h1 { color: var(--neon); font-size: 50px; text-shadow: 0 0 20px var(--neon); margin: 0 0 5px 0; text-align: center; letter-spacing: 2px; }
-        h2 { color: #fff; font-size: 28px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
-        .subtitle { color: #aaa; font-size: 16px; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
+        h1 { color: var(--neon); font-size: 48px; text-shadow: 0 0 20px var(--neon); margin: 0 0 5px 0; text-align: center; letter-spacing: 2px; }
+        h2 { color: #fff; font-size: 26px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
+        .subtitle { color: #aaa; font-size: 14px; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
         
-        /* УМЕНЬШЕННЫЕ КНОПКИ МЕНЮ */
         .btn {
             background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000;
-            border: none; border-radius: 8px; padding: 12px 30px; font-size: 20px; 
-            font-family: inherit; cursor: pointer; box-shadow: 0 5px 0 #005a47; transition: transform 0.1s; margin: 6px; text-align: center;
-            text-transform: uppercase; position: relative; z-index: 30; width: 100%; max-width: 280px;
+            border: none; border-radius: 8px; padding: 12px 28px; font-size: 18px; 
+            font-family: inherit; cursor: pointer; box-shadow: 0 5px 0 #005a47; transition: transform 0.1s; margin: 5px; text-align: center;
+            text-transform: uppercase; position: relative; z-index: 30; width: 100%; max-width: 260px;
         }
         .btn:active { transform: translateY(5px); box-shadow: 0 0 0 #005a47; }
-        .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 5px 0 #111; font-size: 16px; padding: 10px 20px; }
+        .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 5px 0 #111; font-size: 14px; padding: 10px 18px; }
         .btn-secondary:active { box-shadow: 0 0 0 #111; }
-        .btn-danger { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; box-shadow: 0 5px 0 #800000; font-size: 14px; padding: 8px 16px; max-width: 200px; }
+        .btn-danger { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; box-shadow: 0 5px 0 #800000; font-size: 13px; padding: 8px 16px; max-width: 200px; }
         .btn-danger:active { box-shadow: 0 0 0 #800000; }
 
         /* Мобильное управление */
@@ -109,52 +108,57 @@
         #cmd-art { max-width: 100px; max-height: 100px; border-radius: 8px; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); box-shadow: 0 0 10px #00ff41; border: 2px solid #00ff41; }
 
         /* МАГАЗИН И АЧИВКИ */
-        .shop-balance { font-size: 24px; color: #FFD700; margin-bottom: 15px; text-shadow: 0 0 10px #FFD700; text-align: center; }
+        .shop-balance { font-size: 22px; color: #FFD700; margin-bottom: 15px; text-shadow: 0 0 10px #FFD700; text-align: center; }
         #shop-items, #ach-items { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; max-width: 700px; margin-bottom: 15px; }
-        .shop-item, .ach-item { display: flex; flex-direction: column; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; border: 2px solid rgba(0, 255, 204, 0.2); width: 160px; text-align: center; }
-        .shop-item-title, .ach-item-title { color: #fff; font-size: 16px; margin-bottom: 5px; }
-        .shop-buy-btn, .ach-btn { background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; border: none; border-radius: 6px; padding: 8px 15px; font-size: 14px; font-family: inherit; cursor: pointer; box-shadow: 0 3px 0 #b37400; width: 100%; margin-top: 8px; }
+        .shop-item, .ach-item { display: flex; flex-direction: column; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; border: 2px solid rgba(0, 255, 204, 0.2); width: 150px; text-align: center; }
+        .shop-item-title, .ach-item-title { color: #fff; font-size: 15px; margin-bottom: 5px; }
+        .shop-buy-btn, .ach-btn { background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; border: none; border-radius: 6px; padding: 8px 12px; font-size: 13px; font-family: inherit; cursor: pointer; box-shadow: 0 3px 0 #b37400; width: 100%; margin-top: 8px; }
         .shop-buy-btn:active, .ach-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #b37400; }
         .shop-buy-btn:disabled, .ach-btn:disabled { background: #444; color: #888; box-shadow: 0 3px 0 #222; transform: none; pointer-events: none; }
         .shop-buy-btn.equipped { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
         .ach-btn.claimed { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
         
         /* ========================================= */
-        /* НОВАЯ ПЛАВАЮЩАЯ АДМИНКА (В СТИЛЕ CELESTIAL) */
+        /* ПЛАВАЮЩАЯ АДМИНКА (С УЛУЧШЕННЫМ RGB) */
         /* ========================================= */
+        
+        /* Бэкдроп - блокирует клики за админкой */
+        #admin-backdrop {
+            position: absolute; inset: 0; z-index: 998;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
         #floating-admin {
-            position: absolute; top: 50px; left: 50px; z-index: 1000;
-            width: 600px; max-width: 95%; height: 380px;
-            background: #0f0f13;
-            border-radius: 12px;
-            display: none; /* Скрыта по умолчанию */
-            flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Шрифт как в читах */
+            position: absolute; top: 50px; left: 50px; z-index: 999;
+            width: 580px; max-width: calc(100% - 20px); height: 380px;
+            display: none; flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
-            overflow: hidden;
+            border-radius: 12px;
+            /* КРАСИВАЯ RGB РАМКА (ВИДИМАЯ) */
+            border: 4px solid transparent;
+            background: 
+                linear-gradient(#0f0f13, #0f0f13) padding-box,
+                linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000) border-box;
+            background-size: 100% 100%, 400% 100%;
+            animation: rgbBorder 4s linear infinite, rgbGlow 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(255,0,128,0.5), 0 10px 40px rgba(0,0,0,0.8);
+        }
+        @keyframes rgbBorder {
+            0% { background-position: 0% 0%, 0% 50%; }
+            100% { background-position: 0% 0%, 400% 50%; }
+        }
+        @keyframes rgbGlow {
+            0% { box-shadow: 0 0 15px rgba(255,0,128,0.5), 0 10px 40px rgba(0,0,0,0.8); }
+            100% { box-shadow: 0 0 30px rgba(0,255,255,0.6), 0 10px 40px rgba(0,0,0,0.8); }
         }
         
-        /* RGB АНИМИРОВАННАЯ РАМКА */
-        #floating-admin::before {
-            content: '';
-            position: absolute; inset: -3px; z-index: -1;
-            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-            background-size: 400%;
-            border-radius: 15px;
-            animation: glowing 20s linear infinite;
-        }
-        @keyframes glowing {
-            0% { background-position: 0 0; }
-            50% { background-position: 400% 0; }
-            100% { background-position: 0 0; }
-        }
-        
-        /* ВНУТРЕННЯЯ ЧАСТЬ (ЧТОБЫ БЫЛ ВИДЕН ФОН) */
         .adm-inner {
-            background: rgba(10, 10, 15, 0.95);
+            background: rgba(10, 10, 15, 0.98);
             width: 100%; height: 100%;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex; flex-direction: column;
             overflow: hidden;
             backdrop-filter: blur(10px);
@@ -166,26 +170,39 @@
             cursor: grab;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: #fff; font-weight: bold; font-size: 14px;
+            color: #fff; font-weight: bold; font-size: 13px;
             letter-spacing: 2px;
+            touch-action: none;
+            flex-shrink: 0;
         }
         .adm-header-drag:active { cursor: grabbing; }
-        #adm-close-btn { background: none; border: none; color: #ff4444; font-size: 18px; cursor: pointer; font-weight: bold; }
+        .adm-hdr-btn {
+            background: none; border: none; font-size: 16px; cursor: pointer;
+            padding: 0; width: 24px; height: 24px; display: flex;
+            align-items: center; justify-content: center;
+            transition: transform 0.2s; color: #fff;
+        }
+        .adm-hdr-btn:hover { transform: scale(1.2); }
+        #adm-close-btn { color: #ff4444; font-weight: bold; }
+        #adm-min-btn { color: #00ffcc; }
+
+        /* Свернутое состояние */
+        #floating-admin.collapsed { height: auto; }
+        #floating-admin.collapsed .adm-body { display: none; }
 
         .adm-body {
             display: flex; flex: 1; overflow: hidden;
         }
 
-        /* ЛЕВОЕ МЕНЮ (ВКЛАДКИ) */
         .adm-sidebar {
-            width: 140px; background: rgba(0,0,0,0.3);
+            width: 130px; background: rgba(0,0,0,0.3);
             border-right: 1px solid rgba(255,255,255,0.05);
             display: flex; flex-direction: column; padding: 10px 0;
-            overflow-y: auto;
+            overflow-y: auto; flex-shrink: 0;
         }
         .adm-tab-btn {
             background: none; border: none; color: #888;
-            padding: 12px 15px; text-align: left; font-size: 14px;
+            padding: 10px 12px; text-align: left; font-size: 13px;
             cursor: pointer; transition: all 0.2s; font-family: inherit;
             border-left: 3px solid transparent;
         }
@@ -195,24 +212,22 @@
             background: rgba(0, 255, 204, 0.1); font-weight: bold;
         }
 
-        /* ПРАВАЯ ЧАСТЬ (КОНТЕНТ) */
         .adm-content {
-            flex: 1; padding: 15px; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 10px;
+            flex: 1; padding: 12px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 8px;
         }
         
-        .adm-tab-content { display: none; flex-direction: column; gap: 10px; }
+        .adm-tab-content { display: none; flex-direction: column; gap: 8px; }
         .adm-tab-content.active { display: flex; }
 
-        /* ЭЛЕМЕНТЫ УПРАВЛЕНИЯ (КАК В ЧИТАХ) */
         .adm-item {
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255,255,255,0.03); padding: 10px 15px;
+            background: rgba(255,255,255,0.03); padding: 8px 12px;
             border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);
         }
-        .adm-item-label { color: #ccc; font-size: 13px; }
+        .adm-item-label { color: #ccc; font-size: 12px; }
         
-        /* ТУМБЛЕРЫ (SWITCH) */
+        /* ТУМБЛЕРЫ */
         .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
@@ -227,7 +242,6 @@
         input:checked + .slider { background-color: #00ffcc; }
         input:checked + .slider:before { transform: translateX(20px); }
 
-        /* КНОПКИ ДЕЙСТВИЙ */
         .adm-action-btn {
             background: rgba(255,255,255,0.1); color: #fff;
             border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
@@ -237,35 +251,41 @@
         .adm-action-btn:hover { background: rgba(0,255,204,0.2); border-color: #00ffcc; color: #00ffcc; }
         .adm-action-btn:active { transform: scale(0.95); }
 
-        /* ВВОД ЧИСЕЛ */
         .adm-input {
             background: #000; border: 1px solid #444; color: #fff;
-            padding: 5px; border-radius: 4px; width: 80px;
+            padding: 5px; border-radius: 4px; width: 70px;
             font-size: 12px; outline: none;
         }
         .adm-input:focus { border-color: #00ffcc; }
 
+        /* Бейдж "ADMIN" в HUD */
+        #admin-badge {
+            background: rgba(255,0,85,0.2); border-color: #ff0055; color: #ff0055;
+            cursor: pointer; pointer-events: auto; display: none;
+            font-weight: bold; letter-spacing: 1px;
+        }
+        #admin-badge:hover { background: rgba(255,0,85,0.4); }
+        
         @media (max-width: 600px) {
-            h1 { font-size: 36px; } h2 { font-size: 22px; }
-            .subtitle { font-size: 14px; }
-            .hud-item { font-size: 14px; padding: 5px 8px; gap: 4px; }
-            .hud-icon { width: 16px; height: 16px; }
-            .hud-btn { width: 34px; height: 34px; }
-            .hud-btn svg { width: 16px; height: 16px; }
-            .btn { font-size: 16px; padding: 10px 20px; max-width: 240px; }
+            h1 { font-size: 32px; } h2 { font-size: 20px; }
+            .subtitle { font-size: 12px; }
+            .hud-item { font-size: 13px; padding: 5px 8px; gap: 4px; }
+            .hud-icon { width: 14px; height: 14px; }
+            .hud-btn { width: 32px; height: 32px; }
+            .hud-btn svg { width: 14px; height: 14px; }
+            .btn { font-size: 15px; padding: 10px 18px; max-width: 220px; }
             #game-over-screen { padding: 20px 10px; }
-            #terminal { font-size: 14px; }
-            .term-btn { font-size: 14px; padding: 8px 12px; }
+            #terminal { font-size: 13px; }
+            .term-btn { font-size: 13px; padding: 8px 12px; }
             #cmd-art { max-width: 70px; max-height: 70px; }
             .shop-item, .ach-item { width: 45%; padding: 8px; }
-            .shop-item-title, .ach-item-title { font-size: 13px; }
-            .shop-buy-btn, .ach-btn { font-size: 12px; padding: 6px 8px; }
+            .shop-item-title, .ach-item-title { font-size: 12px; }
+            .shop-buy-btn, .ach-btn { font-size: 11px; padding: 6px 8px; }
             
-            /* Мобильная админка */
-            #floating-admin { width: 95%; height: 400px; left: 2.5%; top: 20px; }
+            #floating-admin { width: calc(100% - 20px); left: 10px; top: 20px; height: 380px; }
             .adm-sidebar { width: 100px; }
-            .adm-tab-btn { font-size: 12px; padding: 10px 8px; }
-            .adm-item { padding: 8px; flex-direction: column; align-items: flex-start; gap: 8px; }
+            .adm-tab-btn { font-size: 11px; padding: 8px 8px; }
+            .adm-item { padding: 6px 8px; flex-direction: column; align-items: flex-start; gap: 6px; }
             .adm-item > div { width: 100%; display: flex; justify-content: space-between; align-items: center; }
         }
     </style>
@@ -274,15 +294,20 @@
     <div id="game-container">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-        <!-- НОВАЯ ПЛАВАЮЩАЯ АДМИНКА -->
+        <!-- БЭКДРОП АДМИНКИ -->
+        <div id="admin-backdrop"></div>
+
+        <!-- ПЛАВАЮЩАЯ АДМИНКА -->
         <div id="floating-admin">
             <div class="adm-inner">
                 <div class="adm-header-drag" id="adm-drag-handle">
-                    <span>KOTOZAYAC ADMIN</span>
-                    <button id="adm-close-btn">✖</button>
+                    <span id="adm-title">KOTOZAYAC ADMIN</span>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <button id="adm-min-btn" class="adm-hdr-btn">▼</button>
+                        <button id="adm-close-btn" class="adm-hdr-btn">✖</button>
+                    </div>
                 </div>
                 <div class="adm-body">
-                    <!-- Левое меню -->
                     <div class="adm-sidebar">
                         <button class="adm-tab-btn active" data-target="tab-player">👤 Игрок</button>
                         <button class="adm-tab-btn" data-target="tab-spawn">📦 Спавн</button>
@@ -290,19 +315,17 @@
                         <button class="adm-tab-btn" data-target="tab-chaos">🔥 Хаос</button>
                         <button class="adm-tab-btn" data-target="tab-debug">🛠 Дебаг</button>
                     </div>
-                    <!-- Контент -->
                     <div class="adm-content">
-                        <!-- Игрок -->
                         <div id="tab-player" class="adm-tab-content active">
                             <div class="adm-item">
                                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                                    <span class="adm-item-label">Бессмертие (God Mode)</span>
+                                    <span class="adm-item-label">Бессмертие</span>
                                     <label class="switch"><input type="checkbox" id="tog-god"><span class="slider"></span></label>
                                 </div>
                             </div>
                             <div class="adm-item">
                                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                                    <span class="adm-item-label">Магнит (9999 сек)</span>
+                                    <span class="adm-item-label">Магнит (9999с)</span>
                                     <button class="adm-action-btn" onclick="player.magnetTimer = 9999">ВКЛ</button>
                                 </div>
                             </div>
@@ -314,7 +337,7 @@
                             </div>
                             <div class="adm-item">
                                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                                    <span class="adm-item-label">Добавить Монеты</span>
+                                    <span class="adm-item-label">Монеты</span>
                                     <div style="display:flex; gap:5px;">
                                         <input type="number" id="adm-coins-input" class="adm-input" value="1000">
                                         <button class="adm-action-btn" onclick="coins += parseInt(document.getElementById('adm-coins-input').value)||0; updateCoinUI(); saveData();">+</button>
@@ -323,7 +346,6 @@
                             </div>
                         </div>
 
-                        <!-- Спавн -->
                         <div id="tab-spawn" class="adm-tab-content">
                             <div class="adm-item"><div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
                                 <button class="adm-action-btn" onclick="admSpawn('carrot')">🥕 Морковь</button>
@@ -341,7 +363,6 @@
                             </div>
                         </div>
 
-                        <!-- Мир -->
                         <div id="tab-world" class="adm-tab-content">
                             <div class="adm-item">
                                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
@@ -355,16 +376,14 @@
                             </div>
                         </div>
 
-                        <!-- Хаос -->
                         <div id="tab-chaos" class="adm-tab-content">
                             <div class="adm-item"><div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
                                 <button class="adm-action-btn" onclick="chaosCatRain()">Котопад</button>
                                 <button class="adm-action-btn" onclick="chaosRain()">Дождь</button>
-                                <button class="adm-action-btn" onclick="triggerDeathAnimation()">Fake GameOver</button>
+                                <button class="adm-action-btn" onclick="triggerDeathAnimation()">Fake GO</button>
                             </div></div>
                         </div>
 
-                        <!-- Дебаг -->
                         <div id="tab-debug" class="adm-tab-content">
                             <div class="adm-item">
                                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
@@ -374,7 +393,7 @@
                             </div>
                             <div class="adm-item">
                                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                                    <span class="adm-item-label">Показывать Хитбоксы</span>
+                                    <span class="adm-item-label">Хитбоксы</span>
                                     <label class="switch"><input type="checkbox" id="tog-hitbox" onchange="debugHitboxes = this.checked"><span class="slider"></span></label>
                                 </div>
                             </div>
@@ -394,6 +413,8 @@
                 <span id="clock-msk">00:00</span>
             </div>
 
+            <div class="hud-item" id="admin-badge" onclick="openAdmin()">⚙ ADMIN</div>
+
             <div style="flex:1"></div>
             
             <button id="btn-mute" class="hud-btn" title="Звук">
@@ -409,7 +430,6 @@
             <button id="btn-play" class="btn">ПРЫЖОК В КУБЫ</button>
             <button id="shop-btn" class="btn" style="background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; box-shadow: 0 5px 0 #b37400;">🛒 МАГАЗИН</button>
             <button id="ach-btn" class="btn" style="background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000; box-shadow: 0 5px 0 #005a47;">🏆 АЧИВКИ</button>
-            <button id="btn-admin-link" class="btn btn-danger" style="display: none; background: linear-gradient(180deg, #ff0055, #cc0044); box-shadow: 0 5px 0 #80002a;">⚙️ АДМИН</button>
             <button id="btn-reset-all" class="btn btn-danger">СБРОСИТЬ ВСЁ</button>
         </div>
 
@@ -452,32 +472,58 @@
     </div>
 
     <script>
-        // ============ ПРОВЕРКА ССЫЛКИ НА АДМИНКУ ============
+        // ============ ПРОВЕРКА ССЫЛКИ ============
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('id') === '1') {
-            document.getElementById('btn-admin-link').style.display = 'block';
+            document.getElementById('admin-badge').style.display = 'flex';
         }
 
-        // ============ ПЛАВАЮЩЕЕ ОКНО АДМИНКИ ============
+        // ============ АДМИНКА ОТКРЫТИЕ/ЗАКРЫТИЕ ============
         const adminWindow = document.getElementById('floating-admin');
+        const adminBackdrop = document.getElementById('admin-backdrop');
+
+        window.openAdmin = function() {
+            if (typeof Sound !== 'undefined') Sound.sfx.click();
+            adminBackdrop.style.display = 'block';
+            adminWindow.style.display = 'flex';
+        };
+
+        window.closeAdmin = function() {
+            if (typeof Sound !== 'undefined') Sound.sfx.click();
+            adminBackdrop.style.display = 'none';
+            adminWindow.style.display = 'none';
+        };
+
+        document.getElementById('adm-close-btn').addEventListener('click', closeAdmin);
+        adminBackdrop.addEventListener('click', closeAdmin);
+
+        // Свернуть / Развернуть
+        function toggleMinimize() {
+            const isCollapsed = adminWindow.classList.toggle('collapsed');
+            document.getElementById('adm-min-btn').textContent = isCollapsed ? '▲' : '▼';
+            if (typeof Sound !== 'undefined') Sound.sfx.click();
+            if (isCollapsed) {
+                // Сдвигаем к верху при сворачивании
+                adminWindow.style.top = '10px';
+                adminWindow.style.left = '10px';
+            }
+        }
+        document.getElementById('adm-min-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMinimize();
+        });
+
+        // ============ ПЕРЕТАСКИВАНИЕ + СВАЙП ============
         const dragHandle = document.getElementById('adm-drag-handle');
         let isDragging = false, offsetX = 0, offsetY = 0;
+        let dragStartX = 0, dragStartY = 0, dragStartTime = 0;
 
-        // Открытие/Закрытие
-        document.getElementById('btn-admin-link').addEventListener('click', () => {
-            Sound.sfx.click();
-            document.getElementById('hub-screen').classList.add('hidden');
-            adminWindow.style.display = 'flex';
-        });
-        document.getElementById('adm-close-btn').addEventListener('click', () => {
-            Sound.sfx.click();
-            adminWindow.style.display = 'none';
-            document.getElementById('hub-screen').classList.remove('hidden');
-        });
-
-        // Логика перетаскивания (Мышь + Тач)
         dragHandle.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('.adm-hdr-btn')) return;
             isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            dragStartTime = Date.now();
             offsetX = e.clientX - adminWindow.getBoundingClientRect().left;
             offsetY = e.clientY - adminWindow.getBoundingClientRect().top;
             dragHandle.setPointerCapture(e.pointerId);
@@ -487,34 +533,46 @@
             if (!isDragging) return;
             let newX = e.clientX - offsetX;
             let newY = e.clientY - offsetY;
-            
-            // Ограничиваем, чтобы не улетело за экран
             const rect = adminWindow.getBoundingClientRect();
             if (newX < 0) newX = 0;
             if (newY < 0) newY = 0;
             if (newX + rect.width > window.innerWidth) newX = window.innerWidth - rect.width;
             if (newY + rect.height > window.innerHeight) newY = window.innerHeight - rect.height;
-
             adminWindow.style.left = newX + 'px';
             adminWindow.style.top = newY + 'px';
         });
 
-        dragHandle.addEventListener('pointerup', () => { isDragging = false; });
+        dragHandle.addEventListener('pointerup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            const totalTime = Date.now() - dragStartTime;
+            const dy = e.clientY - dragStartY;
+            const dx = e.clientX - dragStartX;
+            const isQuick = totalTime < 400;
+            const isVertical = Math.abs(dy) > 80 && Math.abs(dx) < 25;
+            
+            if (isQuick && isVertical) {
+                if (dy > 0 && !adminWindow.classList.contains('collapsed')) {
+                    toggleMinimize();
+                } else if (dy < 0 && adminWindow.classList.contains('collapsed')) {
+                    toggleMinimize();
+                }
+            }
+        });
         dragHandle.addEventListener('pointercancel', () => { isDragging = false; });
 
-        // Переключение вкладок
+        // Вкладки
         document.querySelectorAll('.adm-tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.adm-tab-btn').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.adm-tab-content').forEach(c => c.classList.remove('active'));
-                
                 btn.classList.add('active');
                 document.getElementById(btn.dataset.target).classList.add('active');
-                Sound.sfx.click();
+                if (typeof Sound !== 'undefined') Sound.sfx.click();
             });
         });
 
-        // Привязка тумблера God Mode
+        // Год мод
         document.getElementById('tog-god').addEventListener('change', function() {
             godMode = this.checked;
             if(godMode && gameState === 'playing') lives = 999;
@@ -532,7 +590,6 @@
             const now = new Date();
             const mskOffset = 3 * 60 * 60 * 1000; 
             const mskTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + mskOffset);
-            
             const hours = mskTime.getHours();
             const minutes = mskTime.getMinutes();
             const seconds = mskTime.getSeconds();
@@ -549,7 +606,6 @@
             else if (month >= 5 && month <= 7) currentSeason = 'summer';
             else currentSeason = 'autumn';
         }
-        
         setInterval(updateMoscowClock, 1000);
         updateMoscowClock(); 
 
@@ -627,7 +683,7 @@
         let coins = 0, shopItems = {}, activeSkin = 'classic', achievements = {}, totalCarrots = 0, totalDeaths = 0;
 
         const SHOP_CONFIG = [
-            { id: 'extraLife', type: 'upg', name: 'Доп. Сердце', desc: 'Начинать с 4 жизнями', price: 500 },
+            { id: 'extraLife', type: 'upg', name: 'Доп. Сердце', desc: 'Старт с 4 жизнями', price: 500 },
             { id: 'slowStart', type: 'upg', name: 'Замедление', desc: 'Старт легче', price: 300 },
             { id: 'classic', type: 'skin', name: 'Классика', desc: 'Обычный заяц', price: 0 },
             { id: 'mafia', type: 'skin', name: 'Мафиозо', desc: 'С сигарой', price: 1000 },
@@ -641,7 +697,7 @@
             { id: 'eat50', name: 'Обжора', desc: 'Съешь 50 морковок', reward: 500, cond: () => totalCarrots >= 50 },
             { id: 'die10', name: 'Мазохист', desc: 'Умри 10 раз', reward: 500, cond: () => totalDeaths >= 10 },
             { id: 'score1000', name: 'Профи', desc: 'Набери 1000 очков', reward: 1000, cond: () => bestScore >= 1000 },
-            { id: 'boss1', name: 'Убийца Морковок', desc: 'Убей первого босса', reward: 1500, cond: () => achievements['boss1'] === true } 
+            { id: 'boss1', name: 'Убийца', desc: 'Убей босса', reward: 1500, cond: () => achievements['boss1'] === true } 
         ];
 
         function loadData() {
@@ -686,7 +742,7 @@
                 else { if (coins < item.price) isDisabled = true; }
 
                 const card = document.createElement('div'); card.className = 'shop-item';
-                card.innerHTML = `<div class="shop-item-title">${item.name}</div><div style="font-size:12px; color:#888; margin-bottom:10px;">${item.desc}</div>
+                card.innerHTML = `<div class="shop-item-title">${item.name}</div><div style="font-size:11px; color:#888; margin-bottom:5px;">${item.desc}</div>
                     <button class="shop-buy-btn ${btnClass}" id="btn-${item.id}" ${isDisabled ? 'disabled' : ''}>${btnText}</button>`;
                 container.appendChild(card);
                 
@@ -708,7 +764,7 @@
                 else if (isCompleted) { btnText = 'ЗАБРАТЬ ' + item.reward + ' 🥕'; btnClass = ''; isDisabled = false; }
                 
                 const card = document.createElement('div'); card.className = 'ach-item';
-                card.innerHTML = `<div class="ach-item-title">${item.name}</div><div style="font-size:12px; color:#888; margin-bottom:10px;">${item.desc}</div>
+                card.innerHTML = `<div class="ach-item-title">${item.name}</div><div style="font-size:11px; color:#888; margin-bottom:5px;">${item.desc}</div>
                     <button class="ach-btn ${btnClass}" id="ach-${item.id}" ${isDisabled ? 'disabled' : ''}>${btnText}</button>`;
                 container.appendChild(card);
                 
@@ -740,7 +796,7 @@
 
         const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
         
-        // ВАЖНО: player.y - это НИЗ (ноги) персонажа!
+        // player.y - это НИЗ (ноги)
         const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0, magnetTimer: 0, hasShield: false };
 
         const IMAGES = { classic: { idle: new Image(), jump: new Image(), hit: new Image() }, mafia: { idle: new Image(), jump: new Image(), hit: new Image() }, cosmos: { idle: new Image(), jump: new Image(), hit: new Image() }, coca: { idle: new Image(), jump: new Image(), hit: new Image() }, sushi: { idle: new Image(), jump: new Image(), hit: new Image() }, pancakes: { idle: new Image(), jump: new Image(), hit: new Image() } };
@@ -801,25 +857,25 @@
         document.getElementById('game-over-screen').addEventListener('click', (e) => { if (e.target.id === 'game-over-screen' && gameState === 'gameover') restartGame(); });
 
         // ===== ФУНКЦИИ АДМИНКИ =====
-        function admSpawn(type) {
+        window.admSpawn = function(type) {
             if (gameState !== 'playing') { alert('Сначала запусти игру!'); return; }
             objects.push({ x: Math.random() * (W - 40), y: -40, width: 40, height: 40, speed: 3, type: type, wobble: 0 });
         }
 
-        function admSpawnBoss() {
+        window.admSpawnBoss = function() {
             if (gameState !== 'playing') { alert('Сначала запусти игру!'); return; }
-            boss = { x: W/2 - 100, y: -200, width: 200, height: 200, hp: 3, timer: 0, dir: 1 };
+            boss = { x: W/2 - 100, y: -250, width: 200, height: 200, hp: 3, timer: 0, dir: 1, entering: true };
             Sound.music.stop(); Sound.sfx.bossHit();
         }
 
-        function chaosCatRain() {
+        window.chaosCatRain = function() {
             if (gameState !== 'playing') return;
             for(let i=0; i<50; i++) {
                 particles.push({ x: Math.random() * W, y: -100 - Math.random()*200, vx: (Math.random()-0.5)*2, vy: 2+Math.random()*4, life: 3, decay: 0.005, color: '#fff', size: 10+Math.random()*20 });
             }
         }
 
-        function chaosRain() {
+        window.chaosRain = function() {
             if (gameState !== 'playing') return;
             for(let i=0; i<100; i++) {
                 weather.push({ x: Math.random() * W, y: -Math.random()*H, size: 4, speed: 10, drift: 0 });
@@ -893,7 +949,6 @@
                     ctx.strokeStyle = 'red'; ctx.lineWidth = 2;
                     ctx.strokeRect(-obj.width/2, -obj.height/2, obj.width, obj.height);
                 }
-                
                 ctx.restore();
             }
         }
@@ -909,10 +964,9 @@
 
             const bob = player.onGround ? Math.sin(frames * 0.1) * 3 : 0;
             const px = player.x;
-            const py = player.y - player.height + bob; // ВЕРХ игрока!
+            const py = player.y - player.height + bob;
             const w = player.width, h = player.height;
 
-            // Тень (под ногами, т.е. на player.y)
             ctx.fillStyle = 'rgba(0,0,0,0.3)';
             ctx.beginPath(); ctx.ellipse(px + w/2, player.y + 5, w/2.5 * player.squash, 8 * player.stretch, 0, 0, Math.PI*2); ctx.fill();
 
@@ -943,7 +997,6 @@
                 ctx.strokeStyle = 'lime'; ctx.lineWidth = 2;
                 ctx.strokeRect(px, py, w, h);
             }
-            
             ctx.restore();
         }
 
@@ -995,7 +1048,7 @@
                 deathTimer += dt * 60;
                 if (giantCarrot) {
                     giantCarrot.y += giantCarrot.vy * dt * 60;
-                    if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) { // Врезается в голову (низ - 30)
+                    if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
                         giantCarrot.y = player.y - 30 - giantCarrot.height/2; giantCarrot = null;
                         screenShake = 30; flash = 1; Sound.sfx.smash(); spawnParticles(player.x + player.width/2, player.y - 20, ['#5c4a3d','#ff4444','#3a4b22'], 40);
                         setTimeout(() => { if(gameState === 'dying') gameOver(); }, 1000);
@@ -1033,10 +1086,10 @@
             if (player.magnetTimer > 0) player.magnetTimer -= dt;
 
             if (Math.random() < 0.1) {
-                let color = 'white', size = 2, speed = 2;
-                if (currentSeason === 'autumn') { color = '#ff8c00'; size = 4; speed = 3; }
-                else if (currentSeason === 'spring') { color = '#ffb6c1'; size = 3; speed = 2.5; }
-                else if (currentSeason === 'winter') { color = 'white'; size = 3; speed = 4; }
+                let size = 2, speed = 2;
+                if (currentSeason === 'autumn') { size = 4; speed = 3; }
+                else if (currentSeason === 'spring') { size = 3; speed = 2.5; }
+                else if (currentSeason === 'winter') { size = 3; speed = 4; }
                 weather.push({ x: Math.random() * W, y: -10, size: size, speed: speed, drift: (Math.random()-0.5)*2 });
             }
             for (let i = weather.length - 1; i >= 0; i--) {
@@ -1044,21 +1097,27 @@
                 if (w.y > H) weather.splice(i, 1);
             }
 
+            // БОСС
             if (score >= nextBossScore && !boss && gameState === 'playing') {
-                boss = { x: W/2 - 100, y: -200, width: 200, height: 200, hp: 3, timer: 0, dir: 1 };
+                boss = { x: W/2 - 100, y: -250, width: 200, height: 200, hp: 3, timer: 0, dir: 1, entering: true };
                 Sound.music.stop(); Sound.sfx.bossHit();
             }
 
             if (boss) {
-                boss.x += 3 * boss.dir * dt * 60;
-                if (boss.x > W - boss.width) boss.dir = -1;
-                if (boss.x < 0) boss.dir = 1;
-                
-                boss.timer += dt * 60;
-                if (boss.timer > 90) {
-                    boss.timer = 0;
-                    objects.push({ x: boss.x + boss.width/2 - 20, y: boss.y + boss.height, width: 40, height: 40, speed: 6, type: 'rotten', wobble: 0 });
-                    Sound.sfx.hit();
+                if (boss.entering) {
+                    boss.y += 4 * dt * 60;
+                    if (boss.y >= 150) { boss.y = 150; boss.entering = false; }
+                } else {
+                    boss.x += 3 * boss.dir * dt * 60;
+                    if (boss.x > W - boss.width) boss.dir = -1;
+                    if (boss.x < 0) boss.dir = 1;
+                    
+                    boss.timer += dt * 60;
+                    if (boss.timer > 90) {
+                        boss.timer = 0;
+                        objects.push({ x: boss.x + boss.width/2 - 20, y: boss.y + boss.height, width: 40, height: 40, speed: 6, type: 'rotten', wobble: 0 });
+                        Sound.sfx.hit();
+                    }
                 }
             }
 
@@ -1081,7 +1140,6 @@
                     obj.wobble += 0.1 * dt * 60;
                 }
 
-                // КОЛЛИЗИЯ С УЧЕТОМ ТОГО, ЧТО player.y ЭТО НИЗ
                 const hit = player.x < obj.x + obj.width && 
                             player.x + player.width > obj.x && 
                             player.y - player.height < obj.y + obj.height && 
@@ -1126,14 +1184,13 @@
                 if (obj.y > H + 20) { objects.splice(i, 1); }
             }
 
-            if (boss) {
+            if (boss && !boss.entering) {
                 const hitBoss = player.x < boss.x + boss.width && 
                                 player.x + player.width > boss.x && 
                                 player.y - player.height < boss.y + boss.height && 
                                 player.y > boss.y;
                 
                 if (hitBoss) {
-                    // Прыжок на голову
                     if (player.vy > 0 && player.y - player.height < boss.y + boss.height / 2) {
                         boss.hp--;
                         player.vy = -12; 
@@ -1245,7 +1302,6 @@
             player.magnetTimer = 0; player.hasShield = false;
             Sound.BPM = 115;
             
-            // ВАЖНО: y = GROUND_Y, то есть ноги на уровне земли!
             player.x = W/2 - player.width/2; player.y = GROUND_Y; player.vy = 0; player.onGround = true; player.squash = 1; player.stretch = 1;
             
             scoreEl.innerText = '0'; livesEl.innerText = lives;
@@ -1297,7 +1353,6 @@
 
             if (flash > 0) { ctx.fillStyle = `rgba(255,40,40,${flash * 0.6})`; ctx.fillRect(0, 0, W, H); }
             
-            // ДЕБАГ FPS
             if (debugFPS) {
                 ctx.fillStyle = 'lime'; ctx.font = '16px monospace'; ctx.textAlign = 'left';
                 ctx.fillText(`FPS: ${Math.round(1/dt)}`, 10, 30);
@@ -1317,4 +1372,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-    </html>
+</html>
