@@ -113,7 +113,6 @@
         .shop-buy-btn.equipped { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
         .ach-btn.claimed { background: #00ffcc; box-shadow: 0 3px 0 #005a47; color: #000; }
         
-        /* ПЛАВАЮЩАЯ АДМИНКА */
         #admin-backdrop {
             position: absolute; inset: 0; z-index: 998;
             background: rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(2px);
@@ -431,13 +430,11 @@
     </div>
 
     <script>
-        // ============ ССЫЛКА НА АДМИНКУ ============
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('id') === '1') {
             document.getElementById('admin-badge').style.display = 'flex';
         }
 
-        // ============ АДМИНКА ============
         const adminWindow = document.getElementById('floating-admin');
         const adminBackdrop = document.getElementById('admin-backdrop');
 
@@ -510,7 +507,6 @@
             if(godMode && gameState === 'playing') lives = 999;
         });
 
-        // ============ ВРЕМЯ ============
         let isNight = false, currentSeason = 'summer';
         let forceTime = null, godMode = false, debugFPS = false, debugHitboxes = false;
 
@@ -531,7 +527,6 @@
         setInterval(updateMoscowClock, 1000);
         updateMoscowClock(); 
 
-        // ============ ЗВУК ============
         const Sound = {
             ctx: null, master: null, musicGain: null, sfxGain: null, noiseBuffer: null, muted: false,
             musicVolume: 0.3, sfxVolume: 0.6, musicPlaying: false, musicTimer: null, nextNoteTime: 0, step: 0, BPM: 115,
@@ -571,31 +566,21 @@
                 buy() { Sound.tone({freq: 880, type: 'sine', dur: 0.1, vol: 0.1}); Sound.tone({freq: 1200, type: 'sine', dur: 0.3, vol: 0.1, delay: 0.1}); },
                 drop() { Sound.tone({freq: 600, type: 'sawtooth', dur: 1.5, vol: 0.15, slideTo: 100}); },
                 smash() { Sound.tone({freq: 100, type: 'square', dur: 0.5, vol: 0.3, slideTo: 20}); Sound.noise({dur: 0.4, vol: 0.3, type: 'lowpass', freq: 400}); },
-                
-                // === 4 РАЗНЫХ ЗВУКА СМЕРТИ ===
-                death0() { // Грустный тромбон
-                    [392, 370, 349, 330, 311, 294].forEach((f, i) => {
-                        Sound.tone({freq: f, type: 'sawtooth', dur: 0.28, vol: 0.13, delay: i * 0.16, filter: {type: 'lowpass', freq: 2000}});
-                    });
-                },
-                death1() { // NES Game Over
+                death0() { [392, 370, 349, 330, 311, 294].forEach((f, i) => { Sound.tone({freq: f, type: 'sawtooth', dur: 0.28, vol: 0.13, delay: i * 0.16, filter: {type: 'lowpass', freq: 2000}}); }); },
+                death1() {
                     Sound.tone({freq: 659, type: 'square', dur: 0.14, vol: 0.15});
                     Sound.tone({freq: 523, type: 'square', dur: 0.14, vol: 0.15, delay: 0.14});
                     Sound.tone({freq: 440, type: 'square', dur: 0.14, vol: 0.15, delay: 0.28});
                     Sound.tone({freq: 349, type: 'square', dur: 0.4, vol: 0.15, delay: 0.42});
                     Sound.tone({freq: 262, type: 'square', dur: 0.7, vol: 0.12, delay: 0.82});
-                    Sound.tone({freq: 131, type: 'triangle', dur: 0.7, vol: 0.1, delay: 0.82});
                 },
-                death2() { // Минорный аккорд
+                death2() {
                     Sound.tone({freq: 220.00, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05});
                     Sound.tone({freq: 261.63, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05});
                     Sound.tone({freq: 311.13, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05});
-                    Sound.tone({freq: 329.63, type: 'triangle', dur: 1.8, vol: 0.08, attack: 0.05});
                 },
-                death3() { // Глитч-спуск
-                    for (let i = 0; i < 10; i++) {
-                        Sound.tone({freq: 900 - i * 80, type: 'sawtooth', dur: 0.08, vol: 0.12, delay: i * 0.06});
-                    }
+                death3() {
+                    for (let i = 0; i < 10; i++) Sound.tone({freq: 900 - i * 80, type: 'sawtooth', dur: 0.08, vol: 0.12, delay: i * 0.06});
                     Sound.noise({dur: 0.3, vol: 0.1, type: 'lowpass', freq: 800, delay: 0.7});
                 },
                 deathJingle() {
@@ -634,7 +619,6 @@
 
         try { Sound.muted = localStorage.getItem('kotozayac_mute') === '1'; if (Sound.muted) { document.getElementById('icon-sound-on').style.display = 'none'; document.getElementById('icon-sound-off').style.display = 'block'; } } catch(e) {}
 
-        // ============ ДАННЫЕ ============
         let coins = 0, shopItems = {}, activeSkin = 'classic', achievements = {}, totalCarrots = 0, totalDeaths = 0;
 
         const SHOP_CONFIG = [
@@ -643,7 +627,6 @@
             { id: 'classic', type: 'skin', name: 'Классика', desc: 'Обычный заяц', price: 0 },
             { id: 'mafia', type: 'skin', name: 'Мафиозо', desc: 'С сигарой', price: 1000 },
             { id: 'cosmos', type: 'skin', name: 'Космонавт', desc: 'В шлеме', price: 1500 },
-            { id: 'coca', type: 'skin', name: 'Кола-бой', desc: 'С баночкой', price: 800 },
             { id: 'sushi', type: 'skin', name: 'Суши-мастер', desc: 'С лососем', price: 1200 },
             { id: 'pancakes', type: 'skin', name: 'Гурман', desc: 'С блинами', price: 900 }
         ];
@@ -731,7 +714,6 @@
             });
         }
 
-        // ============ ИГРА ============
         const canvas = document.getElementById('gameCanvas'); const ctx = canvas.getContext('2d');
         const W = canvas.width, H = canvas.height;
         const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
@@ -753,12 +735,13 @@
         const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
         const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0, magnetTimer: 0, hasShield: false };
 
-        const IMAGES = { classic: { idle: new Image(), jump: new Image(), hit: new Image() }, mafia: { idle: new Image(), jump: new Image(), hit: new Image() }, cosmos: { idle: new Image(), jump: new Image(), hit: new Image() }, coca: { idle: new Image(), jump: new Image(), hit: new Image() }, sushi: { idle: new Image(), jump: new Image(), hit: new Image() }, pancakes: { idle: new Image(), jump: new Image(), hit: new Image() } };
+        const IMAGES = { classic: { idle: new Image(), jump: new Image(), hit: new Image() }, mafia: { idle: new Image(), jump: new Image(), hit: new Image() }, cosmos: { idle: new Image(), jump: new Image(), hit: new Image() }, sushi: { idle: new Image(), jump: new Image(), hit: new Image() }, pancakes: { idle: new Image(), jump: new Image(), hit: new Image() } };
         IMAGES.classic.idle.src = 'cat.png'; IMAGES.classic.jump.src = 'cat_jump.png'; IMAGES.classic.hit.src = 'cat_hit.png';
         IMAGES.mafia.idle.src = 'cat_mafia.png'; IMAGES.mafia.jump.src = 'cat_mafia.png'; IMAGES.mafia.hit.src = 'cat_mafia.png';
         IMAGES.cosmos.idle.src = 'cat_cosmos.png'; IMAGES.cosmos.jump.src = 'cat_cosmos.png'; IMAGES.cosmos.hit.src = 'cat_cosmos.png';
-        IMAGES.coca.idle.src = 'cat_coca.png'; IMAGES.coca.jump.src = 'cat_coca.png'; IMAGES.coca.hit.src = 'cat_coca.png';
         IMAGES.sushi.idle.src = 'cat_sushi.png'; IMAGES.sushi.jump.src = 'cat_sushi.png'; IMAGES.sushi.hit.src = 'cat_sushi.png';
+        
+        // ТЕПЕРЬ ИСПОЛЬЗУЕТСЯ СТАНДАРТНОЕ ИМЯ ФАЙЛА
         IMAGES.pancakes.idle.src = 'cat_pancakes.png'; IMAGES.pancakes.jump.src = 'cat_pancakes.png'; IMAGES.pancakes.hit.src = 'cat_pancakes.png';
 
         for (let i = 0; i < 6; i++) clouds.push({ x: Math.random() * W, y: 20 + Math.random() * 150, speed: 10 + Math.random() * 20, scale: 0.4 + Math.random() * 0.6 });
@@ -893,10 +876,9 @@
         }
 
         function drawPlayer() {
-            // Пропускаем отрисовку в некоторых вариациях смерти
-            if (gameState === 'dying' && deathVariation === 1 && deathTimer > 20) return; // Испарился
-            if (gameState === 'dying' && deathVariation === 3 && deathTimer > 30) return; // Утонул в земле
-            if (gameState === 'dying' && deathVariation === 2 && deathTimer > 60) return; // Улетел
+            if (gameState === 'dying' && deathVariation === 1 && deathTimer > 20) return;
+            if (gameState === 'dying' && deathVariation === 3 && deathTimer > 30) return;
+            if (gameState === 'dying' && deathVariation === 2 && deathTimer > 60) return;
 
             for(let i=0; i<trail.length; i++) {
                 let t = trail[i]; let alpha = (i / trail.length) * 0.5 * rabbitOpacity;
@@ -911,7 +893,6 @@
             const py = player.y - player.height + bob + rabbitOffsetY;
             const w = player.width, h = player.height;
 
-            // Тень
             if (rabbitOpacity > 0.3) {
                 ctx.fillStyle = `rgba(0,0,0,${0.3 * rabbitOpacity})`;
                 ctx.beginPath(); ctx.ellipse(px + w/2, player.y + 5, w/2.5 * player.squash * rabbitScaleX, 8 * player.stretch * rabbitScaleY, 0, 0, Math.PI*2); ctx.fill();
@@ -924,29 +905,50 @@
                 ctx.shadowBlur = 0;
             }
 
-            ctx.save();
-            ctx.globalAlpha = rabbitOpacity;
-            ctx.translate(px + w/2, py + h/2); 
-            ctx.rotate(rabbitRotation);
-            ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY); 
-            ctx.translate(-(px + w/2), -(py + h/2));
-
             let currentSprite = null; const skinImgs = IMAGES[activeSkin] || IMAGES.classic;
             if (flash > 0 && skinImgs.hit.complete && skinImgs.hit.naturalWidth > 0) currentSprite = skinImgs.hit; 
             else if (!player.onGround && skinImgs.jump.complete && skinImgs.jump.naturalWidth > 0) currentSprite = skinImgs.jump; 
             else if (skinImgs.idle.complete && skinImgs.idle.naturalWidth > 0) currentSprite = skinImgs.idle; 
 
             if (currentSprite) {
-                const imgRatio = currentSprite.width / currentSprite.height; let drawW = w, drawH = h; 
-                if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
-                ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
+                if (activeSkin === 'pancakes') {
+                    // --- СПЕЦИАЛЬНАЯ ОТРИСОВКА ДЛЯ КАТ_ПАНКЕЙКС ---
+                    const scale = 0.55; 
+                    const nw = 172, nh = 211;
+                    const sw = nw * scale, sh = nh * scale;
+                    const pivotX = 86 * scale;
+                    const pivotY = 170 * scale;
+
+                    ctx.save();
+                    ctx.globalAlpha = rabbitOpacity;
+                    ctx.translate(px + w/2, player.y + rabbitOffsetY); 
+                    ctx.rotate(rabbitRotation);
+                    ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY);
+
+                    ctx.drawImage(currentSprite, -pivotX, -pivotY, sw, sh);
+                    ctx.restore();
+                } else {
+                    // --- ОБЫЧНАЯ ОТРИСОВКА ---
+                    ctx.save();
+                    ctx.globalAlpha = rabbitOpacity;
+                    ctx.translate(px + w/2, py + h/2); 
+                    ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY); 
+                    ctx.translate(-(px + w/2), -(py + h/2));
+
+                    const imgRatio = currentSprite.width / currentSprite.height; let drawW = w, drawH = h; 
+                    if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
+                    ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
+                    ctx.restore();
+                }
             } else {
+                ctx.save();
+                ctx.globalAlpha = rabbitOpacity;
                 ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h); 
                 ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
+                ctx.restore();
             }
             
             if (debugHitboxes) { ctx.strokeStyle = 'lime'; ctx.lineWidth = 2; ctx.strokeRect(px, py, w, h); }
-            ctx.restore();
         }
 
         function drawBackground() {
@@ -993,11 +995,9 @@
             for (const c of clouds) { c.x -= c.speed * dt; if (c.x < -200) { c.x = W + 200; c.y = 20 + Math.random() * 150; } }
             for (const h of hills) { h.x -= h.speed * dt; if (h.x + h.w < 0) { h.x = W + Math.random()*100; h.h = 150 + Math.random() * 100; } }
             
-            // ===== АНИМАЦИЯ СМЕРТИ =====
             if (gameState === 'dying') {
                 deathTimer += dt * 60;
                 
-                // ВАРИАЦИЯ 0: Сплющивание
                 if (deathVariation === 0) {
                     if (giantCarrot) {
                         giantCarrot.y += giantCarrot.vy * dt * 60;
@@ -1007,16 +1007,11 @@
                             giantCarrot.vy = 0;
                             screenShake = 30; flash = 1; Sound.sfx.smash();
                             spawnParticles(player.x + player.width/2, player.y - 20, ['#5c4a3d','#ff4444','#3a4b22'], 40);
-                            // Заяц расплющивается
-                            rabbitScaleY = 0.1;
-                            rabbitScaleX = 2.5;
-                            rabbitOffsetY = 30;
+                            rabbitScaleY = 0.1; rabbitScaleX = 2.5; rabbitOffsetY = 30;
                         }
                     }
                     if (deathTimer > 90) gameOver();
                 }
-                
-                // ВАРИАЦИЯ 1: Испарение
                 else if (deathVariation === 1) {
                     if (giantCarrot) {
                         giantCarrot.y += giantCarrot.vy * dt * 60;
@@ -1025,24 +1020,15 @@
                             giantCarrot.y = player.y - 30 - giantCarrot.height/2;
                             giantCarrot.vy = 0;
                             screenShake = 30; flash = 1; Sound.sfx.smash();
-                            // Заяц взрывается частицами
                             for (let i = 0; i < 50; i++) {
-                                const a = Math.random() * Math.PI * 2;
-                                const s = 3 + Math.random() * 8;
-                                particles.push({
-                                    x: player.x + player.width/2, y: player.y - player.height/2,
-                                    vx: Math.cos(a)*s, vy: Math.sin(a)*s - 3,
-                                    life: 1, decay: 0.015, color: ['#8a8a8a','#aaa','#666','#fff'][Math.floor(Math.random()*4)],
-                                    size: 4 + Math.random()*8
-                                });
+                                const a = Math.random() * Math.PI * 2, s = 3 + Math.random() * 8;
+                                particles.push({ x: player.x + player.width/2, y: player.y - player.height/2, vx: Math.cos(a)*s, vy: Math.sin(a)*s - 3, life: 1, decay: 0.015, color: ['#8a8a8a','#aaa','#666','#fff'][Math.floor(Math.random()*4)], size: 4 + Math.random()*8 });
                             }
                             rabbitOpacity = 0;
                         }
                     }
                     if (deathTimer > 60) gameOver();
                 }
-                
-                // ВАРИАЦИЯ 2: Улетает
                 else if (deathVariation === 2) {
                     if (giantCarrot) {
                         giantCarrot.y += giantCarrot.vy * dt * 60;
@@ -1051,21 +1037,15 @@
                             giantCarrot.y = player.y - 30 - giantCarrot.height/2;
                             giantCarrot.vy = 0;
                             screenShake = 25; flash = 1; Sound.sfx.smash();
-                            player.vy = -20; // Заяц подлетает
+                            player.vy = -20;
                         }
                     }
-                    // Заяц улетает вверх и падает
                     rabbitOffsetY += player.vy * dt * 60;
                     player.vy += 0.6 * dt * 60;
                     rabbitRotation += 0.15 * dt * 60;
-                    
-                    // Если заяц за пределами экрана или достиг низа - исчезает
                     if (rabbitOffsetY > 100) rabbitOpacity = Math.max(0, rabbitOpacity - 0.05 * dt * 60);
-                    
                     if (deathTimer > 100) gameOver();
                 }
-                
-                // ВАРИАЦИЯ 3: Проваливается сквозь землю
                 else if (deathVariation === 3) {
                     if (giantCarrot) {
                         giantCarrot.y += giantCarrot.vy * dt * 60;
@@ -1076,7 +1056,6 @@
                             screenShake = 20; flash = 1; Sound.sfx.smash();
                         }
                     }
-                    // Заяц тонет в земле
                     if (deathTimer > 20) {
                         rabbitOffsetY += 3 * dt * 60;
                         rabbitOpacity = Math.max(0, 1 - (rabbitOffsetY / 120));
@@ -1260,17 +1239,8 @@
         function triggerDeathAnimation() {
             if (godMode) return;
             gameState = 'dying'; deathTimer = 0; Sound.music.stop(); Sound.sfx.drop(); 
-            
-            // Выбираем случайную вариацию смерти
             deathVariation = Math.floor(Math.random() * 4);
-            
-            // Сброс анимационных переменных
-            rabbitOpacity = 1;
-            rabbitScaleX = 1;
-            rabbitScaleY = 1;
-            rabbitOffsetY = 0;
-            rabbitRotation = 0;
-            
+            rabbitOpacity = 1; rabbitScaleX = 1; rabbitScaleY = 1; rabbitOffsetY = 0; rabbitRotation = 0;
             giantCarrot = { x: player.x + player.width/2 - 100, y: -300, width: 200, height: 200, vy: 8 };
         }
 
@@ -1286,7 +1256,6 @@
             document.getElementById('cmd-art-container').style.display = 'none';
             document.getElementById('game-over-screen').classList.remove('hidden');
             
-            // Играем вариативный звук смерти
             if (isNewRecord) {
                 setTimeout(() => Sound.sfx.buy(), 300);
             } else {
@@ -1415,4 +1384,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-    </html>
+</html>
