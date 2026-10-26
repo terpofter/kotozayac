@@ -26,7 +26,7 @@
             box-shadow: 0 0 50px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0,0,0,0.8);
             overflow: hidden; background: #87CEEB;
         }
-        canvas { display: block; width: 100%; height: 100%; }
+        canvas { display: block; width: 100%; height: 100%; outline: none; }
 
         #hud {
             position: absolute; top: 15px; left: 15px; right: 15px;
@@ -64,31 +64,34 @@
         h1 { color: var(--neon); font-size: 56px; text-shadow: 0 0 20px var(--neon); margin: 0 0 5px 0; text-align: center; letter-spacing: 3px; }
         h2 { color: #fff; font-size: 28px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
         .subtitle { color: #aaa; font-size: 14px; margin-bottom: 25px; letter-spacing: 2px; text-align: center; }
-        
-        /* КНОПКИ С ИКОНКАМИ */
+
+        /* ========== НОВЫЕ КНОПКИ С РАЗНЫМИ НЕОНОВЫМИ ЦВЕТАМИ ========== */
         .btn-rgb {
-            position: relative; background: #0f0f13; color: #fff;
-            border: 3px solid transparent; background-clip: padding-box; border-radius: 8px;
-            padding: 12px 20px; font-size: 18px; font-family: inherit; cursor: pointer;
-            transition: transform 0.1s; margin: 6px; text-align: center;
+            position: relative; 
+            background: rgba(15, 15, 25, 0.85);
+            color: #fff;
+            border: 2px solid rgba(var(--neon-rgb, 0, 255, 204), 0.4); 
+            border-radius: 10px;
+            padding: 14px 20px; font-size: 18px; font-family: inherit; cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            margin: 6px; text-align: center;
             text-transform: uppercase; z-index: 30; width: 100%; max-width: 280px;
-            box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
+            box-shadow: 0 0 15px rgba(var(--neon-rgb, 0, 255, 204), 0.15), inset 0 0 10px rgba(var(--neon-rgb, 0, 255, 204), 0.1);
             display: flex; align-items: center; justify-content: center; gap: 12px;
         }
-        .btn-rgb::before {
-            content: ''; position: absolute; inset: -3px; z-index: -1;
-            background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-            background-size: 400% 100%; border-radius: 10px;
-            animation: rgbBtn 4s linear infinite;
+        .btn-rgb:hover {
+            background: rgba(var(--neon-rgb, 0, 255, 204), 0.15);
+            border-color: rgb(var(--neon-rgb, 0, 255, 204));
+            box-shadow: 0 0 25px rgba(var(--neon-rgb, 0, 255, 204), 0.5), inset 0 0 15px rgba(var(--neon-rgb, 0, 255, 204), 0.3);
+            transform: scale(1.03);
+            color: var(--neon-color, #00ffcc);
         }
-        @keyframes rgbBtn { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
-        .btn-rgb:hover { color: #00ffcc; transform: scale(1.02); }
-        .btn-rgb:active { transform: scale(0.95); }
-        .btn-rgb svg { width: 22px; height: 22px; fill: currentColor; }
+        .btn-rgb:active { transform: scale(0.97); }
+        .btn-rgb svg { width: 22px; height: 22px; fill: var(--neon-color, #00ffcc); }
         
         .btn-secondary { 
             background: linear-gradient(180deg, #444, #222); color: #fff; 
-            border: 2px solid #555; border-radius: 8px; padding: 12px 20px; 
+            border: 2px solid #555; border-radius: 10px; padding: 14px 20px; 
             font-size: 15px; font-family: inherit; cursor: pointer; 
             box-shadow: 0 5px 0 #111; margin: 6px; text-transform: uppercase; 
             width: 100%; max-width: 280px; position: relative; z-index: 30;
@@ -154,7 +157,7 @@
         .death-stat-value { color: #fff; font-size: 22px; }
         .death-stat.coin .death-stat-value { color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
 
-        /* ========== РЕДИЗАЙН КЛИКЕРА ========== */
+        /* ========== КЛИКЕР (РЕДИЗАЙН) ========== */
         #clicker-screen { background: radial-gradient(circle at 50% 30%, #2a1a1a 0%, #0f0f13 100%); }
         .clicker-container { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 500px; }
         .clicker-info { display: flex; gap: 15px; width: 100%; }
@@ -169,21 +172,22 @@
         #clicker-area {
             position: relative;
             width: 100%; max-width: 400px; height: 320px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 4px solid #FF8C00;
+            background: radial-gradient(circle at center, rgba(255, 140, 0, 0.15) 0%, rgba(0,0,0,0.4) 100%);
+            border: 3px solid #FF8C00;
             border-radius: 20px;
             display: flex; justify-content: center; align-items: center;
             cursor: pointer; overflow: hidden;
-            box-shadow: inset 0 0 40px rgba(255,140,0,0.2), 0 0 20px rgba(255,140,0,0.3);
-            transition: box-shadow 0.2s;
+            box-shadow: inset 0 0 30px rgba(255,140,0,0.2), 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.1s, box-shadow 0.2s;
         }
         #clicker-area:active {
-            box-shadow: inset 0 0 60px rgba(255,140,0,0.5), 0 0 30px rgba(255,140,0,0.6);
+            transform: scale(0.98);
+            box-shadow: inset 0 0 60px rgba(255,140,0,0.5), 0 0 20px rgba(255,140,0,0.4);
         }
         .clicker-ring {
-            position: absolute; width: 200px; height: 200px;
+            position: absolute; width: 240px; height: 240px;
             border-radius: 50%; border: 2px dashed rgba(255, 215, 0, 0.4);
-            animation: spinRing 10s linear infinite;
+            animation: spinRing 15s linear infinite;
             pointer-events: none;
         }
         @keyframes spinRing { 100% { transform: rotate(360deg); } }
@@ -191,13 +195,14 @@
         .big-carrot {
             font-size: 160px; line-height: 1;
             user-select: none; pointer-events: none;
-            filter: drop-shadow(0 15px 25px rgba(255,140,0,0.6));
-            animation: carrotFloat 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8)) drop-shadow(0 20px 20px rgba(0,0,0,0.6));
+            animation: carrotFloat 2.5s ease-in-out infinite;
             z-index: 2;
+            transition: transform 0.1s;
         }
         @keyframes carrotFloat {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+            0%, 100% { transform: translateY(0) rotate(-6deg) scale(1); }
+            50% { transform: translateY(-15px) rotate(6deg) scale(1.02); }
         }
         
         /* Частицы в кликере */
@@ -209,7 +214,7 @@
             z-index: 10;
         }
         .click-particle.crit {
-            font-size: 46px; color: #ff2020;
+            font-size: 48px; color: #ff2020;
             text-shadow: 2px 2px 0 #000, 0 0 25px #ff2020, 0 0 50px #ff2020;
         }
         @keyframes floatUpClicker {
@@ -224,7 +229,7 @@
         }
         @keyframes coinBurst {
             0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; }
+            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.5); opacity: 0; }
         }
         .crit-flash {
             position: absolute; inset: 0; pointer-events: none;
@@ -236,29 +241,29 @@
 
         /* УВЕДОМЛЕНИЕ О ДОСТИЖЕНИИ */
         #ach-toast-container {
-            position: absolute; top: 70px; right: 15px;
-            z-index: 9999; display: flex; flex-direction: column; gap: 10px;
+            position: absolute; top: 80px; right: 15px;
+            z-index: 99999; display: flex; flex-direction: column; gap: 10px;
             pointer-events: none;
         }
         .ach-toast {
-            background: rgba(15, 15, 25, 0.95);
+            background: rgba(15, 15, 25, 0.98);
             border: 2px solid #FFD700;
             border-radius: 12px;
             padding: 12px 20px;
             color: white;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
             transform: translateX(150%);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex; align-items: center; gap: 15px;
             min-width: 260px; max-width: 320px;
         }
         .ach-toast.show { transform: translateX(0); }
         .ach-toast-icon {
-            font-size: 28px; animation: spinTrophy 2s ease-in-out infinite;
+            font-size: 32px; animation: spinTrophy 1.5s ease-in-out infinite;
         }
         @keyframes spinTrophy {
             0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(15deg) scale(1.1); }
+            50% { transform: rotate(15deg) scale(1.2); }
         }
         .ach-toast-text { display: flex; flex-direction: column; }
         .ach-toast-title {
@@ -317,6 +322,32 @@
             font-size: 10px; color: #fff; text-shadow: 1px 1px 0 #000; font-weight: bold;
             letter-spacing: 1px;
         }
+
+        /* ЧЕЙНДЖЛОГ */
+        .changelog-box {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #555;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 350px;
+            overflow-y: auto;
+            text-align: left;
+            color: #fff;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        .changelog-box h3 {
+            color: var(--neon); margin-top: 0; margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;
+        }
+        .changelog-box p { margin: 4px 0; }
+        .changelog-box .c-add { color: #00ffcc; font-weight: bold; }
+        .changelog-box .c-del { color: #ff4444; font-weight: bold; }
+        .changelog-box .c-mod { color: #ffaa00; font-weight: bold; }
 
         /* АДМИНКА */
         #admin-backdrop { position: absolute; inset: 0; z-index: 998; background: rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(2px); }
@@ -430,7 +461,8 @@
 </head>
 <body>
     <div id="game-container">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <!-- Фокусируемый canvas для ПК -->
+        <canvas id="gameCanvas" width="800" height="600" tabindex="0"></canvas>
         
         <div id="ach-toast-container"></div>
         
@@ -520,11 +552,46 @@
         <div id="hub-screen" class="overlay">
             <h1>КОТОЗАЯЦ</h1>
             <div class="subtitle">ПРЫЖОК В КУБЫ</div>
-            <button id="btn-play" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> ИГРАТЬ</button>
-            <button id="clicker-btn" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg> КЛИКЕР</button>
-            <button id="shop-btn" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> МАГАЗИН</button>
-            <button id="ach-btn" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg> АЧИВКИ</button>
-            <button id="btn-reset-all" class="btn-secondary"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> СБРОСИТЬ ВСЁ</button>
+            
+            <!-- РАЗНОЦВЕТНЫЕ НЕОНОВЫЕ КНОПКИ -->
+            <button id="btn-play" class="btn-rgb" style="--neon-color: #00ffcc; --neon-rgb: 0, 255, 204;">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> ИГРАТЬ
+            </button>
+            
+            <button id="clicker-btn" class="btn-rgb" style="--neon-color: #ff8c00; --neon-rgb: 255, 140, 0;">
+                <svg viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg> КЛИКЕР
+            </button>
+            
+            <button id="shop-btn" class="btn-rgb" style="--neon-color: #ffd700; --neon-rgb: 255, 215, 0;">
+                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> МАГАЗИН
+            </button>
+            
+            <button id="ach-btn" class="btn-rgb" style="--neon-color: #ff00c8; --neon-rgb: 255, 0, 200;">
+                <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg> АЧИВКИ
+            </button>
+            
+            <button id="changelog-btn" class="btn-rgb" style="--neon-color: #a200ff; --neon-rgb: 162, 0, 255;">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> ЧТО НОВОГО
+            </button>
+            
+            <button id="btn-reset-all" class="btn-secondary">
+                <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> СБРОСИТЬ ВСЁ
+            </button>
+        </div>
+
+        <!-- ЧЕЙНДЖЛОГ -->
+        <div id="changelog-screen" class="overlay hidden">
+            <h2>📜 ЧТО НОВОГО</h2>
+            <div class="changelog-box">
+                <h3>Версия 3.2</h3>
+                <p><span class="c-add">[+]</span> Полностью переработан визуал кнопок (разные неоновые цвета)</p>
+                <p><span class="c-add">[+]</span> Кликер: морковка теперь парит, светится и "прыгает" при клике</p>
+                <p><span class="c-add">[+]</span> Добавлен этот раздел "Что нового"</p>
+                <p><span class="c-mod">[/]</span> Исправлен баг, когда игра зависала на ПК после закрытия админки</p>
+                <p><span class="c-mod">[/]</span> Починены всплывающие уведомления достижений</p>
+                <p><span class="c-del">[-]</span> Убран баг с невидимым перекрытием кнопок</p>
+            </div>
+            <button id="changelog-close-btn" class="btn-secondary">ЗАКРЫТЬ</button>
         </div>
 
         <div id="game-over-screen" class="overlay hidden">
@@ -537,7 +604,7 @@
                     <div class="death-stat"><div class="death-stat-label">ПРОПУЩЕНО</div><div class="death-stat-value" id="final-missed">0</div></div>
                     <div class="death-stat coin" style="grid-column: span 2;"><div class="death-stat-label">ЗАРАБОТАНО МОНЕТ</div><div class="death-stat-value" id="final-coins">+0</div></div>
                 </div>
-                <button id="btn-restart" class="btn-rgb">ЗАНОВО</button>
+                <button id="btn-restart" class="btn-rgb" style="--neon-color: #00ffcc; --neon-rgb: 0, 255, 204;">ЗАНОВО</button>
                 <button id="btn-to-hub" class="btn-secondary">В ГЛАВНОЕ МЕНЮ</button>
             </div>
         </div>
@@ -562,7 +629,7 @@
             <h2>МАГАЗИН И СКИНЫ</h2>
             <div class="shop-balance">Баланс: <span id="shop-coins">0</span> 🥕</div>
             <div id="shop-items"></div>
-            <button id="shop-close-btn" class="btn-rgb">НАЗАД</button>
+            <button id="shop-close-btn" class="btn-rgb" style="--neon-color: #ffd700; --neon-rgb: 255, 215, 0;">НАЗАД</button>
         </div>
 
         <div id="ach-screen" class="overlay hidden">
@@ -573,12 +640,12 @@
             </div>
             <div class="shop-balance">Баланс: <span id="ach-coins">0</span> 🥕</div>
             <div id="ach-items"></div>
-            <button id="ach-close-btn" class="btn-rgb">НАЗАД</button>
+            <button id="ach-close-btn" class="btn-rgb" style="--neon-color: #ff00c8; --neon-rgb: 255, 0, 200;">НАЗАД</button>
         </div>
 
         <div id="pause-screen" class="overlay hidden">
             <h2>ПАУЗА</h2>
-            <button id="resume-btn" class="btn-rgb">ПРОДОЛЖИТЬ</button>
+            <button id="resume-btn" class="btn-rgb" style="--neon-color: #00ffcc; --neon-rgb: 0, 255, 204;">ПРОДОЛЖИТЬ</button>
             <button id="menu-btn-pause" class="btn-secondary">В ГЛАВНОЕ МЕНЮ</button>
         </div>
 
@@ -664,9 +731,9 @@
                 death2() { Sound.tone({freq: 220.00, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05}); Sound.tone({freq: 261.63, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05}); Sound.tone({freq: 311.13, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05}); },
                 death3() { for (let i = 0; i < 10; i++) Sound.tone({freq: 900 - i * 80, type: 'sawtooth', dur: 0.08, vol: 0.12, delay: i * 0.06}); },
                 achievementDing() {
-                    Sound.tone({freq: 1046.50, type: 'sine', dur: 0.1, vol: 0.15}); // C6
-                    Sound.tone({freq: 1318.51, type: 'sine', dur: 0.1, vol: 0.15, delay: 0.1}); // E6
-                    Sound.tone({freq: 1567.98, type: 'sine', dur: 0.5, vol: 0.2, delay: 0.2}); // G6
+                    Sound.tone({freq: 1046.50, type: 'sine', dur: 0.1, vol: 0.15});
+                    Sound.tone({freq: 1318.51, type: 'sine', dur: 0.1, vol: 0.15, delay: 0.1});
+                    Sound.tone({freq: 1567.98, type: 'sine', dur: 0.5, vol: 0.2, delay: 0.2});
                 },
                 deathJingle() { const v = deathVariation; if (v === 0) Sound.sfx.death0(); else if (v === 1) Sound.sfx.death1(); else if (v === 2) Sound.sfx.death2(); else Sound.sfx.death3(); }
             },
@@ -691,7 +758,8 @@
         // ============ ДАННЫЕ ============
         let coins = 0, shopItems = {}, activeSkin = 'classic', achievements = {}, totalCarrots = 0, totalDeaths = 0, clickerTotal = 0, bossKills = 0, totalJumps = 0;
         let notifiedAchievements = {};
-        try { if(localStorage.getItem('kotozayac_notified')) notifiedAchievements = JSON.parse(localStorage.getItem('kotozayac_notified')); } catch(e){}
+        // Используем новый ключ v2, чтобы сбросить старые баги с уведомлениями
+        try { if(localStorage.getItem('kotozayac_notified_v2')) notifiedAchievements = JSON.parse(localStorage.getItem('kotozayac_notified_v2')); } catch(e){}
 
         const SHOP_CONFIG = [
             { id: 'extraLife', type: 'upg', name: 'Доп. Сердце', desc: 'Старт с 4 жизнями', price: 500 },
@@ -747,7 +815,7 @@
                 localStorage.setItem('kotozayac_clicker', String(clickerTotal));
                 localStorage.setItem('kotozayac_bosskills', String(bossKills));
                 localStorage.setItem('kotozayac_jumps', String(totalJumps));
-                localStorage.setItem('kotozayac_notified', JSON.stringify(notifiedAchievements));
+                localStorage.setItem('kotozayac_notified_v2', JSON.stringify(notifiedAchievements));
             } catch(e) {}
         }
 
@@ -819,8 +887,8 @@
             document.getElementById('ach-header').innerText = `ДОСТИЖЕНИЯ (${overallPercent}%)`;
         }
 
+        // Функция проверки теперь может вызываться где угодно
         function checkAchievements() {
-            if (gameState !== 'playing' && gameState !== 'gameover') return;
             ACH_CONFIG.forEach(item => {
                 const isCompleted = item.getVal() >= item.target;
                 if (isCompleted && !notifiedAchievements[item.id] && !achievements[item.id]) {
@@ -873,11 +941,10 @@
             
             const area = document.getElementById('clicker-area');
             const rect = area.getBoundingClientRect();
-            // Спавним частицы по центру морковки, а не у курсора
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            // Всплывающий текст
+            // Текст
             const particle = document.createElement('div');
             particle.className = 'click-particle' + (isCrit ? ' crit' : '');
             particle.textContent = isCrit ? '+' + amount + '!' : '+' + amount;
@@ -886,7 +953,7 @@
             area.appendChild(particle);
             setTimeout(() => particle.remove(), 800);
 
-            // Взрыв монеток
+            // Монетки
             for (let i = 0; i < (isCrit ? 12 : 4); i++) {
                 const coin = document.createElement('div');
                 coin.className = 'click-coin';
@@ -911,11 +978,13 @@
                 Sound.sfx.carrotClick();
             }
             
+            // Punch effect для морковки
             const carrot = document.getElementById('big-carrot');
-            carrot.style.animation = 'none';
-            carrot.offsetHeight;
-            carrot.style.animation = 'carrotBounce 0.2s';
-            setTimeout(() => carrot.style.animation = '', 200);
+            carrot.style.transform = 'scale(0.85)';
+            setTimeout(() => carrot.style.transform = 'scale(1)', 100);
+            
+            // Проверяем ачивки сразу после клика
+            checkAchievements();
         }
 
         document.getElementById('clicker-area').addEventListener('click', handleCarrotClick);
@@ -964,7 +1033,7 @@
         });
         window.addEventListener('keyup', e => keys[e.code] = false);
         window.addEventListener('blur', () => { btnLeft = btnRight = false; for (const k in keys) keys[k] = false; });
-        canvas.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); });
+        canvas.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); canvas.focus(); });
         canvas.addEventListener('pointermove', e => { if (isTouch || gameState !== 'playing') return; const r = canvas.getBoundingClientRect(); player.x = (e.clientX - r.left) * (W / r.width) - player.width / 2; clampPlayer(); });
 
         function bindBtn(el, setter) { el.addEventListener('pointerdown', e => { e.preventDefault(); setter(true); el.setPointerCapture(e.pointerId); }); el.addEventListener('pointerup', () => setter(false)); el.addEventListener('pointercancel', () => setter(false)); el.addEventListener('pointerleave', () => setter(false)); }
@@ -991,6 +1060,9 @@
         document.getElementById('ach-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('hub-screen').classList.add('hidden'); document.getElementById('ach-screen').classList.remove('hidden'); renderAch(); });
         document.getElementById('ach-close-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('ach-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); });
         
+        document.getElementById('changelog-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('hub-screen').classList.add('hidden'); document.getElementById('changelog-screen').classList.remove('hidden'); });
+        document.getElementById('changelog-close-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('changelog-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); });
+
         document.getElementById('btn-reset-all').addEventListener('click', () => { if(confirm('Точно сбросить ВЕСЬ прогресс?')) { localStorage.clear(); location.reload(); } });
         document.getElementById('resume-btn').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
         document.getElementById('menu-btn-pause').addEventListener('click', goToHub);
@@ -1009,6 +1081,9 @@
             if (typeof Sound !== 'undefined') Sound.sfx.click();
             adminBackdrop.style.display = 'none';
             adminWindow.style.display = 'none';
+            // ФИКС ПК: Возвращаем фокус на игру
+            document.getElementById('gameCanvas').focus();
+            if (Sound.ctx && Sound.ctx.state === 'suspended') Sound.ctx.resume();
         };
         document.getElementById('adm-close-btn').addEventListener('click', closeAdmin);
         adminBackdrop.addEventListener('click', closeAdmin);
@@ -1075,7 +1150,13 @@
             for(let i=0; i<100; i++) weather.push({ x: Math.random() * W, y: -Math.random()*H, size: 4, speed: 10, drift: 0 });
         }
 
-        function startGame() { Sound.sfx.start(); setTimeout(() => Sound.music.start(), 700); document.getElementById('hub-screen').classList.add('hidden'); resetGame(); gameState = 'playing'; }
+        function startGame() { 
+            try { Sound.sfx.start(); } catch(e) {}
+            setTimeout(() => Sound.music.start(), 700); 
+            document.getElementById('hub-screen').classList.add('hidden'); 
+            resetGame(); 
+            gameState = 'playing'; 
+        }
         function goToHub() { Sound.sfx.click(); Sound.music.stop(); gameState = 'hub'; resetGame(); document.getElementById('pause-screen').classList.add('hidden'); document.getElementById('game-over-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); updateCoinUI(); }
         function restartGame() { if (gameState !== 'gameover') return; Sound.sfx.click(); document.getElementById('game-over-screen').classList.add('hidden'); resetGame(); gameState = 'playing'; Sound.music.start(); }
         function clampPlayer() { if (player.x < 0) player.x = 0; if (player.x + player.width > W) player.x = W - player.width; }
@@ -1313,7 +1394,7 @@
             if (gameState !== 'playing') return;
             frames += dt * 60;
 
-            // Проверка ачивок раз в 30 кадров
+            // Проверка ачивок раз в 30 кадров (для тех, что не связаны с кликом)
             if (frames % 30 === 0) checkAchievements();
 
             if (frames % 2 === 0) { trail.push({ x: player.x, y: player.y }); if (trail.length > 10) trail.shift(); }
@@ -1414,6 +1495,8 @@
                             score += gained;
                         }
                         scoreEl.innerText = score;
+                        // Мгновенная проверка ачивок при съедании
+                        checkAchievements();
                     } else if (obj.type === 'magnet') { player.magnetTimer = 8; Sound.sfx.buy(); spawnParticles(cx, cy, ['#0088ff', '#fff'], 20); }
                     else if (obj.type === 'shield') { player.hasShield = true; Sound.sfx.buy(); spawnParticles(cx, cy, ['#00ffcc', '#fff'], 20); }
                     else { 
@@ -1440,6 +1523,7 @@
                             score += 500; coins += 100; bossKills++;
                             nextBossScore += 1000; boss = null;
                             screenShake = 30; flash = 1; Sound.sfx.smash(); Sound.music.start(); saveData();
+                            checkAchievements(); // Мгновенная проверка убийства босса
                         }
                     } else {
                         if (player.hasShield) { player.hasShield = false; Sound.sfx.powerup(); spawnParticles(player.x, player.y, ['#00ffcc', '#fff'], 20); }
@@ -1482,6 +1566,7 @@
             
             document.getElementById('game-over-screen').classList.remove('hidden');
             if (isNewRecord) setTimeout(() => Sound.sfx.buy(), 300); else setTimeout(() => Sound.sfx.deathJingle(), 200);
+            checkAchievements(); // Проверка ачивок за смерть
         }
 
         function resetGame() {
@@ -1497,6 +1582,8 @@
             scoreEl.innerText = '0'; livesEl.innerText = lives;
             document.getElementById('pause-screen').classList.add('hidden');
             document.getElementById('game-over-screen').classList.add('hidden');
+            // Фокус обратно
+            document.getElementById('gameCanvas').focus();
         }
 
         function draw() {
@@ -1556,4 +1643,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-</html>
+                </html>
