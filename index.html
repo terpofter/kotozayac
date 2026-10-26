@@ -63,19 +63,49 @@
         
         h1 { color: var(--neon); font-size: 48px; text-shadow: 0 0 20px var(--neon); margin: 0 0 5px 0; text-align: center; letter-spacing: 2px; }
         h2 { color: #fff; font-size: 26px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
-        .subtitle { color: #aaa; font-size: 14px; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
+        .subtitle { color: #aaa; font-size: 14px; margin-bottom: 20px; letter-spacing: 1px; text-align: center; }
         
-        .btn {
-            background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000;
-            border: none; border-radius: 8px; padding: 12px 28px; font-size: 18px; 
-            font-family: inherit; cursor: pointer; box-shadow: 0 5px 0 #005a47; transition: transform 0.1s; margin: 5px; text-align: center;
-            text-transform: uppercase; position: relative; z-index: 30; width: 100%; max-width: 260px;
+        /* ===== RGB КНОПКИ В МЕНЮ ===== */
+        .btn-rgb {
+            position: relative;
+            background: #0f0f13;
+            color: #fff;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            border-radius: 8px;
+            padding: 12px 30px; 
+            font-size: 18px; 
+            font-family: inherit; 
+            cursor: pointer; 
+            transition: transform 0.1s; 
+            margin: 6px; 
+            text-align: center;
+            text-transform: uppercase; 
+            z-index: 30; 
+            width: 100%; 
+            max-width: 260px;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
         }
-        .btn:active { transform: translateY(5px); box-shadow: 0 0 0 #005a47; }
-        .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 5px 0 #111; font-size: 14px; padding: 10px 18px; }
-        .btn-secondary:active { box-shadow: 0 0 0 #111; }
-        .btn-danger { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; box-shadow: 0 5px 0 #800000; font-size: 13px; padding: 8px 16px; max-width: 200px; }
-        .btn-danger:active { box-shadow: 0 0 0 #800000; }
+        .btn-rgb::before {
+            content: ''; position: absolute; inset: -3px; z-index: -1;
+            background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400% 100%;
+            border-radius: 10px;
+            animation: rgbBtn 4s linear infinite;
+        }
+        @keyframes rgbBtn { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
+        
+        .btn-rgb:hover { color: #00ffcc; transform: scale(1.02); }
+        .btn-rgb:active { transform: scale(0.95); }
+        
+        .btn-secondary { 
+            background: linear-gradient(180deg, #555, #333); color: #fff; 
+            border: none; border-radius: 8px; padding: 12px 30px; 
+            font-size: 16px; font-family: inherit; cursor: pointer; 
+            box-shadow: 0 5px 0 #111; margin: 6px; text-transform: uppercase; 
+            width: 100%; max-width: 260px;
+        }
+        .btn-secondary:active { transform: translateY(5px); box-shadow: 0 0 0 #111; }
 
         #mobile-controls {
             position: absolute; bottom: 20px; left: 0; right: 0;
@@ -233,7 +263,8 @@
             .hud-icon { width: 14px; height: 14px; }
             .hud-btn { width: 32px; height: 32px; }
             .hud-btn svg { width: 14px; height: 14px; }
-            .btn { font-size: 15px; padding: 10px 18px; max-width: 220px; }
+            .btn-rgb { font-size: 15px; padding: 10px 18px; max-width: 220px; }
+            .btn-secondary { font-size: 14px; padding: 10px 18px; max-width: 220px; }
             #game-over-screen { padding: 20px 10px; }
             #terminal { font-size: 13px; }
             .term-btn { font-size: 13px; padding: 8px 12px; }
@@ -385,30 +416,30 @@
         <div id="hub-screen" class="overlay">
             <h1>КОТОЗАЯЦ</h1>
             <div class="subtitle">ГЛАВНОЕ МЕНЮ</div>
-            <button id="btn-play" class="btn">ПРЫЖОК В КУБЫ</button>
-            <button id="shop-btn" class="btn" style="background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; box-shadow: 0 5px 0 #b37400;">🛒 МАГАЗИН</button>
-            <button id="ach-btn" class="btn" style="background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000; box-shadow: 0 5px 0 #005a47;">🏆 АЧИВКИ</button>
-            <button id="btn-reset-all" class="btn btn-danger">СБРОСИТЬ ВСЁ</button>
+            <button id="btn-play" class="btn-rgb">ПРЫЖОК В КУБЫ</button>
+            <button id="shop-btn" class="btn-rgb">🛒 МАГАЗИН</button>
+            <button id="ach-btn" class="btn-rgb">🏆 АЧИВКИ</button>
+            <button id="btn-reset-all" class="btn-secondary">СБРОСИТЬ ВСЁ</button>
         </div>
 
         <div id="shop-screen" class="overlay hidden">
             <h2>МАГАЗИН И СКИНЫ</h2>
             <div class="shop-balance">Баланс: <span id="shop-coins">0</span> 🥕</div>
             <div id="shop-items"></div>
-            <button id="shop-close-btn" class="btn">НАЗАД</button>
+            <button id="shop-close-btn" class="btn-rgb">НАЗАД</button>
         </div>
 
         <div id="ach-screen" class="overlay hidden">
             <h2>ДОСТИЖЕНИЯ</h2>
             <div class="shop-balance">Баланс: <span id="ach-coins">0</span> 🥕</div>
             <div id="ach-items"></div>
-            <button id="ach-close-btn" class="btn">НАЗАД</button>
+            <button id="ach-close-btn" class="btn-rgb">НАЗАД</button>
         </div>
 
         <div id="pause-screen" class="overlay hidden">
             <h2>ПАУЗА</h2>
-            <button id="resume-btn" class="btn">ПРОДОЛЖИТЬ</button>
-            <button id="menu-btn-pause" class="btn btn-secondary">В ГЛАВНОЕ МЕНЮ</button>
+            <button id="resume-btn" class="btn-rgb">ПРОДОЛЖИТЬ</button>
+            <button id="menu-btn-pause" class="btn-secondary">В ГЛАВНОЕ МЕНЮ</button>
         </div>
 
         <div id="game-over-screen" class="overlay hidden">
@@ -740,8 +771,6 @@
         IMAGES.mafia.idle.src = 'cat_mafia.png'; IMAGES.mafia.jump.src = 'cat_mafia.png'; IMAGES.mafia.hit.src = 'cat_mafia.png';
         IMAGES.cosmos.idle.src = 'cat_cosmos.png'; IMAGES.cosmos.jump.src = 'cat_cosmos.png'; IMAGES.cosmos.hit.src = 'cat_cosmos.png';
         IMAGES.sushi.idle.src = 'cat_sushi.png'; IMAGES.sushi.jump.src = 'cat_sushi.png'; IMAGES.sushi.hit.src = 'cat_sushi.png';
-        
-        // ТЕПЕРЬ ИСПОЛЬЗУЕТСЯ СТАНДАРТНОЕ ИМЯ ФАЙЛА
         IMAGES.pancakes.idle.src = 'cat_pancakes.png'; IMAGES.pancakes.jump.src = 'cat_pancakes.png'; IMAGES.pancakes.hit.src = 'cat_pancakes.png';
 
         for (let i = 0; i < 6; i++) clouds.push({ x: Math.random() * W, y: 20 + Math.random() * 150, speed: 10 + Math.random() * 20, scale: 0.4 + Math.random() * 0.6 });
@@ -876,9 +905,11 @@
         }
 
         function drawPlayer() {
-            if (gameState === 'dying' && deathVariation === 1 && deathTimer > 20) return;
-            if (gameState === 'dying' && deathVariation === 3 && deathTimer > 30) return;
-            if (gameState === 'dying' && deathVariation === 2 && deathTimer > 60) return;
+            if (gameState === 'dying') {
+                if (deathVariation === 1 && deathTimer > 10) return;
+                if (deathVariation === 2 && deathTimer > 15) return;
+                if (deathVariation === 3 && deathTimer > 30) return;
+            }
 
             for(let i=0; i<trail.length; i++) {
                 let t = trail[i]; let alpha = (i / trail.length) * 0.5 * rabbitOpacity;
@@ -905,6 +936,13 @@
                 ctx.shadowBlur = 0;
             }
 
+            ctx.save();
+            ctx.globalAlpha = rabbitOpacity;
+            ctx.translate(px + w/2, py + h/2); 
+            ctx.rotate(rabbitRotation);
+            ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY); 
+            ctx.translate(-(px + w/2), -(py + h/2));
+
             let currentSprite = null; const skinImgs = IMAGES[activeSkin] || IMAGES.classic;
             if (flash > 0 && skinImgs.hit.complete && skinImgs.hit.naturalWidth > 0) currentSprite = skinImgs.hit; 
             else if (!player.onGround && skinImgs.jump.complete && skinImgs.jump.naturalWidth > 0) currentSprite = skinImgs.jump; 
@@ -912,41 +950,22 @@
 
             if (currentSprite) {
                 if (activeSkin === 'pancakes') {
-                    // --- СПЕЦИАЛЬНАЯ ОТРИСОВКА ДЛЯ КАТ_ПАНКЕЙКС ---
                     const scale = 0.55; 
                     const nw = 172, nh = 211;
                     const sw = nw * scale, sh = nh * scale;
                     const pivotX = 86 * scale;
                     const pivotY = 170 * scale;
-
-                    ctx.save();
-                    ctx.globalAlpha = rabbitOpacity;
-                    ctx.translate(px + w/2, player.y + rabbitOffsetY); 
-                    ctx.rotate(rabbitRotation);
-                    ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY);
-
                     ctx.drawImage(currentSprite, -pivotX, -pivotY, sw, sh);
-                    ctx.restore();
                 } else {
-                    // --- ОБЫЧНАЯ ОТРИСОВКА ---
-                    ctx.save();
-                    ctx.globalAlpha = rabbitOpacity;
-                    ctx.translate(px + w/2, py + h/2); 
-                    ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY); 
-                    ctx.translate(-(px + w/2), -(py + h/2));
-
                     const imgRatio = currentSprite.width / currentSprite.height; let drawW = w, drawH = h; 
                     if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
                     ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
-                    ctx.restore();
                 }
             } else {
-                ctx.save();
-                ctx.globalAlpha = rabbitOpacity;
                 ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h); 
                 ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
-                ctx.restore();
             }
+            ctx.restore();
             
             if (debugHitboxes) { ctx.strokeStyle = 'lime'; ctx.lineWidth = 2; ctx.strokeRect(px, py, w, h); }
         }
@@ -999,6 +1018,7 @@
                 deathTimer += dt * 60;
                 
                 if (deathVariation === 0) {
+                    // СПЛЮЩИВАНИЕ
                     if (giantCarrot) {
                         giantCarrot.y += giantCarrot.vy * dt * 60;
                         giantCarrot.vy += 0.5 * dt * 60;
@@ -1013,54 +1033,37 @@
                     if (deathTimer > 90) gameOver();
                 }
                 else if (deathVariation === 1) {
-                    if (giantCarrot) {
-                        giantCarrot.y += giantCarrot.vy * dt * 60;
-                        giantCarrot.vy += 0.5 * dt * 60;
-                        if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
-                            giantCarrot.y = player.y - 30 - giantCarrot.height/2;
-                            giantCarrot.vy = 0;
-                            screenShake = 30; flash = 1; Sound.sfx.smash();
-                            for (let i = 0; i < 50; i++) {
-                                const a = Math.random() * Math.PI * 2, s = 3 + Math.random() * 8;
-                                particles.push({ x: player.x + player.width/2, y: player.y - player.height/2, vx: Math.cos(a)*s, vy: Math.sin(a)*s - 3, life: 1, decay: 0.015, color: ['#8a8a8a','#aaa','#666','#fff'][Math.floor(Math.random()*4)], size: 4 + Math.random()*8 });
-                            }
-                            rabbitOpacity = 0;
+                    // ВЗРЫВ
+                    if (deathTimer > 15 && rabbitOpacity > 0) {
+                        screenShake = 30; flash = 1; Sound.sfx.smash();
+                        for (let i = 0; i < 60; i++) {
+                            const a = Math.random() * Math.PI * 2, s = 4 + Math.random() * 10;
+                            particles.push({ x: player.x + player.width/2, y: player.y - player.height/2, vx: Math.cos(a)*s, vy: Math.sin(a)*s - 3, life: 1, decay: 0.015, color: ['#8a8a8a','#aaa','#666','#fff', '#ff4444'][Math.floor(Math.random()*5)], size: 4 + Math.random()*10 });
                         }
+                        rabbitOpacity = 0;
                     }
-                    if (deathTimer > 60) gameOver();
+                    if (deathTimer > 70) gameOver();
                 }
                 else if (deathVariation === 2) {
-                    if (giantCarrot) {
-                        giantCarrot.y += giantCarrot.vy * dt * 60;
-                        giantCarrot.vy += 0.5 * dt * 60;
-                        if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
-                            giantCarrot.y = player.y - 30 - giantCarrot.height/2;
-                            giantCarrot.vy = 0;
-                            screenShake = 25; flash = 1; Sound.sfx.smash();
-                            player.vy = -20;
-                        }
+                    // В КОСМОС
+                    if (deathTimer === 1) {
+                        player.vy = -15;
+                        Sound.sfx.smash();
+                        screenShake = 20;
                     }
+                    player.vy += 0.4 * dt * 60; // Замедленная гравитация
                     rabbitOffsetY += player.vy * dt * 60;
-                    player.vy += 0.6 * dt * 60;
-                    rabbitRotation += 0.15 * dt * 60;
-                    if (rabbitOffsetY > 100) rabbitOpacity = Math.max(0, rabbitOpacity - 0.05 * dt * 60);
+                    rabbitRotation += 0.2 * dt * 60;
+                    if (rabbitOffsetY < -200) rabbitOpacity = 0;
                     if (deathTimer > 100) gameOver();
                 }
                 else if (deathVariation === 3) {
-                    if (giantCarrot) {
-                        giantCarrot.y += giantCarrot.vy * dt * 60;
-                        giantCarrot.vy += 0.5 * dt * 60;
-                        if (giantCarrot.y + giantCarrot.height/2 > player.y - 30) {
-                            giantCarrot.y = player.y - 30 - giantCarrot.height/2;
-                            giantCarrot.vy = 0;
-                            screenShake = 20; flash = 1; Sound.sfx.smash();
-                        }
-                    }
-                    if (deathTimer > 20) {
-                        rabbitOffsetY += 3 * dt * 60;
+                    // ПРОВАЛ
+                    if (deathTimer > 15) {
+                        rabbitOffsetY += 4 * dt * 60;
                         rabbitOpacity = Math.max(0, 1 - (rabbitOffsetY / 120));
                     }
-                    if (deathTimer > 90) gameOver();
+                    if (deathTimer > 80) gameOver();
                 }
                 
                 if (screenShake > 0) screenShake *= 0.9;
@@ -1238,10 +1241,18 @@
 
         function triggerDeathAnimation() {
             if (godMode) return;
-            gameState = 'dying'; deathTimer = 0; Sound.music.stop(); Sound.sfx.drop(); 
+            gameState = 'dying'; deathTimer = 0; Sound.music.stop(); 
             deathVariation = Math.floor(Math.random() * 4);
             rabbitOpacity = 1; rabbitScaleX = 1; rabbitScaleY = 1; rabbitOffsetY = 0; rabbitRotation = 0;
-            giantCarrot = { x: player.x + player.width/2 - 100, y: -300, width: 200, height: 200, vy: 8 };
+            player.vy = 0;
+            
+            // Настраиваем визуал под вариацию
+            if (deathVariation === 0) {
+                giantCarrot = { x: player.x + player.width/2 - 100, y: -300, width: 200, height: 200, vy: 8 };
+                Sound.sfx.drop();
+            } else {
+                giantCarrot = null;
+            }
         }
 
         function gameOver() {
