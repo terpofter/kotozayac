@@ -65,7 +65,7 @@
         h2 { color: #fff; font-size: 28px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
         .subtitle { color: #aaa; font-size: 14px; margin-bottom: 25px; letter-spacing: 2px; text-align: center; }
 
-        /* НОВОЕ ГЛАВНОЕ МЕНЮ */
+        /* ИСПРАВЛЕНО: Убрано растягивание кнопок */
         .menu-grid {
             display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 600px;
         }
@@ -79,8 +79,10 @@
             text-align: center; text-transform: uppercase; z-index: 30;
             box-shadow: 0 0 15px rgba(var(--neon-rgb, 0, 255, 204), 0.15), inset 0 0 10px rgba(var(--neon-rgb, 0, 255, 204), 0.1);
             display: flex; align-items: center; justify-content: center; gap: 12px;
-            flex: 1; min-width: 200px;
+            flex: none; /* Фикс бага с растягиванием */
         }
+        .menu-row .btn-rgb { flex: 1; min-width: 200px; }
+        
         .btn-rgb.main-play {
             font-size: 26px; padding: 20px; max-width: 420px; width: 100%;
             margin-bottom: 10px;
@@ -163,7 +165,7 @@
         .death-stat-value { color: #fff; font-size: 22px; }
         .death-stat.coin .death-stat-value { color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
 
-        /* ИГРА ЗОРКИЙ ГЛАЗ */
+        /* ЗОРКИЙ ГЛАЗ */
         #color-game-screen { background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0f0f13 100%); }
         .color-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 500px; }
         .color-info { display: flex; justify-content: space-between; width: 100%; padding: 0 20px; }
@@ -190,7 +192,6 @@
         .color-cell:hover { transform: scale(1.05); }
         .color-cell:active { transform: scale(0.95); }
         
-        /* ОСТАЛЬНОЕ */
         #clicker-screen { background: radial-gradient(circle at 50% 30%, #2a1a1a 0%, #0f0f13 100%); }
         .clicker-container { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 500px; }
         .clicker-info { display: flex; gap: 15px; width: 100%; }
@@ -415,7 +416,6 @@
                 <div class="adm-body">
                     <div class="adm-sidebar">
                         <button class="adm-tab-btn active" data-target="tab-player">👤 Игрок</button>
-                        <button class="adm-tab-btn" data-target="tab-aim">🎯 Аим/Додж</button>
                         <button class="adm-tab-btn" data-target="tab-spawn">📦 Спавн</button>
                         <button class="adm-tab-btn" data-target="tab-world">🌍 Мир</button>
                         <button class="adm-tab-btn" data-target="tab-chaos">🔥 Хаос</button>
@@ -427,10 +427,6 @@
                             <div class="adm-item"><span class="adm-item-label">Магнит (9999с)</span><button class="adm-action-btn" onclick="player.magnetTimer = 9999">ВКЛ</button></div>
                             <div class="adm-item"><span class="adm-item-label">Выдать Щит</span><button class="adm-action-btn" onclick="player.hasShield = true">ВКЛ</button></div>
                             <div class="adm-item"><span class="adm-item-label">Монеты</span><div style="display:flex; gap:5px;"><input type="number" id="adm-coins-input" class="adm-input" value="1000"><button class="adm-action-btn" onclick="coins += parseInt(document.getElementById('adm-coins-input').value)||0; updateCoinUI(); saveData();">+</button></div></div>
-                        </div>
-                        <div id="tab-aim" class="adm-tab-content">
-                            <div class="adm-item"><span class="adm-item-label">🎯 Аим на морковку</span><label class="switch"><input type="checkbox" id="tog-aim" onchange="aimEnabled = this.checked"><span class="slider"></span></label></div>
-                            <div class="adm-item"><span class="adm-item-label">🛡 Додж гнилых</span><label class="switch"><input type="checkbox" id="tog-dodge" onchange="dodgeEnabled = this.checked"><span class="slider"></span></label></div>
                         </div>
                         <div id="tab-spawn" class="adm-tab-content">
                             <div class="adm-item"><div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
@@ -459,7 +455,6 @@
                         <div id="tab-debug" class="adm-tab-content">
                             <div class="adm-item"><span class="adm-item-label">Показывать FPS</span><label class="switch"><input type="checkbox" id="tog-fps" onchange="debugFPS = this.checked"><span class="slider"></span></label></div>
                             <div class="adm-item"><span class="adm-item-label">Хитбоксы</span><label class="switch"><input type="checkbox" id="tog-hitbox" onchange="debugHitboxes = this.checked"><span class="slider"></span></label></div>
-                            <div class="adm-item"><span class="adm-item-label">Скелетон игрока</span><label class="switch"><input type="checkbox" id="tog-skeleton" onchange="debugSkeleton = this.checked"><span class="slider"></span></label></div>
                         </div>
                     </div>
                 </div>
@@ -522,7 +517,6 @@
             </button>
         </div>
 
-        <!-- ЗОРКИЙ ГЛАЗ -->
         <div id="color-game-screen" class="overlay hidden">
             <h2>ЗОРКИЙ ГЛАЗ</h2>
             <div class="color-container">
@@ -538,16 +532,14 @@
         <div id="changelog-screen" class="overlay hidden">
             <h2>📜 ЧТО НОВОГО</h2>
             <div class="changelog-box">
-                <h3>Версия 4.0 (ОГРОМНОЕ ОБНОВЛЕНИЕ)</h3>
+                <h3>Версия 4.1 (ФИКС БАГОВ)</h3>
+                <p><span class="c-mod">[/]</span> Исправлен баг, когда заяц выглядел как серый квадрат (добавлена векторная отрисовка)</p>
+                <p><span class="c-mod">[/]</span> Исправлена гигантская кнопка "Продолжить" в меню паузы</p>
+                <p><span class="c-mod">[/]</span> Исправлен баг с кнопками в магазине (улучшения теперь покупаются, а не надеваются)</p>
                 <p><span class="c-add">[+]</span> Новая мини-игра "Зоркий Глаз" (найди отличающегося кота)</p>
                 <p><span class="c-add">[+]</span> Переработано главное меню (красивая сетка)</p>
                 <p><span class="c-mod">[/]</span> Полностью новые анимации смертей (Наковальня, Черная Дыра, Молния, Призрак)</p>
                 <p><span class="c-mod">[/]</span> Новый дизайн Босса (Тёмный Кот-Босс)</p>
-                <p><span class="c-del">[-]</span> Убраны шипы (гнилая морковь)</p>
-
-                <h3>Версия 3.4</h3>
-                <p><span class="c-del">[-]</span> Удалена мини-игра "Змейка"</p>
-                <p><span class="c-mod">[/]</span> Босс теперь стреляет обычной морковью</p>
             </div>
             <button id="changelog-close-btn" class="btn-secondary">ЗАКРЫТЬ</button>
         </div>
@@ -788,14 +780,39 @@
             if (document.getElementById('adm-coins-input')) document.getElementById('adm-coins-input').value = coins;
         }
 
+        // ИСПРАВЛЕНА ЛОГИКА МАГАЗИНА
         function renderShop() {
             const container = document.getElementById('shop-items'); container.innerHTML = '';
             SHOP_CONFIG.forEach(item => {
-                const isBought = shopItems[item.id], isEquipped = activeSkin === item.id;
-                let btnText = item.price + ' 🥕', btnClass = '', isDisabled = false;
-                if (item.id === 'classic') { if (isEquipped) { btnText = 'НАДЕТО'; btnClass = 'equipped'; isDisabled = true; } else { btnText = 'НАДЕТЬ'; } } 
-                else if (isBought) { if (isEquipped) { btnText = 'НАДЕТО'; btnClass = 'equipped'; isDisabled = true; } else { btnText = 'НАДЕТЬ'; } } 
-                else { if (coins < item.price) isDisabled = true; }
+                const isBought = shopItems[item.id];
+                let btnText = '';
+                let btnClass = '';
+                let isDisabled = false;
+
+                if (item.type === 'upg') {
+                    if (isBought) {
+                        btnText = 'КУПЛЕНО';
+                        btnClass = 'equipped'; // Используем зеленый стиль для купленного
+                        isDisabled = true;
+                    } else {
+                        btnText = item.price + ' 🥕';
+                        if (coins < item.price) isDisabled = true;
+                    }
+                } else { // skins
+                    const isEquipped = activeSkin === item.id;
+                    if (item.id === 'classic' || isBought) {
+                        if (isEquipped) {
+                            btnText = 'НАДЕТО';
+                            btnClass = 'equipped';
+                            isDisabled = true;
+                        } else {
+                            btnText = 'НАДЕТЬ';
+                        }
+                    } else {
+                        btnText = item.price + ' 🥕';
+                        if (coins < item.price) isDisabled = true;
+                    }
+                }
 
                 const card = document.createElement('div'); card.className = 'shop-item';
                 card.innerHTML = `<div class="shop-item-title">${item.name}</div><div style="font-size:11px; color:#888; margin-bottom:5px;">${item.desc}</div>
@@ -804,8 +821,24 @@
                 
                 if (!isDisabled) {
                     document.getElementById(`btn-${item.id}`).addEventListener('click', () => {
-                        if (isBought) { activeSkin = item.id; Sound.sfx.click(); saveData(); renderShop(); } 
-                        else { if (coins >= item.price) { coins -= item.price; shopItems[item.id] = true; activeSkin = item.id; Sound.sfx.buy(); saveData(); renderShop(); } }
+                        if (isBought) {
+                            if (item.type === 'skin') {
+                                activeSkin = item.id; 
+                                Sound.sfx.click(); 
+                                saveData(); 
+                                renderShop();
+                            }
+                        } else {
+                            if (coins >= item.price) {
+                                coins -= item.price;
+                                shopItems[item.id] = true;
+                                if (item.type === 'skin') activeSkin = item.id;
+                                Sound.sfx.buy();
+                                saveData();
+                                renderShop();
+                                updateCoinUI();
+                            }
+                        }
                     });
                 }
             });
@@ -875,7 +908,7 @@
             }, 3500);
         }
 
-        // ============ ЗОРКИЙ ГЛАЗ (ЦВЕТОВАЯ ИГРА) ============
+        // ============ ЗОРКИЙ ГЛАЗ ============
         let colorActive = false;
         let colorScore = 0;
         let colorTargetIndex = 0;
@@ -905,7 +938,6 @@
         function generateColorRound() {
             colorTargetIndex = Math.floor(Math.random() * 8);
             colorBaseHue = Math.floor(Math.random() * 360);
-            // Сложность растет: отступ уменьшается
             colorOffset = Math.max(5, 50 - colorScore * 2); 
             
             const grid = document.getElementById('color-grid');
@@ -914,12 +946,10 @@
             for (let i = 0; i < 8; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'color-cell';
-                
                 const hue = i === colorTargetIndex ? (colorBaseHue + colorOffset) % 360 : colorBaseHue;
                 
-                // Используем cat.png с фильтром
-                cell.innerHTML = `<img src="cat.png" style="filter: hue-rotate(${hue}deg) saturate(2) brightness(1.2);">`;
-                
+                // Если cat.png нет, рисуем цветной квадрат с котиком
+                cell.innerHTML = `<div style="width:80%; height:80%; background: hsl(${hue}, 80%, 60%); border-radius: 20%; display:flex; justify-content:center; align-items:center; font-size:30px;">🐱</div>`;
                 cell.onclick = () => handleColorClick(i);
                 grid.appendChild(cell);
             }
@@ -929,9 +959,8 @@
             if (!colorActive) return;
             
             if (index === colorTargetIndex) {
-                // Правильно
                 colorScore++;
-                coins += 5; // Награда монетами
+                coins += 5;
                 document.getElementById('color-score').innerText = colorScore;
                 updateCoinUI();
                 Sound.sfx.buy();
@@ -945,7 +974,6 @@
                 checkAchievements();
                 generateColorRound();
             } else {
-                // Ошибка
                 colorActive = false;
                 Sound.sfx.smash();
                 setTimeout(() => {
@@ -1045,6 +1073,37 @@
 
         const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
         const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, magnetTimer: 0, hasShield: false };
+
+        // Функция для отрисовки котика, если картинки нет
+        function drawVectorCat(px, py, w, h, isHit) {
+            ctx.save();
+            // Тело
+            ctx.fillStyle = isHit ? '#ff8888' : '#e0e0e0';
+            ctx.beginPath();
+            ctx.ellipse(px + w/2, py + h/2, w/2, h/2, 0, 0, Math.PI*2);
+            ctx.fill();
+            
+            // Уши
+            ctx.beginPath(); ctx.moveTo(px + w*0.2, py + h*0.3); ctx.lineTo(px + w*0.35, py); ctx.lineTo(px + w*0.5, py + h*0.3); ctx.fill();
+            ctx.beginPath(); ctx.moveTo(px + w*0.8, py + h*0.3); ctx.lineTo(px + w*0.65, py); ctx.lineTo(px + w*0.5, py + h*0.3); ctx.fill();
+            
+            // Глазки
+            ctx.fillStyle = '#000';
+            ctx.beginPath(); ctx.arc(px + w*0.35, py + h*0.45, w*0.08, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(px + w*0.65, py + h*0.45, w*0.08, 0, Math.PI*2); ctx.fill();
+            
+            // Носик и ротик
+            ctx.fillStyle = '#ff9999';
+            ctx.beginPath(); ctx.arc(px + w*0.5, py + h*0.6, w*0.05, 0, Math.PI*2); ctx.fill();
+            ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.arc(px + w*0.5, py + h*0.65, w*0.1, 0, Math.PI); ctx.stroke();
+            
+            // Усы
+            ctx.beginPath(); ctx.moveTo(px + w*0.2, py + h*0.6); ctx.lineTo(px + w*0.4, py + h*0.6); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(px + w*0.8, py + h*0.6); ctx.lineTo(px + w*0.6, py + h*0.6); ctx.stroke();
+            
+            ctx.restore();
+        }
 
         const IMAGES = { classic: { idle: new Image(), jump: new Image(), hit: new Image() }, mafia: { idle: new Image(), jump: new Image(), hit: new Image() }, cosmos: { idle: new Image(), jump: new Image(), hit: new Image() }, sushi: { idle: new Image(), jump: new Image(), hit: new Image() }, pancakes: { idle: new Image(), jump: new Image(), hit: new Image() } };
         IMAGES.classic.idle.src = 'cat.png'; IMAGES.classic.jump.src = 'cat_jump.png'; IMAGES.classic.hit.src = 'cat_hit.png';
@@ -1161,13 +1220,17 @@
                 if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
                     ctx.rotate(Math.sin(obj.wobble) * 0.15);
                     if (obj.type === 'red') {
-                        ctx.fillStyle = '#ff2020'; ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
-                        ctx.fillStyle = '#fff'; ctx.fillRect(-2, -2, 4, 12); ctx.fillRect(-6, 2, 12, 4);
+                        // ИСПРАВЛЕНО: Аптечка выглядит как аптечка
+                        ctx.fillStyle = '#fff'; 
+                        ctx.fillRect(-15, -15, 30, 30);
+                        ctx.fillStyle = '#ff2020'; 
+                        ctx.fillRect(-5, -12, 10, 24); 
+                        ctx.fillRect(-12, -5, 24, 10);
                     } else {
                         ctx.fillStyle = obj.type === 'golden' ? '#FFD700' : '#FF8C00'; ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
                         ctx.fillStyle = obj.type === 'golden' ? '#FFF8DC' : '#FFA500'; ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
+                        ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
                     }
-                    ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
                 } else if (obj.type === 'magnet') {
                     ctx.fillStyle = '#0055aa'; ctx.fillRect(-15,-15,30,30);
                     ctx.fillStyle = '#0088ff'; ctx.fillRect(-10,-10,20,20);
@@ -1206,12 +1269,13 @@
             ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY); 
             ctx.translate(-(px + w/2), -(py + h/2));
             
-            // Если сгорел от молнии
             if (deathVariation === 2 && gameState === 'dying' && deathTimer > 5) {
                 ctx.filter = 'brightness(0)';
             }
             
             let currentSprite = null; const skinImgs = IMAGES[activeSkin] || IMAGES.classic;
+            
+            // ИСПРАВЛЕНО: Проверяем, загрузилась ли картинка. Если нет - рисуем котика
             if (flash > 0 && skinImgs.hit.complete && skinImgs.hit.naturalWidth > 0) currentSprite = skinImgs.hit; 
             else if (!player.onGround && skinImgs.jump.complete && skinImgs.jump.naturalWidth > 0) currentSprite = skinImgs.jump; 
             else if (skinImgs.idle.complete && skinImgs.idle.naturalWidth > 0) currentSprite = skinImgs.idle; 
@@ -1220,8 +1284,10 @@
                 if (activeSkin === 'pancakes') { const scale = 0.55; const nw = 172, nh = 211; const sw = nw * scale, sh = nh * scale; const pivotX = 86 * scale; const pivotY = 170 * scale; ctx.drawImage(currentSprite, -pivotX, -pivotY, sw, sh); }
                 else { const imgRatio = currentSprite.width / currentSprite.height; let drawW = w, drawH = h; if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio; ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH); }
             } else {
-                ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h); ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
+                // Если картинок нет, рисуем векторного котика
+                drawVectorCat(px, py, w, h, flash > 0);
             }
+            
             ctx.filter = 'none';
             ctx.restore();
             
@@ -1253,10 +1319,9 @@
             for (const c of clouds) { c.x -= c.speed * dt; if (c.x < -200) { c.x = W + 200; c.y = 20 + Math.random() * 150; } }
             for (const h of hills) { h.x -= h.speed * dt; if (h.x + h.w < 0) { h.x = W + Math.random()*100; h.h = 150 + Math.random() * 100; } }
             
-            // НОВЫЕ СМЕРТИ
             if (gameState === 'dying') {
                 deathTimer += dt * 60;
-                if (deathVariation === 0) { // Наковальня
+                if (deathVariation === 0) { 
                     if (giantAnvil) { 
                         giantAnvil.y += giantAnvil.vy * dt * 60; 
                         giantAnvil.vy += 0.5 * dt * 60; 
@@ -1274,7 +1339,7 @@
                     }
                     if (deathTimer > 90) gameOver();
                 }
-                else if (deathVariation === 1) { // Черная дыра
+                else if (deathVariation === 1) { 
                     if (deathTimer > 30) {
                         rabbitScaleX -= 0.05 * dt * 60;
                         rabbitScaleY -= 0.05 * dt * 60;
@@ -1284,7 +1349,7 @@
                     }
                     if (deathTimer > 100) gameOver();
                 }
-                else if (deathVariation === 2) { // Молния
+                else if (deathVariation === 2) { 
                     if (deathTimer === 1) { 
                         flash = 2; 
                         Sound.sfx.smash(); 
@@ -1294,9 +1359,9 @@
                     if (deathTimer > 30) rabbitOpacity -= 0.02 * dt * 60;
                     if (deathTimer > 80) gameOver();
                 }
-                else if (deathVariation === 3) { // Призрак
+                else if (deathVariation === 3) { 
                     if (deathTimer > 10) { 
-                        rabbitRotation = Math.PI / 2; // лежит
+                        rabbitRotation = Math.PI / 2; 
                         rabbitOpacity = Math.max(0, rabbitOpacity - 0.02 * dt * 60); 
                         ghostOpacity = Math.min(1, ghostOpacity + 0.02 * dt * 60);
                         ghostY -= 2 * dt * 60;
@@ -1403,7 +1468,6 @@
             ghostY = 0; ghostOpacity = 0;
             
             if (deathVariation === 0) { 
-                // Наковальня
                 giantAnvil = { x: player.x + player.width/2 - 60, y: -300, width: 120, height: 100, vy: 10 }; 
                 Sound.sfx.drop(); 
             } else { 
@@ -1454,66 +1518,46 @@
                 drawObjects(); 
                 drawPlayer(); 
                 
-                // Рисуем Босса (Темный Кот)
                 if (boss) { 
                     ctx.save(); 
                     ctx.translate(boss.x + boss.width/2, boss.y + boss.height/2); 
-                    
-                    // Свечение
                     ctx.shadowBlur = 40; ctx.shadowColor = '#ff0000'; 
-                    
-                    // Уши
                     ctx.fillStyle = '#110022';
                     ctx.beginPath(); ctx.moveTo(-80, -60); ctx.lineTo(-40, -130); ctx.lineTo(-20, -60); ctx.fill();
                     ctx.beginPath(); ctx.moveTo(80, -60); ctx.lineTo(40, -130); ctx.lineTo(20, -60); ctx.fill();
-                    
-                    // Голова
                     ctx.beginPath(); ctx.arc(0, 0, 100, 0, Math.PI*2); ctx.fill();
-                    
-                    // Глаза
                     ctx.fillStyle = '#ff0000'; ctx.shadowBlur = 20;
                     ctx.beginPath(); ctx.ellipse(-40, -20, 15, 25, 0, 0, Math.PI*2); ctx.fill();
                     ctx.beginPath(); ctx.ellipse(40, -20, 15, 25, 0, 0, Math.PI*2); ctx.fill();
-                    
-                    // Зрачки
                     ctx.fillStyle = '#000'; ctx.shadowBlur = 0;
                     ctx.beginPath(); ctx.ellipse(-40, -20, 5, 15, 0, 0, Math.PI*2); ctx.fill();
                     ctx.beginPath(); ctx.ellipse(40, -20, 5, 15, 0, 0, Math.PI*2); ctx.fill();
-                    
-                    // Рот и зубы
                     ctx.fillStyle = '#110022';
                     ctx.beginPath(); ctx.arc(0, 40, 40, 0, Math.PI); ctx.fill();
                     ctx.fillStyle = '#fff';
                     ctx.beginPath(); ctx.moveTo(-30, 40); ctx.lineTo(-15, 60); ctx.lineTo(0, 40); ctx.fill();
                     ctx.beginPath(); ctx.moveTo(30, 40); ctx.lineTo(15, 60); ctx.lineTo(0, 40); ctx.fill();
-                    
-                    // Корона
                     ctx.fillStyle = '#FFD700'; ctx.shadowBlur = 10; ctx.shadowColor = '#FFD700';
                     ctx.beginPath(); ctx.moveTo(-50, -90); ctx.lineTo(-30, -130); ctx.lineTo(0, -100); ctx.lineTo(30, -130); ctx.lineTo(50, -90); ctx.fill();
-                    
-                    // Полоска здоровья
                     ctx.shadowBlur = 0;
                     ctx.fillStyle = '#333'; ctx.fillRect(-80, 120, 160, 15); 
                     ctx.fillStyle = '#ff0000'; ctx.fillRect(-80, 120, 160 * (boss.hp/3), 15); 
-                    
                     ctx.restore(); 
                 }
                 
-                // Рисуем Смерти
                 if (gameState === 'dying') {
                     if (deathVariation === 0 && giantAnvil) { 
                         ctx.save(); ctx.translate(giantAnvil.x + giantAnvil.width/2, giantAnvil.y + giantAnvil.height/2); 
                         ctx.shadowBlur = 20; ctx.shadowColor = '#000'; 
-                        ctx.fillStyle = '#555'; // Металл
+                        ctx.fillStyle = '#555'; 
                         ctx.fillRect(-60, -50, 120, 60);
-                        ctx.fillStyle = '#333'; // Тень
+                        ctx.fillStyle = '#333'; 
                         ctx.fillRect(-60, 10, 120, 40);
-                        ctx.fillStyle = '#888'; // Блик
+                        ctx.fillStyle = '#888'; 
                         ctx.fillRect(-50, -40, 100, 10);
                         ctx.restore(); 
                     }
                     if (deathVariation === 1 && deathTimer > 30) {
-                        // Черная дыра
                         ctx.save();
                         ctx.translate(player.x + player.width/2, player.y - player.height/2);
                         ctx.shadowBlur = 50; ctx.shadowColor = '#aa00ff';
@@ -1524,7 +1568,6 @@
                         ctx.restore();
                     }
                     if (deathVariation === 3) {
-                        // Призрак
                         ctx.save();
                         ctx.translate(player.x + player.width/2, player.y - player.height + ghostY);
                         ctx.globalAlpha = ghostOpacity;
@@ -1539,7 +1582,6 @@
                         ctx.lineTo(-15, 30); 
                         ctx.lineTo(-25, 20); 
                         ctx.fill();
-                        // Глазки
                         ctx.fillStyle = '#000';
                         ctx.beginPath(); ctx.arc(-8, -5, 4, 0, Math.PI*2); ctx.fill();
                         ctx.beginPath(); ctx.arc(8, -5, 4, 0, Math.PI*2); ctx.fill();
@@ -1554,7 +1596,7 @@
             if (debugFPS) { ctx.fillStyle = 'lime'; ctx.font = '16px monospace'; ctx.textAlign = 'left'; ctx.fillText(`FPS: ${Math.round(1/dt)}`, 10, 30); }
         }
 
-        let lastTime = performance.now();
+        let lastime = performance.now();
         let dt = 0.016;
         function loop(now) {
             dt = (now - lastTime) / 1000; lastTime = now; if (dt > 0.1) dt = 0.1;
@@ -1567,4 +1609,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-    </html>
+                                              </html> 
