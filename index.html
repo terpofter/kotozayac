@@ -6,7 +6,6 @@
     <title>Котозаяц: Прыжок в Кубы</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Новый шрифт Russo One -->
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     
     <style>
@@ -62,7 +61,6 @@
         }
         .overlay.hidden { display: none !important; }
         
-        /* Новые стили для заголовков */
         h1 { color: var(--neon); font-size: 56px; text-shadow: 0 0 20px var(--neon); margin: 0 0 5px 0; text-align: center; letter-spacing: 3px; }
         h2 { color: #fff; font-size: 28px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
         .subtitle { color: #aaa; font-size: 14px; margin-bottom: 25px; letter-spacing: 2px; text-align: center; }
@@ -156,7 +154,7 @@
         .death-stat-value { color: #fff; font-size: 22px; }
         .death-stat.coin .death-stat-value { color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
 
-        /* КЛИКЕР */
+        /* ========== РЕДИЗАЙН КЛИКЕРА ========== */
         #clicker-screen { background: radial-gradient(circle at 50% 30%, #2a1a1a 0%, #0f0f13 100%); }
         .clicker-container { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 500px; }
         .clicker-info { display: flex; gap: 15px; width: 100%; }
@@ -171,52 +169,107 @@
         #clicker-area {
             position: relative;
             width: 100%; max-width: 400px; height: 320px;
-            background: rgba(255,140,0,0.05);
-            border: 2px dashed rgba(255,140,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
+            border: 4px solid #FF8C00;
             border-radius: 20px;
             display: flex; justify-content: center; align-items: center;
-            cursor: pointer; overflow: hidden; transition: all 0.1s;
+            cursor: pointer; overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(255,140,0,0.2), 0 0 20px rgba(255,140,0,0.3);
+            transition: box-shadow 0.2s;
         }
-        #clicker-area:active { background: rgba(255,140,0,0.1); }
+        #clicker-area:active {
+            box-shadow: inset 0 0 60px rgba(255,140,0,0.5), 0 0 30px rgba(255,140,0,0.6);
+        }
+        .clicker-ring {
+            position: absolute; width: 200px; height: 200px;
+            border-radius: 50%; border: 2px dashed rgba(255, 215, 0, 0.4);
+            animation: spinRing 10s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes spinRing { 100% { transform: rotate(360deg); } }
+        
         .big-carrot {
-            font-size: 180px; line-height: 1;
+            font-size: 160px; line-height: 1;
             user-select: none; pointer-events: none;
-            transition: transform 0.1s;
-            filter: drop-shadow(0 10px 20px rgba(255,140,0,0.5));
+            filter: drop-shadow(0 15px 25px rgba(255,140,0,0.6));
             animation: carrotFloat 2s ease-in-out infinite;
+            z-index: 2;
         }
         @keyframes carrotFloat {
             0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
         }
-        @keyframes carrotBounce {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(0.85) rotate(-10deg); }
-            100% { transform: scale(1) rotate(0deg); }
-        }
+        
+        /* Частицы в кликере */
         .click-particle {
-            position: fixed; pointer-events: none;
+            position: absolute; pointer-events: none;
             font-size: 28px; font-weight: bold;
-            color: #FFD700; text-shadow: 2px 2px 0 #000, 0 0 10px #FFD700;
-            animation: floatUp 1s ease-out forwards;
-            z-index: 9999;
+            color: #FFD700; text-shadow: 2px 2px 0 #000, 0 0 15px #FFD700;
+            animation: floatUpClicker 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            z-index: 10;
         }
         .click-particle.crit {
-            font-size: 42px; color: #ff2020;
-            text-shadow: 2px 2px 0 #000, 0 0 20px #ff2020, 0 0 40px #ff2020;
+            font-size: 46px; color: #ff2020;
+            text-shadow: 2px 2px 0 #000, 0 0 25px #ff2020, 0 0 50px #ff2020;
         }
-        @keyframes floatUp {
-            0% { transform: translate(-50%, 0) scale(0.5); opacity: 1; }
-            50% { transform: translate(-50%, -50px) scale(1.2); opacity: 1; }
-            100% { transform: translate(-50%, -100px) scale(1.5); opacity: 0; }
+        @keyframes floatUpClicker {
+            0% { transform: translate(-50%, 0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(-50%, -120px) scale(1.5); opacity: 0; }
+        }
+        .click-coin {
+            position: absolute; pointer-events: none;
+            font-size: 24px; animation: coinBurst 0.6s ease-out forwards;
+            z-index: 9;
+        }
+        @keyframes coinBurst {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; }
         }
         .crit-flash {
-            position: fixed; inset: 0; pointer-events: none;
-            background: radial-gradient(circle at center, rgba(255,0,0,0.3) 0%, transparent 60%);
+            position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.4) 0%, transparent 70%);
             animation: critFlash 0.4s ease-out forwards;
-            z-index: 9998;
+            z-index: 5;
         }
         @keyframes critFlash { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+        /* УВЕДОМЛЕНИЕ О ДОСТИЖЕНИИ */
+        #ach-toast-container {
+            position: absolute; top: 70px; right: 15px;
+            z-index: 9999; display: flex; flex-direction: column; gap: 10px;
+            pointer-events: none;
+        }
+        .ach-toast {
+            background: rgba(15, 15, 25, 0.95);
+            border: 2px solid #FFD700;
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: white;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 15px;
+            min-width: 260px; max-width: 320px;
+        }
+        .ach-toast.show { transform: translateX(0); }
+        .ach-toast-icon {
+            font-size: 28px; animation: spinTrophy 2s ease-in-out infinite;
+        }
+        @keyframes spinTrophy {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+        }
+        .ach-toast-text { display: flex; flex-direction: column; }
+        .ach-toast-title {
+            color: #FFD700; font-size: 11px; letter-spacing: 1px;
+            font-weight: bold; text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+        }
+        .ach-toast-name {
+            font-size: 16px; font-weight: bold; margin-top: 4px;
+            text-shadow: 1px 1px 0 #000;
+        }
 
         /* МАГАЗИН И АЧИВКИ */
         .shop-balance { font-size: 22px; color: #FFD700; margin-bottom: 15px; text-shadow: 0 0 10px #FFD700; text-align: center; }
@@ -364,17 +417,23 @@
             .shop-buy-btn, .ach-btn { font-size: 11px; padding: 6px 8px; }
             .death-title { font-size: 26px; }
             .death-stat-value { font-size: 18px; }
-            .big-carrot { font-size: 120px; }
+            .big-carrot { font-size: 100px; }
             #clicker-area { height: 240px; }
             #floating-admin { width: calc(100% - 20px); left: 10px; top: 20px; height: 450px; }
             .adm-sidebar { width: 110px; }
             .adm-tab-btn { font-size: 11px; padding: 8px 8px; }
+            #ach-toast-container { top: 60px; right: 10px; }
+            .ach-toast { min-width: 220px; padding: 10px 15px; }
+            .ach-toast-name { font-size: 14px; }
         }
     </style>
 </head>
 <body>
     <div id="game-container">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
+        
+        <div id="ach-toast-container"></div>
+        
         <div id="admin-backdrop"></div>
 
         <div id="floating-admin">
@@ -458,35 +517,14 @@
             <button id="btn-pause" class="hud-btn" title="Пауза"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button>
         </div>
 
-        <!-- НОВОЕ ГЛАВНОЕ МЕНЮ -->
         <div id="hub-screen" class="overlay">
             <h1>КОТОЗАЯЦ</h1>
             <div class="subtitle">ПРЫЖОК В КУБЫ</div>
-            
-            <button id="btn-play" class="btn-rgb">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                ИГРАТЬ
-            </button>
-            
-            <button id="clicker-btn" class="btn-rgb">
-                <svg viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg>
-                КЛИКЕР
-            </button>
-            
-            <button id="shop-btn" class="btn-rgb">
-                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                МАГАЗИН
-            </button>
-            
-            <button id="ach-btn" class="btn-rgb">
-                <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-                АЧИВКИ
-            </button>
-            
-            <button id="btn-reset-all" class="btn-secondary">
-                <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                СБРОСИТЬ ВСЁ
-            </button>
+            <button id="btn-play" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> ИГРАТЬ</button>
+            <button id="clicker-btn" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg> КЛИКЕР</button>
+            <button id="shop-btn" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> МАГАЗИН</button>
+            <button id="ach-btn" class="btn-rgb"><svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg> АЧИВКИ</button>
+            <button id="btn-reset-all" class="btn-secondary"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> СБРОСИТЬ ВСЁ</button>
         </div>
 
         <div id="game-over-screen" class="overlay hidden">
@@ -511,7 +549,10 @@
                     <div class="clicker-info-item"><div class="clicker-info-label">БАЛАНС</div><div class="clicker-info-value" id="clicker-coins">0</div></div>
                     <div class="clicker-info-item"><div class="clicker-info-label">ВСЕГО КЛИКОВ</div><div class="clicker-info-value" id="clicker-total" style="color: #00ffcc;">0</div></div>
                 </div>
-                <div id="clicker-area"><div class="big-carrot" id="big-carrot">🥕</div></div>
+                <div id="clicker-area">
+                    <div class="clicker-ring"></div>
+                    <div class="big-carrot" id="big-carrot">🥕</div>
+                </div>
                 <div style="color: #888; font-size: 12px; text-align: center; letter-spacing: 1px;">Шанс 10% на КРИТ (x10 монет)</div>
                 <button id="clicker-close-btn" class="btn-secondary">НАЗАД</button>
             </div>
@@ -622,6 +663,11 @@
                 death1() { Sound.tone({freq: 659, type: 'square', dur: 0.14, vol: 0.15}); Sound.tone({freq: 523, type: 'square', dur: 0.14, vol: 0.15, delay: 0.14}); Sound.tone({freq: 440, type: 'square', dur: 0.14, vol: 0.15, delay: 0.28}); Sound.tone({freq: 349, type: 'square', dur: 0.4, vol: 0.15, delay: 0.42}); },
                 death2() { Sound.tone({freq: 220.00, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05}); Sound.tone({freq: 261.63, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05}); Sound.tone({freq: 311.13, type: 'triangle', dur: 1.8, vol: 0.1, attack: 0.05}); },
                 death3() { for (let i = 0; i < 10; i++) Sound.tone({freq: 900 - i * 80, type: 'sawtooth', dur: 0.08, vol: 0.12, delay: i * 0.06}); },
+                achievementDing() {
+                    Sound.tone({freq: 1046.50, type: 'sine', dur: 0.1, vol: 0.15}); // C6
+                    Sound.tone({freq: 1318.51, type: 'sine', dur: 0.1, vol: 0.15, delay: 0.1}); // E6
+                    Sound.tone({freq: 1567.98, type: 'sine', dur: 0.5, vol: 0.2, delay: 0.2}); // G6
+                },
                 deathJingle() { const v = deathVariation; if (v === 0) Sound.sfx.death0(); else if (v === 1) Sound.sfx.death1(); else if (v === 2) Sound.sfx.death2(); else Sound.sfx.death3(); }
             },
             music: {
@@ -644,6 +690,8 @@
 
         // ============ ДАННЫЕ ============
         let coins = 0, shopItems = {}, activeSkin = 'classic', achievements = {}, totalCarrots = 0, totalDeaths = 0, clickerTotal = 0, bossKills = 0, totalJumps = 0;
+        let notifiedAchievements = {};
+        try { if(localStorage.getItem('kotozayac_notified')) notifiedAchievements = JSON.parse(localStorage.getItem('kotozayac_notified')); } catch(e){}
 
         const SHOP_CONFIG = [
             { id: 'extraLife', type: 'upg', name: 'Доп. Сердце', desc: 'Старт с 4 жизнями', price: 500 },
@@ -699,6 +747,7 @@
                 localStorage.setItem('kotozayac_clicker', String(clickerTotal));
                 localStorage.setItem('kotozayac_bosskills', String(bossKills));
                 localStorage.setItem('kotozayac_jumps', String(totalJumps));
+                localStorage.setItem('kotozayac_notified', JSON.stringify(notifiedAchievements));
             } catch(e) {}
         }
 
@@ -770,6 +819,40 @@
             document.getElementById('ach-header').innerText = `ДОСТИЖЕНИЯ (${overallPercent}%)`;
         }
 
+        function checkAchievements() {
+            if (gameState !== 'playing' && gameState !== 'gameover') return;
+            ACH_CONFIG.forEach(item => {
+                const isCompleted = item.getVal() >= item.target;
+                if (isCompleted && !notifiedAchievements[item.id] && !achievements[item.id]) {
+                    notifiedAchievements[item.id] = true;
+                    saveData();
+                    showAchToast(item.name);
+                }
+            });
+        }
+
+        function showAchToast(name) {
+            Sound.sfx.achievementDing();
+            
+            const container = document.getElementById('ach-toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'ach-toast';
+            toast.innerHTML = `
+                <div class="ach-toast-icon">🏆</div>
+                <div class="ach-toast-text">
+                    <div class="ach-toast-title">Достижение выполнено</div>
+                    <div class="ach-toast-name">${name}</div>
+                </div>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 50);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 500);
+            }, 3500);
+        }
+
         // ============ КЛИКЕР ============
         function openClicker() {
             Sound.sfx.click();
@@ -788,18 +871,40 @@
             const amount = isCrit ? 10 : 1;
             coins += amount; clickerTotal++; updateCoinUI(); saveData();
             
+            const area = document.getElementById('clicker-area');
+            const rect = area.getBoundingClientRect();
+            // Спавним частицы по центру морковки, а не у курсора
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Всплывающий текст
             const particle = document.createElement('div');
             particle.className = 'click-particle' + (isCrit ? ' crit' : '');
             particle.textContent = isCrit ? '+' + amount + '!' : '+' + amount;
-            particle.style.left = e.clientX + 'px';
-            particle.style.top = e.clientY + 'px';
-            document.body.appendChild(particle);
-            setTimeout(() => particle.remove(), 1000);
+            particle.style.left = centerX + 'px';
+            particle.style.top = centerY + 'px';
+            area.appendChild(particle);
+            setTimeout(() => particle.remove(), 800);
+
+            // Взрыв монеток
+            for (let i = 0; i < (isCrit ? 12 : 4); i++) {
+                const coin = document.createElement('div');
+                coin.className = 'click-coin';
+                coin.textContent = isCrit ? '💰' : '🪙';
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 50 + Math.random() * 100;
+                coin.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+                coin.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+                coin.style.left = centerX + 'px';
+                coin.style.top = centerY + 'px';
+                area.appendChild(coin);
+                setTimeout(() => coin.remove(), 600);
+            }
             
             if (isCrit) {
                 const flash = document.createElement('div');
                 flash.className = 'crit-flash';
-                document.body.appendChild(flash);
+                area.appendChild(flash);
                 setTimeout(() => flash.remove(), 400);
                 Sound.sfx.critClick();
             } else {
@@ -1208,6 +1313,9 @@
             if (gameState !== 'playing') return;
             frames += dt * 60;
 
+            // Проверка ачивок раз в 30 кадров
+            if (frames % 30 === 0) checkAchievements();
+
             if (frames % 2 === 0) { trail.push({ x: player.x, y: player.y }); if (trail.length > 10) trail.shift(); }
 
             if (keys['ArrowLeft'] || keys['KeyA'] || btnLeft) player.x -= player.speed * dt * 60;
@@ -1448,4 +1556,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-                                                                                             </html>
+</html>
