@@ -53,7 +53,6 @@
         }
         .hud-btn svg { width: 22px; height: 22px; fill: currentColor; }
         .hud-btn:active { transform: scale(0.9); }
-        .hud-btn:hover { border-color: var(--neon); color: #fff; }
 
         /* Оверлеи */
         .overlay {
@@ -71,17 +70,38 @@
         .btn {
             background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000;
             border: none; border-radius: 8px; padding: 15px 40px; font-size: 24px; 
-            font-family: inherit; cursor: pointer;
-            box-shadow: 0 6px 0 #005a47; transition: transform 0.1s; margin: 8px; text-align: center;
-            text-transform: uppercase; position: relative; z-index: 30;
-            width: 100%; max-width: 350px;
+            font-family: inherit; cursor: pointer; box-shadow: 0 6px 0 #005a47; transition: transform 0.1s; margin: 8px; text-align: center;
+            text-transform: uppercase; position: relative; z-index: 30; width: 100%; max-width: 350px;
         }
         .btn:active { transform: translateY(6px); box-shadow: 0 0 0 #005a47; }
         .btn-secondary { background: linear-gradient(180deg, #555, #333); color: #fff; box-shadow: 0 6px 0 #111; font-size: 18px; padding: 12px 24px; }
         .btn-secondary:active { box-shadow: 0 0 0 #111; }
-        
         .btn-danger { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; box-shadow: 0 6px 0 #800000; font-size: 16px; padding: 10px 20px; max-width: 250px; }
         .btn-danger:active { box-shadow: 0 0 0 #800000; }
+        
+        /* АДМИН ПАНЕЛЬ */
+        .admin-panel { background: rgba(20, 0, 0, 0.95); border: 2px solid #ff0000; border-radius: 16px; padding: 20px; max-width: 500px; width: 100%; display: flex; flex-direction: column; gap: 10px; }
+        .admin-btn { background: linear-gradient(180deg, #ff4444, #cc0000); color: #fff; border: none; border-radius: 8px; padding: 12px; font-family: inherit; font-size: 18px; cursor: pointer; text-transform: uppercase; }
+        .admin-btn:active { transform: scale(0.95); }
+        .admin-btn.active { background: linear-gradient(180deg, #44ff44, #00cc00); color: #000; box-shadow: 0 0 15px #44ff44; }
+
+        /* ОКНО ПАРОЛЯ */
+        #password-screen { background: rgba(0, 0, 0, 0.98); }
+        .pass-input {
+            padding: 15px; font-size: 32px; text-align: center; border-radius: 8px; 
+            border: 3px solid #ff0000; background: rgba(0,0,0,0.8); color: #fff; 
+            font-family: 'Anton', sans-serif; width: 100%; max-width: 300px; margin-bottom: 20px;
+            outline: none; transition: border-color 0.2s;
+        }
+        .pass-input::placeholder { color: rgba(255, 0, 0, 0.5); font-size: 18px; }
+        .shake { animation: shake 0.3s; }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
 
         /* Мобильное управление */
         #mobile-controls {
@@ -102,50 +122,26 @@
 
         /* Терминал */
         #game-over-screen { background: #000 !important; justify-content: flex-start !important; align-items: flex-start !important; padding: 40px 30px; }
-        #terminal { 
-            font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; line-height: 1.8; 
-            color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; 
-            width: 100%; letter-spacing: 0; display: flex; flex-direction: column; 
-        }
+        #terminal { font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; line-height: 1.8; color: #00ff41; text-shadow: 0 0 8px currentColor; animation: hueShift 6s linear infinite; width: 100%; letter-spacing: 0; display: flex; flex-direction: column; }
         @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
         .term-line { margin: 0; min-height: 1.8em; white-space: pre-wrap; }
-        
         .term-btn-group { margin-top: 30px; display: flex; gap: 15px; position: relative; z-index: 100; }
-        .term-btn { 
-            background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; 
-            padding: 12px 24px; font-family: inherit; font-size: 20px; cursor: pointer; 
-            text-transform: uppercase; pointer-events: auto;
-        }
+        .term-btn { background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; color: #00ff41; padding: 12px 24px; font-family: inherit; font-size: 20px; cursor: pointer; text-transform: uppercase; pointer-events: auto; }
         .term-btn:hover { background: rgba(0, 255, 65, 0.3); }
 
-        /* АРТ ЗАЙЦА В ТЕРМИНАЛЕ */
-        #cmd-art-container {
-            margin-top: 20px; display: none; text-align: left; pointer-events: none;
-        }
-        #cmd-art {
-            max-width: 120px; max-height: 120px; border-radius: 8px;
-            filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); 
-            box-shadow: 0 0 10px #00ff41; border: 2px solid #00ff41;
-        }
+        #cmd-art-container { margin-top: 20px; display: none; text-align: left; pointer-events: none; }
+        #cmd-art { max-width: 120px; max-height: 120px; border-radius: 8px; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(5) brightness(0.8); box-shadow: 0 0 10px #00ff41; border: 2px solid #00ff41; }
 
-        /* МАГАЗИН */
+        /* МАГАЗИН И АЧИВКИ */
         .shop-balance { font-size: 28px; color: #FFD700; margin-bottom: 20px; text-shadow: 0 0 10px #FFD700; text-align: center; }
-        #shop-items { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%; max-width: 700px; margin-bottom: 20px; }
-        .shop-item {
-            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
-            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px;
-            border: 2px solid rgba(0, 255, 204, 0.2); width: 200px; text-align: center;
-        }
-        .shop-item-title { color: #fff; font-size: 18px; margin-bottom: 10px; }
-        .shop-buy-btn {
-            background: linear-gradient(180deg, #FFD700, #FFA500); color: #000;
-            border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px;
-            font-family: inherit; cursor: pointer; box-shadow: 0 4px 0 #b37400;
-            width: 100%; margin-top: 10px;
-        }
-        .shop-buy-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #b37400; }
-        .shop-buy-btn:disabled { background: #444; color: #888; box-shadow: 0 4px 0 #222; cursor: not-allowed; transform: none; }
+        #shop-items, #ach-items { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%; max-width: 700px; margin-bottom: 20px; }
+        .shop-item, .ach-item { display: flex; flex-direction: column; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 2px solid rgba(0, 255, 204, 0.2); width: 200px; text-align: center; }
+        .shop-item-title, .ach-item-title { color: #fff; font-size: 18px; margin-bottom: 10px; }
+        .shop-buy-btn, .ach-btn { background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px; font-family: inherit; cursor: pointer; box-shadow: 0 4px 0 #b37400; width: 100%; margin-top: 10px; }
+        .shop-buy-btn:active, .ach-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #b37400; }
+        .shop-buy-btn:disabled, .ach-btn:disabled { background: #444; color: #888; box-shadow: 0 4px 0 #222; cursor: not-allowed; transform: none; }
         .shop-buy-btn.equipped { background: #00ffcc; box-shadow: 0 4px 0 #005a47; color: #000; }
+        .ach-btn.claimed { background: #00ffcc; box-shadow: 0 4px 0 #005a47; color: #000; }
         
         @media (max-width: 600px) {
             h1 { font-size: 40px; } h2 { font-size: 28px; }
@@ -159,10 +155,10 @@
             #terminal { font-size: 14px; }
             .term-btn { font-size: 16px; padding: 10px 16px; }
             #cmd-art { max-width: 80px; max-height: 80px; }
-            
-            .shop-item { width: 45%; padding: 10px; }
-            .shop-item-title { font-size: 14px; }
-            .shop-buy-btn { font-size: 14px; padding: 8px 10px; }
+            .shop-item, .ach-item { width: 45%; padding: 10px; }
+            .shop-item-title, .ach-item-title { font-size: 14px; }
+            .shop-buy-btn, .ach-btn { font-size: 14px; padding: 8px 10px; }
+            .admin-panel { padding: 15px; }
         }
     </style>
 </head>
@@ -171,18 +167,9 @@
         <canvas id="gameCanvas" width="800" height="600"></canvas>
 
         <div id="hud">
-            <div class="hud-item">
-                <svg class="hud-icon icon-carrot" viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg>
-                <span id="score">0</span>
-            </div>
-            <div class="hud-item">
-                <svg class="hud-icon icon-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                <span id="lives">3</span>
-            </div>
-            <div class="hud-item">
-                <svg class="hud-icon icon-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 6v12m-4-6h8" stroke="currentColor" stroke-width="2"/></svg>
-                <span id="coins">0</span>
-            </div>
+            <div class="hud-item"><svg class="hud-icon icon-carrot" viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z M8.5,2.5c1.4-0.4,2.9-0.4,4.3,0l-3,3C9.3,4.2,8.7,3.4,8.5,2.5z M21.5,15.5c-0.4,1.4-0.4,2.9,0,4.3l-3-3C19.3,16.3,20.1,15.7,21.5,15.5z"/></svg><span id="score">0</span></div>
+            <div class="hud-item"><svg class="hud-icon icon-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="lives">3</span></div>
+            <div class="hud-item"><svg class="hud-icon icon-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 6v12m-4-6h8" stroke="currentColor" stroke-width="2"/></svg><span id="coins">0</span></div>
             
             <div class="hud-item" style="border-color: rgba(0, 255, 204, 0.6); box-shadow: 0 0 10px rgba(0,255,204,0.2);">
                 <svg class="hud-icon icon-clock" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
@@ -195,9 +182,7 @@
                 <svg id="icon-sound-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                 <svg id="icon-sound-off" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
             </button>
-            <button id="btn-pause" class="hud-btn" title="Пауза">
-                <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-            </button>
+            <button id="btn-pause" class="hud-btn" title="Пауза"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button>
         </div>
 
         <div id="hub-screen" class="overlay">
@@ -205,6 +190,7 @@
             <div class="subtitle">ГЛАВНОЕ МЕНЮ</div>
             <button id="btn-play" class="btn">ПРЫЖОК В КУБЫ</button>
             <button id="shop-btn" class="btn" style="background: linear-gradient(180deg, #FFD700, #FFA500); color: #000; box-shadow: 0 6px 0 #b37400;">🛒 МАГАЗИН</button>
+            <button id="ach-btn" class="btn" style="background: linear-gradient(180deg, #00ffcc, #00b38f); color: #000; box-shadow: 0 6px 0 #005a47;">🏆 АЧИВКИ</button>
             <button id="btn-reset-all" class="btn btn-danger">СБРОСИТЬ ВСЁ</button>
         </div>
 
@@ -213,6 +199,35 @@
             <div class="shop-balance">Баланс: <span id="shop-coins">0</span> 🥕</div>
             <div id="shop-items"></div>
             <button id="shop-close-btn" class="btn">НАЗАД</button>
+        </div>
+
+        <div id="ach-screen" class="overlay hidden">
+            <h2>ДОСТИЖЕНИЯ</h2>
+            <div class="shop-balance">Баланс: <span id="ach-coins">0</span> 🥕</div>
+            <div id="ach-items"></div>
+            <button id="ach-close-btn" class="btn">НАЗАД</button>
+        </div>
+
+        <!-- ОКНО ВВОДА ПАРОЛЯ -->
+        <div id="password-screen" class="overlay hidden">
+            <h2 style="color: #ff0000; text-shadow: 0 0 10px #ff0000;">СЕКРЕТНАЯ КОМНАТА</h2>
+            <input type="password" id="pass-input" class="pass-input" inputmode="numeric" placeholder="ВВЕДИ ПАРОЛЬ" autocomplete="off">
+            <button id="pass-submit" class="btn" style="background: linear-gradient(180deg, #ff4444, #cc0000); box-shadow: 0 6px 0 #800000; color: #fff; max-width: 300px;">ВОЙТИ</button>
+            <button id="pass-cancel" class="btn btn-secondary" style="max-width: 300px;">ОТМЕНА</button>
+        </div>
+
+        <!-- АДМИН ПАНЕЛЬ -->
+        <div id="admin-screen" class="overlay hidden">
+            <h2 style="color: #ff0000; text-shadow: 0 0 10px #ff0000;">ADMIN PANEL</h2>
+            <div class="admin-panel">
+                <button id="adm-god" class="admin-btn">Бессмертие: ВЫКЛ</button>
+                <button id="adm-coins" class="admin-btn">+ 1 000 000 Монет</button>
+                <button id="adm-hack" class="admin-btn">Взломать всё (Ачивки + Скины)</button>
+                <button id="adm-day" class="admin-btn">Принудительный ДЕНЬ</button>
+                <button id="adm-night" class="admin-btn">Принудительная НОЧЬ</button>
+                <button id="adm-auto" class="admin-btn">Вернуть реальное время</button>
+            </div>
+            <button id="admin-close-btn" class="btn btn-secondary" style="margin-top: 20px;">ЗАКРЫТЬ</button>
         </div>
 
         <div id="pause-screen" class="overlay hidden">
@@ -228,9 +243,7 @@
                     <button class="term-btn" id="term-restart-btn">Заново</button>
                     <button class="term-btn" id="term-menu-btn">В меню</button>
                 </div>
-                <div id="cmd-art-container">
-                    <img src="cat.png" id="cmd-art" alt="System Cat">
-                </div>
+                <div id="cmd-art-container"><img src="cat.png" id="cmd-art" alt="System Cat"></div>
             </div>
         </div>
 
@@ -242,34 +255,96 @@
     </div>
 
     <script>
-        // ============ ДЕНЬ / НОЧЬ И ЧАСЫ (ФИКС) ============
+        // ============ СЕКРЕТНЫЙ КОД (3 КЛИКА НА СБРОС) ============
+        let resetClickCount = 0;
+        let resetClickTimer = null;
+
+        document.getElementById('btn-reset-all').addEventListener('click', () => {
+            resetClickCount++;
+            
+            if (resetClickCount === 1) {
+                // Если это первый клик, ставим таймер на 600мс. 
+                // Если за это время не будет еще кликов — сбрасываем игру.
+                resetClickTimer = setTimeout(() => {
+                    if (confirm('Точно сбросить ВЕСЬ прогресс?')) { 
+                        localStorage.clear(); 
+                        location.reload(); 
+                    }
+                    resetClickCount = 0;
+                }, 600);
+            } 
+            else if (resetClickCount === 3) {
+                // Если успели кликнуть 3 раза — отменяем сброс и открываем окно пароля
+                clearTimeout(resetClickTimer);
+                resetClickCount = 0;
+                
+                Sound.sfx.click();
+                document.getElementById('hub-screen').classList.add('hidden');
+                document.getElementById('password-screen').classList.remove('hidden');
+                document.getElementById('pass-input').value = '';
+                document.getElementById('pass-input').focus();
+            }
+        });
+
+        // Проверка пароля
+        document.getElementById('pass-submit').addEventListener('click', checkPassword);
+        document.getElementById('pass-input').addEventListener('keypress', (e) => { 
+            if (e.key === 'Enter') checkPassword(); 
+        });
+
+        function checkPassword() {
+            const val = document.getElementById('pass-input').value;
+            const inp = document.getElementById('pass-input');
+            
+            if (val === '589') {
+                document.getElementById('password-screen').classList.add('hidden');
+                document.getElementById('admin-screen').classList.remove('hidden');
+                Sound.sfx.buy();
+            } else {
+                // Ошибка: трясем поле и очищаем
+                Sound.sfx.hit();
+                inp.classList.add('shake');
+                inp.style.borderColor = '#fff';
+                setTimeout(() => {
+                    inp.classList.remove('shake');
+                    inp.style.borderColor = '#ff0000';
+                    inp.value = '';
+                    inp.placeholder = 'НЕВЕРНО';
+                }, 400);
+            }
+        }
+
+        document.getElementById('pass-cancel').addEventListener('click', () => {
+            document.getElementById('password-screen').classList.add('hidden');
+            document.getElementById('hub-screen').classList.remove('hidden');
+        });
+
+        // ============ ВРЕМЯ И СЕЗОНЫ ============
         let isNight = false;
+        let currentSeason = 'summer';
+        let forceTime = null; // null, 'day', 'night'
+        let godMode = false;
 
         function updateMoscowClock() {
             const now = new Date();
-            
-            // Сдвигаем время на UTC+3 (Москва)
             const mskOffset = 3 * 60 * 60 * 1000; 
             const mskTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + mskOffset);
             
             const hours = mskTime.getHours();
             const minutes = mskTime.getMinutes();
             const seconds = mskTime.getSeconds();
+            const month = mskTime.getMonth();
             
-            const mskString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            document.getElementById('clock-msk').innerText = mskString;
+            document.getElementById('clock-msk').innerText = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             
-            // Проверка на чит-код (для теста)
-            const urlParams = new URLSearchParams(window.location.search);
-            const debugTime = urlParams.get('time');
-            
-            if (debugTime !== null) {
-                const debugHour = parseInt(debugTime, 10);
-                isNight = (debugHour >= 22 || debugHour < 10);
-            } else {
-                // С 22:00 до 10:00 - НОЧЬ
-                isNight = (hours >= 22 || hours < 10);
-            }
+            if (forceTime === 'day') isNight = false;
+            else if (forceTime === 'night') isNight = true;
+            else isNight = (hours >= 22 || hours < 10);
+
+            if (month === 11 || month === 0 || month === 1) currentSeason = 'winter';
+            else if (month >= 2 && month <= 4) currentSeason = 'spring';
+            else if (month >= 5 && month <= 7) currentSeason = 'summer';
+            else currentSeason = 'autumn';
         }
         
         setInterval(updateMoscowClock, 1000);
@@ -279,28 +354,19 @@
         const Sound = {
             ctx: null, master: null, musicGain: null, sfxGain: null, noiseBuffer: null, muted: false,
             musicVolume: 0.3, sfxVolume: 0.6, musicPlaying: false, musicTimer: null, nextNoteTime: 0, step: 0, BPM: 115,
-
             init() {
                 if (this.ctx) return;
                 try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return; }
                 this.master = this.ctx.createGain(); this.master.gain.value = this.muted ? 0 : 1; this.master.connect(this.ctx.destination);
                 this.musicGain = this.ctx.createGain(); this.musicGain.gain.value = this.musicVolume; this.musicGain.connect(this.master);
                 this.sfxGain = this.ctx.createGain(); this.sfxGain.gain.value = this.sfxVolume; this.sfxGain.connect(this.master);
-                const sr = this.ctx.sampleRate;
-                this.noiseBuffer = this.ctx.createBuffer(1, sr * 0.5, sr);
-                const data = this.noiseBuffer.getChannelData(0);
-                for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+                const sr = this.ctx.sampleRate; this.noiseBuffer = this.ctx.createBuffer(1, sr * 0.5, sr);
+                const data = this.noiseBuffer.getChannelData(0); for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
             },
             resume() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); },
-            setMute(m) { 
-                this.muted = m; 
-                if (this.master) this.master.gain.value = m ? 0 : 1; 
-                try { localStorage.setItem('kotozayac_mute', m ? '1' : '0'); } catch(e){}
-                if(!m) this.resume(); 
-            },
+            setMute(m) { this.muted = m; if (this.master) this.master.gain.value = m ? 0 : 1; try { localStorage.setItem('kotozayac_mute', m ? '1' : '0'); } catch(e){} if(!m) this.resume(); },
             tone({freq, type='sine', dur=0.2, vol=0.1, slideTo=null, delay=0, attack=0.005, filter=null}) {
-                if (!this.ctx) return;
-                const t = this.ctx.currentTime + delay; const osc = this.ctx.createOscillator(); const g = this.ctx.createGain();
+                if (!this.ctx) return; const t = this.ctx.currentTime + delay; const osc = this.ctx.createOscillator(); const g = this.ctx.createGain();
                 osc.type = type; osc.frequency.setValueAtTime(freq, t);
                 if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
                 g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
@@ -309,16 +375,15 @@
                 node.connect(g).connect(this.sfxGain); osc.start(t); osc.stop(t + dur + 0.02);
             },
             noise({dur=0.1, vol=0.1, type='highpass', freq=2000, delay=0}) {
-                if (!this.ctx) return;
-                const t = this.ctx.currentTime + delay; const src = this.ctx.createBufferSource(); src.buffer = this.noiseBuffer;
+                if (!this.ctx) return; const t = this.ctx.currentTime + delay; const src = this.ctx.createBufferSource(); src.buffer = this.noiseBuffer;
                 const f = this.ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; const g = this.ctx.createGain();
                 g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
                 src.connect(f).connect(g).connect(this.sfxGain); src.start(t); src.stop(t + dur + 0.01);
             },
             sfx: {
                 jump() { Sound.tone({freq: 250, type: 'square', dur: 0.16, vol: 0.1, slideTo: 780}); Sound.tone({freq: 500, type: 'triangle', dur: 0.12, vol: 0.05, slideTo: 1200, delay: 0.02}); },
-                boost() { Sound.tone({freq: 200, type: 'sawtooth', dur: 0.5, vol: 0.1, slideTo: 2000, filter: {type: 'bandpass', freq: 500, freqTo: 3500, q: 4}}); },
                 hit() { Sound.tone({freq: 2093, type: 'sine', dur: 0.11, vol: 0.2}); Sound.noise({dur: 0.008, vol: 0.08, type: 'highpass', freq: 6000}); },
+                bossHit() { Sound.tone({freq: 300, type: 'sawtooth', dur: 0.2, vol: 0.2, slideTo: 100}); },
                 gameover() { Sound.tone({freq: 220, type: 'sine', dur: 1.6, vol: 0.07}); try { if ('speechSynthesis' in window) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance('Геймовер'); u.lang = 'ru-RU'; u.rate = 0.85; u.pitch = 0.7; speechSynthesis.speak(u); } } catch(e) {} },
                 click() { Sound.noise({dur: 0.025, vol: 0.14, type: 'highpass', freq: 3200}); Sound.tone({freq: 2200, type: 'square', dur: 0.02, vol: 0.06, slideTo: 1600}); },
                 start() { Sound.tone({freq: 90, type: 'sawtooth', dur: 0.7, vol: 0.14, slideTo: 45, filter: {type: 'lowpass', freq: 600, freqTo: 120}}); Sound.tone({freq: 440, type: 'square', dur: 0.4, vol: 0.09, delay: 0.28}); },
@@ -332,8 +397,7 @@
                 start() { if (!Sound.ctx || this.playing) return; this.playing = true; this.nextNoteTime = Sound.ctx.currentTime + 0.1; this.step = 0; this.tick(); },
                 stop() { this.playing = false; if (this.musicTimer) { clearTimeout(this.musicTimer); this.musicTimer = null; } },
                 tick() {
-                    if (!this.playing || !Sound.ctx) return;
-                    const stepDur = 60 / Sound.BPM / 4;
+                    if (!this.playing || !Sound.ctx) return; const stepDur = 60 / Sound.BPM / 4;
                     while (this.nextNoteTime < Sound.ctx.currentTime + 0.15) { this.scheduleStep(this.step, this.nextNoteTime); this.nextNoteTime += stepDur; this.step = (this.step + 1) % 64; }
                     this.musicTimer = setTimeout(() => this.tick(), 25);
                 },
@@ -354,15 +418,10 @@
         document.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); });
         document.addEventListener('keydown', () => { Sound.init(); Sound.resume(); });
 
-        try {
-            Sound.muted = localStorage.getItem('kotozayac_mute') === '1';
-            if (Sound.muted) { document.getElementById('icon-sound-on').style.display = 'none'; document.getElementById('icon-sound-off').style.display = 'block'; }
-        } catch(e) {}
+        try { Sound.muted = localStorage.getItem('kotozayac_mute') === '1'; if (Sound.muted) { document.getElementById('icon-sound-on').style.display = 'none'; document.getElementById('icon-sound-off').style.display = 'block'; } } catch(e) {}
 
         // ============ ДАННЫЕ ============
-        let coins = 0;
-        let shopItems = {}; 
-        let activeSkin = 'classic'; 
+        let coins = 0, shopItems = {}, activeSkin = 'classic', achievements = {}, totalCarrots = 0, totalDeaths = 0;
 
         const SHOP_CONFIG = [
             { id: 'extraLife', type: 'upg', name: 'Доп. Сердце', desc: 'Начинать с 4 жизнями', price: 500 },
@@ -375,18 +434,24 @@
             { id: 'pancakes', type: 'skin', name: 'Гурман', desc: 'С блинами', price: 900 }
         ];
 
+        const ACH_CONFIG = [
+            { id: 'eat50', name: 'Обжора', desc: 'Съешь 50 морковок', reward: 500, cond: () => totalCarrots >= 50 },
+            { id: 'die10', name: 'Мазохист', desc: 'Умри 10 раз', reward: 500, cond: () => totalDeaths >= 10 },
+            { id: 'score1000', name: 'Профи', desc: 'Набери 1000 очков', reward: 1000, cond: () => bestScore >= 1000 },
+            { id: 'boss1', name: 'Убийца Морковок', desc: 'Убей первого босса', reward: 1500, cond: () => achievements['boss1'] === true } 
+        ];
+
         function loadData() {
             try {
-                const savedCoins = localStorage.getItem('kotozayac_coins');
-                if (savedCoins) coins = parseInt(savedCoins, 10);
-                const savedShop = localStorage.getItem('kotozayac_shop');
-                if (savedShop) shopItems = JSON.parse(savedShop);
-                const savedSkin = localStorage.getItem('kotozayac_active_skin');
-                if (savedSkin) activeSkin = savedSkin;
-            } catch(e) { coins = 0; shopItems = {}; activeSkin = 'classic'; }
-            
+                if (localStorage.getItem('kotozayac_coins')) coins = parseInt(localStorage.getItem('kotozayac_coins'), 10);
+                if (localStorage.getItem('kotozayac_shop')) shopItems = JSON.parse(localStorage.getItem('kotozayac_shop'));
+                if (localStorage.getItem('kotozayac_active_skin')) activeSkin = localStorage.getItem('kotozayac_active_skin');
+                if (localStorage.getItem('kotozayac_ach')) achievements = JSON.parse(localStorage.getItem('kotozayac_ach'));
+                if (localStorage.getItem('kotozayac_total_carrots')) totalCarrots = parseInt(localStorage.getItem('kotozayac_total_carrots'), 10);
+                if (localStorage.getItem('kotozayac_total_deaths')) totalDeaths = parseInt(localStorage.getItem('kotozayac_total_deaths'), 10);
+            } catch(e) { }
             if (!shopItems['classic']) shopItems['classic'] = true; 
-            updateCoinUI(); renderShop();
+            updateCoinUI(); renderShop(); renderAch();
         }
 
         function saveData() {
@@ -395,99 +460,85 @@
                 localStorage.setItem('kotozayac_shop', JSON.stringify(shopItems));
                 localStorage.setItem('kotozayac_active_skin', activeSkin);
                 localStorage.setItem('kotozayac_best', String(bestScore));
+                localStorage.setItem('kotozayac_ach', JSON.stringify(achievements));
+                localStorage.setItem('kotozayac_total_carrots', String(totalCarrots));
+                localStorage.setItem('kotozayac_total_deaths', String(totalDeaths));
             } catch(e) {}
         }
 
         function updateCoinUI() {
             document.getElementById('coins').innerText = coins;
             document.getElementById('shop-coins').innerText = coins;
+            document.getElementById('ach-coins').innerText = coins;
         }
 
         function renderShop() {
-            const container = document.getElementById('shop-items');
-            container.innerHTML = '';
+            const container = document.getElementById('shop-items'); container.innerHTML = '';
             SHOP_CONFIG.forEach(item => {
-                const isBought = shopItems[item.id];
-                const isEquipped = activeSkin === item.id;
-                
-                const card = document.createElement('div');
-                card.className = 'shop-item';
-                
-                let btnText = item.price + ' 🥕';
-                let btnClass = '';
-                let isDisabled = false;
+                const isBought = shopItems[item.id], isEquipped = activeSkin === item.id;
+                let btnText = item.price + ' 🥕', btnClass = '', isDisabled = false;
+                if (item.id === 'classic') { if (isEquipped) { btnText = 'НАДЕТО'; btnClass = 'equipped'; isDisabled = true; } else { btnText = 'НАДЕТЬ'; } } 
+                else if (isBought) { if (isEquipped) { btnText = 'НАДЕТО'; btnClass = 'equipped'; isDisabled = true; } else { btnText = 'НАДЕТЬ'; } } 
+                else { if (coins < item.price) isDisabled = true; }
 
-                if (item.id === 'classic') {
-                    if (isEquipped) { btnText = 'НАДЕТО'; btnClass = 'equipped'; isDisabled = true; }
-                    else { btnText = 'НАДЕТЬ'; btnClass = ''; isDisabled = false; }
-                } else if (isBought) {
-                    if (isEquipped) { btnText = 'НАДЕТО'; btnClass = 'equipped'; isDisabled = true; }
-                    else { btnText = 'НАДЕТЬ'; btnClass = ''; isDisabled = false; }
-                } else {
-                    if (coins < item.price) isDisabled = true;
-                }
-
-                card.innerHTML = `
-                    <div class="shop-item-title">${item.name}</div>
-                    <div style="font-size:12px; color:#888; margin-bottom:10px;">${item.desc}</div>
-                    <button class="shop-buy-btn ${btnClass}" id="btn-${item.id}" ${isDisabled ? 'disabled' : ''}>
-                        ${btnText}
-                    </button>
-                `;
+                const card = document.createElement('div'); card.className = 'shop-item';
+                card.innerHTML = `<div class="shop-item-title">${item.name}</div><div style="font-size:12px; color:#888; margin-bottom:10px;">${item.desc}</div>
+                    <button class="shop-buy-btn ${btnClass}" id="btn-${item.id}" ${isDisabled ? 'disabled' : ''}>${btnText}</button>`;
                 container.appendChild(card);
                 
                 if (!isDisabled) {
                     document.getElementById(`btn-${item.id}`).addEventListener('click', () => {
-                        if (isBought) {
-                            activeSkin = item.id; Sound.sfx.click(); saveData(); renderShop();
-                        } else {
-                            if (coins >= item.price) {
-                                coins -= item.price; shopItems[item.id] = true; activeSkin = item.id; 
-                                Sound.sfx.buy(); saveData(); renderShop();
-                            }
-                        }
+                        if (isBought) { activeSkin = item.id; Sound.sfx.click(); saveData(); renderShop(); } 
+                        else { if (coins >= item.price) { coins -= item.price; shopItems[item.id] = true; activeSkin = item.id; Sound.sfx.buy(); saveData(); renderShop(); } }
+                    });
+                }
+            });
+        }
+
+        function renderAch() {
+            const container = document.getElementById('ach-items'); container.innerHTML = '';
+            ACH_CONFIG.forEach(item => {
+                const isClaimed = achievements[item.id], isCompleted = item.cond();
+                let btnText = 'В ПРОЦЕССЕ', btnClass = '', isDisabled = true;
+                if (isClaimed) { btnText = 'ПОЛУЧЕНО'; btnClass = 'claimed'; isDisabled = true; }
+                else if (isCompleted) { btnText = 'ЗАБРАТЬ ' + item.reward + ' 🥕'; btnClass = ''; isDisabled = false; }
+                
+                const card = document.createElement('div'); card.className = 'ach-item';
+                card.innerHTML = `<div class="ach-item-title">${item.name}</div><div style="font-size:12px; color:#888; margin-bottom:10px;">${item.desc}</div>
+                    <button class="ach-btn ${btnClass}" id="ach-${item.id}" ${isDisabled ? 'disabled' : ''}>${btnText}</button>`;
+                container.appendChild(card);
+                
+                if (!isDisabled) {
+                    document.getElementById(`ach-${item.id}`).addEventListener('click', () => {
+                        coins += item.reward; achievements[item.id] = true; Sound.sfx.buy(); saveData(); renderAch(); updateCoinUI();
                     });
                 }
             });
         }
 
         // ============ ИГРА ============
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById('gameCanvas'); const ctx = canvas.getContext('2d');
         const W = canvas.width, H = canvas.height;
         const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
         if (isTouch) document.getElementById('mobile-controls').classList.add('visible');
 
-        const scoreEl = document.getElementById('score');
-        const livesEl = document.getElementById('lives');
+        const scoreEl = document.getElementById('score'), livesEl = document.getElementById('lives');
         let gameState = 'hub'; 
         let score = 0, lives = 3, bestScore = 0;
-        let frames = 0, difficulty = 1, prevDifficulty = 1;
-        let combo = 0, carrotsCollected = 0, carrotsMissed = 0, objectSpawnCount = 0, spawnTimer = 0;
-        let objects = [], particles = [], clouds = [], hills = [];
+        let frames = 0, difficulty = 1, prevDifficulty = 1, combo = 0, carrotsCollected = 0, carrotsMissed = 0, objectSpawnCount = 0, spawnTimer = 0;
+        let objects = [], particles = [], clouds = [], hills = [], weather = [], trail = [];
         let screenShake = 0, flash = 0, btnLeft = false, btnRight = false, termGeneration = 0;
         
-        let deathTimer = 0;
-        let giantCarrot = null;
+        let deathTimer = 0, giantCarrot = null;
+        let nextBossScore = 500, boss = null;
 
         try { bestScore = parseInt(localStorage.getItem('kotozayac_best') || '0', 10) || 0; } catch(e) {}
 
         const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
-        const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0 };
+        const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, dustTimer: 0, magnetTimer: 0, hasShield: false };
 
-        const IMAGES = {
-            classic: { idle: new Image(), jump: new Image(), hit: new Image() },
-            mafia: { idle: new Image(), jump: new Image(), hit: new Image() },
-            cosmos: { idle: new Image(), jump: new Image(), hit: new Image() },
-            coca: { idle: new Image(), jump: new Image(), hit: new Image() },
-            sushi: { idle: new Image(), jump: new Image(), hit: new Image() },
-            pancakes: { idle: new Image(), jump: new Image(), hit: new Image() }
-        };
-
-        IMAGES.classic.idle.src = 'cat.png';
-        IMAGES.classic.jump.src = 'cat_jump.png';
-        IMAGES.classic.hit.src = 'cat_hit.png';
-        
+        const IMAGES = { classic: { idle: new Image(), jump: new Image(), hit: new Image() }, mafia: { idle: new Image(), jump: new Image(), hit: new Image() }, cosmos: { idle: new Image(), jump: new Image(), hit: new Image() }, coca: { idle: new Image(), jump: new Image(), hit: new Image() }, sushi: { idle: new Image(), jump: new Image(), hit: new Image() }, pancakes: { idle: new Image(), jump: new Image(), hit: new Image() } };
+        IMAGES.classic.idle.src = 'cat.png'; IMAGES.classic.jump.src = 'cat_jump.png'; IMAGES.classic.hit.src = 'cat_hit.png';
         IMAGES.mafia.idle.src = 'cat_mafia.png'; IMAGES.mafia.jump.src = 'cat_mafia.png'; IMAGES.mafia.hit.src = 'cat_mafia.png';
         IMAGES.cosmos.idle.src = 'cat_cosmos.png'; IMAGES.cosmos.jump.src = 'cat_cosmos.png'; IMAGES.cosmos.hit.src = 'cat_cosmos.png';
         IMAGES.coca.idle.src = 'cat_coca.png'; IMAGES.coca.jump.src = 'cat_coca.png'; IMAGES.coca.hit.src = 'cat_coca.png';
@@ -504,34 +555,21 @@
             if (['ArrowLeft','ArrowRight','ArrowUp','Space'].includes(e.code)) e.preventDefault();
             if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') tryJump();
             if (e.code === 'KeyP' || e.code === 'Escape') togglePause();
-            if (gameState === 'gameover') {
-                if (e.code === 'KeyR' || e.code === 'Enter') restartGame();
-                if (e.code === 'KeyM') goToHub();
-            }
+            if (gameState === 'gameover') { if (e.code === 'KeyR' || e.code === 'Enter') restartGame(); if (e.code === 'KeyM') goToHub(); }
         });
         window.addEventListener('keyup', e => keys[e.code] = false);
         window.addEventListener('blur', () => { btnLeft = btnRight = false; for (const k in keys) keys[k] = false; });
         canvas.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); });
-        canvas.addEventListener('pointermove', e => {
-            if (isTouch || gameState !== 'playing') return;
-            const r = canvas.getBoundingClientRect();
-            player.x = (e.clientX - r.left) * (W / r.width) - player.width / 2; clampPlayer();
-        });
+        canvas.addEventListener('pointermove', e => { if (isTouch || gameState !== 'playing') return; const r = canvas.getBoundingClientRect(); player.x = (e.clientX - r.left) * (W / r.width) - player.width / 2; clampPlayer(); });
 
-        function bindBtn(el, setter) {
-            el.addEventListener('pointerdown', e => { e.preventDefault(); setter(true); el.setPointerCapture(e.pointerId); });
-            el.addEventListener('pointerup', () => setter(false)); el.addEventListener('pointercancel', () => setter(false)); el.addEventListener('pointerleave', () => setter(false));
-        }
-        bindBtn(document.getElementById('btn-left'),  v => btnLeft = v);
-        bindBtn(document.getElementById('btn-right'), v => btnRight = v);
+        function bindBtn(el, setter) { el.addEventListener('pointerdown', e => { e.preventDefault(); setter(true); el.setPointerCapture(e.pointerId); }); el.addEventListener('pointerup', () => setter(false)); el.addEventListener('pointercancel', () => setter(false)); el.addEventListener('pointerleave', () => setter(false)); }
+        bindBtn(document.getElementById('btn-left'),  v => btnLeft = v); bindBtn(document.getElementById('btn-right'), v => btnRight = v);
         document.getElementById('btn-jump').addEventListener('pointerdown', e => { e.preventDefault(); tryJump(); });
 
         function tryJump() {
-            if (gameState !== 'playing') return;
-            if (player.onGround) {
-                player.vy = JUMP_V; player.onGround = false; Sound.sfx.jump();
-                for(let i=0; i<5; i++) particles.push({ x: player.x + player.width/2, y: player.y + player.height, vx: (Math.random()-0.5)*4, vy: Math.random()*-2, life: 1, decay: 0.05, color: '#aaa', size: 3+Math.random()*3 });
-            }
+            if (gameState !== 'playing' || player.y < GROUND_Y) return;
+            player.vy = JUMP_V; player.onGround = false; Sound.sfx.jump();
+            for(let i=0; i<5; i++) particles.push({ x: player.x + player.width/2, y: player.y + player.height, vx: (Math.random()-0.5)*4, vy: Math.random()*-2, life: 1, decay: 0.05, color: '#aaa', size: 3+Math.random()*3 });
         }
 
         function togglePause() {
@@ -541,79 +579,64 @@
 
         // ===== КНОПКИ МЕНЮ =====
         document.getElementById('btn-pause').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
-        document.getElementById('btn-mute').addEventListener('click', () => {
-            Sound.init(); Sound.resume(); Sound.setMute(!Sound.muted);
-            document.getElementById('icon-sound-on').style.display = Sound.muted ? 'none' : 'block';
-            document.getElementById('icon-sound-off').style.display = Sound.muted ? 'block' : 'none';
-            if (!Sound.muted) Sound.sfx.click();
-        });
-
+        document.getElementById('btn-mute').addEventListener('click', () => { Sound.init(); Sound.resume(); Sound.setMute(!Sound.muted); document.getElementById('icon-sound-on').style.display = Sound.muted ? 'none' : 'block'; document.getElementById('icon-sound-off').style.display = Sound.muted ? 'block' : 'none'; if (!Sound.muted) Sound.sfx.click(); });
         document.getElementById('btn-play').addEventListener('click', startGame);
-        document.getElementById('shop-btn').addEventListener('click', () => {
-            Sound.sfx.click(); document.getElementById('hub-screen').classList.add('hidden'); document.getElementById('shop-screen').classList.remove('hidden'); renderShop();
-        });
-        document.getElementById('shop-close-btn').addEventListener('click', () => {
-            Sound.sfx.click(); document.getElementById('shop-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden');
-        });
         
-        document.getElementById('btn-reset-all').addEventListener('click', () => {
-            if(confirm('Точно сбросить ВЕСЬ прогресс?')) { localStorage.clear(); location.reload(); }
-        });
-
+        document.getElementById('shop-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('hub-screen').classList.add('hidden'); document.getElementById('shop-screen').classList.remove('hidden'); renderShop(); });
+        document.getElementById('shop-close-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('shop-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); });
+        document.getElementById('ach-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('hub-screen').classList.add('hidden'); document.getElementById('ach-screen').classList.remove('hidden'); renderAch(); });
+        document.getElementById('ach-close-btn').addEventListener('click', () => { Sound.sfx.click(); document.getElementById('ach-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); });
+        
         document.getElementById('resume-btn').addEventListener('click', () => { Sound.sfx.click(); togglePause(); });
         document.getElementById('menu-btn-pause').addEventListener('click', goToHub);
         document.getElementById('term-menu-btn').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); goToHub(); });
         document.getElementById('term-restart-btn').addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); restartGame(); });
         document.getElementById('game-over-screen').addEventListener('click', (e) => { if (e.target.id === 'game-over-screen' && gameState === 'gameover') restartGame(); });
 
-        function startGame() {
-            Sound.sfx.start(); setTimeout(() => Sound.music.start(), 700);
-            document.getElementById('hub-screen').classList.add('hidden');
-            resetGame(); gameState = 'playing';
-        }
+        // ===== АДМИНКА КНОПКИ =====
+        document.getElementById('admin-close-btn').addEventListener('click', () => {
+            Sound.sfx.click(); document.getElementById('admin-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden');
+        });
+        document.getElementById('adm-god').addEventListener('click', () => {
+            godMode = !godMode;
+            document.getElementById('adm-god').innerText = 'Бессмертие: ' + (godMode ? 'ВКЛ' : 'ВЫКЛ');
+            document.getElementById('adm-god').className = 'admin-btn ' + (godMode ? 'active' : '');
+            if(godMode && gameState === 'playing') lives = 999;
+        });
+        document.getElementById('adm-coins').addEventListener('click', () => { coins += 1000000; updateCoinUI(); saveData(); Sound.sfx.buy(); });
+        document.getElementById('adm-hack').addEventListener('click', () => {
+            SHOP_CONFIG.forEach(s => shopItems[s.id] = true); 
+            ACH_CONFIG.forEach(a => { if(!achievements[a.id]) { achievements[a.id] = true; coins += a.reward; } });
+            saveData(); renderShop(); renderAch(); updateCoinUI(); Sound.sfx.buy();
+        });
+        document.getElementById('adm-day').addEventListener('click', () => { forceTime = 'day'; updateMoscowClock(); });
+        document.getElementById('adm-night').addEventListener('click', () => { forceTime = 'night'; updateMoscowClock(); });
+        document.getElementById('adm-auto').addEventListener('click', () => { forceTime = null; updateMoscowClock(); });
 
-        function goToHub() {
-            Sound.sfx.click(); Sound.music.stop();
-            gameState = 'hub'; resetGame();
-            document.getElementById('pause-screen').classList.add('hidden');
-            document.getElementById('game-over-screen').classList.add('hidden');
-            document.getElementById('hub-screen').classList.remove('hidden');
-            updateCoinUI();
-        }
-
-        function restartGame() {
-            if (gameState !== 'gameover') return;
-            termGeneration++; Sound.sfx.click(); 
-            document.getElementById('game-over-screen').classList.add('hidden');
-            resetGame(); gameState = 'playing'; Sound.music.start();
-        }
-
+        function startGame() { Sound.sfx.start(); setTimeout(() => Sound.music.start(), 700); document.getElementById('hub-screen').classList.add('hidden'); resetGame(); gameState = 'playing'; }
+        function goToHub() { Sound.sfx.click(); Sound.music.stop(); gameState = 'hub'; resetGame(); document.getElementById('pause-screen').classList.add('hidden'); document.getElementById('game-over-screen').classList.add('hidden'); document.getElementById('hub-screen').classList.remove('hidden'); updateCoinUI(); }
+        function restartGame() { if (gameState !== 'gameover') return; termGeneration++; Sound.sfx.click(); document.getElementById('game-over-screen').classList.add('hidden'); resetGame(); gameState = 'playing'; Sound.music.start(); }
         function clampPlayer() { if (player.x < 0) player.x = 0; if (player.x + player.width > W) player.x = W - player.width; }
         
         function spawnParticles(x, y, colors, count) {
-            for (let i = 0; i < count; i++) {
-                const a = Math.random() * Math.PI * 2, s = 2 + Math.random() * 6;
-                particles.push({ x, y, vx: Math.cos(a)*s, vy: Math.sin(a)*s - 2, life: 1, decay: 0.02 + Math.random()*0.03, color: colors[(Math.random()*colors.length)|0], size: 2 + Math.random()*5 });
-            }
+            for (let i = 0; i < count; i++) { const a = Math.random() * Math.PI * 2, s = 2 + Math.random() * 6; particles.push({ x, y, vx: Math.cos(a)*s, vy: Math.sin(a)*s - 2, life: 1, decay: 0.02 + Math.random()*0.03, color: colors[(Math.random()*colors.length)|0], size: 2 + Math.random()*5 }); }
         }
 
         function spawnObject() {
+            if (boss) return; 
             objectSpawnCount++;
             let type = 'rotten'; 
             if (objectSpawnCount >= 6) { type = 'red'; objectSpawnCount = 0; } 
             else {
                 const rand = Math.random();
-                if (rand > 0.35) type = 'carrot';
+                if (rand > 0.6) type = 'carrot';
                 else if (rand > 0.95) type = 'golden'; 
+                else if (rand > 0.9) type = 'magnet';
+                else if (rand > 0.85) type = 'shield';
             }
-            let speedMultiplier = 1;
-            if (shopItems['slowStart'] && score < 100) speedMultiplier = 0.7;
+            let speedMultiplier = 1; if (shopItems['slowStart'] && score < 100) speedMultiplier = 0.7;
 
-            objects.push({
-                x: Math.random() * (W - 40), y: -40, width: 40, height: 40,
-                speed: ((3 + Math.random()*2.5) + difficulty * 0.6) * speedMultiplier, 
-                type: type, wobble: Math.random() * Math.PI * 2
-            });
+            objects.push({ x: Math.random() * (W - 40), y: -40, width: 40, height: 40, speed: ((3 + Math.random()*2.5) + difficulty * 0.6) * speedMultiplier, type: type, wobble: Math.random() * Math.PI * 2 });
         }
 
         function drawObjects() {
@@ -624,6 +647,8 @@
                 if (obj.type === 'carrot') ctx.shadowColor = '#FF8C00';
                 else if (obj.type === 'golden') ctx.shadowColor = '#FFD700';
                 else if (obj.type === 'red') ctx.shadowColor = '#ff0000';
+                else if (obj.type === 'magnet') ctx.shadowColor = '#0088ff';
+                else if (obj.type === 'shield') ctx.shadowColor = '#00ffcc';
                 else ctx.shadowColor = '#3a4b22'; 
 
                 if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
@@ -632,12 +657,18 @@
                         ctx.fillStyle = '#ff2020'; ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
                         ctx.fillStyle = '#fff'; ctx.fillRect(-2, -2, 4, 12); ctx.fillRect(-6, 2, 12, 4);
                     } else {
-                        ctx.fillStyle = obj.type === 'golden' ? '#FFD700' : '#FF8C00';
-                        ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
-                        ctx.fillStyle = obj.type === 'golden' ? '#FFF8DC' : '#FFA500';
-                        ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
+                        ctx.fillStyle = obj.type === 'golden' ? '#FFD700' : '#FF8C00'; ctx.beginPath(); ctx.moveTo(-10,-10); ctx.lineTo(10,-10); ctx.lineTo(0,22); ctx.closePath(); ctx.fill();
+                        ctx.fillStyle = obj.type === 'golden' ? '#FFF8DC' : '#FFA500'; ctx.beginPath(); ctx.moveTo(-5,-5); ctx.lineTo(5,-5); ctx.lineTo(0,18); ctx.closePath(); ctx.fill();
                     }
                     ctx.fillStyle = '#228B22'; ctx.fillRect(-10,-22,20,12);
+                } else if (obj.type === 'magnet') {
+                    ctx.fillStyle = '#0055aa'; ctx.fillRect(-15,-15,30,30);
+                    ctx.fillStyle = '#0088ff'; ctx.fillRect(-10,-10,20,20);
+                    ctx.fillStyle = '#fff'; ctx.font = 'bold 20px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('U', 0, 0);
+                } else if (obj.type === 'shield') {
+                    ctx.fillStyle = '#005544'; ctx.beginPath(); ctx.arc(0,0,15,0,Math.PI*2); ctx.fill();
+                    ctx.fillStyle = '#00ffcc'; ctx.beginPath(); ctx.arc(0,0,10,0,Math.PI*2); ctx.fill();
+                    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0,-6); ctx.lineTo(0,6); ctx.moveTo(-4,-2); ctx.lineTo(0,6); ctx.lineTo(4,-2); ctx.stroke();
                 } else {
                     ctx.rotate(Math.sin(obj.wobble) * 0.2);
                     ctx.fillStyle = '#5c4a3d'; ctx.beginPath(); ctx.moveTo(-8,-8); ctx.lineTo(12,-12); ctx.lineTo(-2,20); ctx.closePath(); ctx.fill();
@@ -649,102 +680,83 @@
         }
 
         function drawPlayer() {
+            for(let i=0; i<trail.length; i++) {
+                let t = trail[i]; let alpha = (i / trail.length) * 0.5;
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = player.hasShield ? '#00ffcc' : '#fff';
+                ctx.fillRect(t.x + 20, t.y + 20, 40, 40);
+            }
+            ctx.globalAlpha = 1;
+
             const bob = player.onGround ? Math.sin(frames * 0.1) * 3 : 0;
-            const px = player.x, py = player.y + bob;
-            const w = player.width, h = player.height;
+            const px = player.x, py = player.y + bob; const w = player.width, h = player.height;
 
             ctx.fillStyle = 'rgba(0,0,0,0.3)';
             ctx.beginPath(); ctx.ellipse(px + w/2, GROUND_Y + h + 5, w/2.5 * player.squash, 8 * player.stretch, 0, 0, Math.PI*2); ctx.fill();
 
-            ctx.save();
-            ctx.translate(px + w/2, py + h/2);
-            ctx.scale(player.squash, player.stretch);
-            ctx.translate(-(px + w/2), -(py + h/2));
-
-            let currentSprite = null;
-            const skinImgs = IMAGES[activeSkin] || IMAGES.classic;
-
-            if (flash > 0 && skinImgs.hit.complete && skinImgs.hit.naturalWidth > 0) {
-                currentSprite = skinImgs.hit; 
-            } else if (!player.onGround && skinImgs.jump.complete && skinImgs.jump.naturalWidth > 0) {
-                currentSprite = skinImgs.jump; 
-            } else if (skinImgs.idle.complete && skinImgs.idle.naturalWidth > 0) {
-                currentSprite = skinImgs.idle; 
+            if (player.hasShield) {
+                ctx.strokeStyle = '#00ffcc'; ctx.lineWidth = 4;
+                ctx.shadowBlur = 20; ctx.shadowColor = '#00ffcc';
+                ctx.beginPath(); ctx.arc(px + w/2, py + h/2, w/2 + 10, 0, Math.PI*2); ctx.stroke();
+                ctx.shadowBlur = 0;
             }
 
+            ctx.save();
+            ctx.translate(px + w/2, py + h/2); ctx.scale(player.squash, player.stretch); ctx.translate(-(px + w/2), -(py + h/2));
+
+            let currentSprite = null; const skinImgs = IMAGES[activeSkin] || IMAGES.classic;
+            if (flash > 0 && skinImgs.hit.complete && skinImgs.hit.naturalWidth > 0) currentSprite = skinImgs.hit; 
+            else if (!player.onGround && skinImgs.jump.complete && skinImgs.jump.naturalWidth > 0) currentSprite = skinImgs.jump; 
+            else if (skinImgs.idle.complete && skinImgs.idle.naturalWidth > 0) currentSprite = skinImgs.idle; 
+
             if (currentSprite) {
-                const imgRatio = currentSprite.width / currentSprite.height;
-                let drawW = w, drawH = h; 
+                const imgRatio = currentSprite.width / currentSprite.height; let drawW = w, drawH = h; 
                 if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio;
                 ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH);
             } else {
-                ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h);
-                ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
-                ctx.fillStyle = '#000'; ctx.fillRect(px + 20, py + 26, 10, 12); ctx.fillRect(px + w - 30, py + 26, 10, 12);
+                ctx.fillStyle = '#8a8a8a'; ctx.fillRect(px, py, w, h); ctx.fillStyle = '#fff'; ctx.fillRect(px + 15, py + 20, 20, 22); ctx.fillRect(px + w - 35, py + 20, 20, 22);
             }
             ctx.restore();
         }
 
         function drawBackground() {
             if (isNight) {
-                let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-                skyGrad.addColorStop(0, '#0a0f24');
-                skyGrad.addColorStop(1, '#1a2245');
+                let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y); skyGrad.addColorStop(0, '#0a0f24'); skyGrad.addColorStop(1, '#1a2245');
                 ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, W, GROUND_Y);
-
                 ctx.fillStyle = '#ffffff';
                 for (let i = 0; i < 60; i++) {
-                    let sx = (i * 137) % W;
-                    let sy = (i * 73) % (GROUND_Y - 100);
-                    if (Math.sin(frames * 0.05 + i) > 0) {
-                        ctx.globalAlpha = 0.5 + Math.sin(frames * 0.1 + i) * 0.5;
-                        ctx.fillRect(sx, sy, 2, 2);
-                    }
+                    let sx = (i * 137) % W; let sy = (i * 73) % (GROUND_Y - 100);
+                    if (Math.sin(frames * 0.05 + i) > 0) { ctx.globalAlpha = 0.5 + Math.sin(frames * 0.1 + i) * 0.5; ctx.fillRect(sx, sy, 2, 2); }
                 }
                 ctx.globalAlpha = 1;
-
                 ctx.fillStyle = '#e2e8f0'; ctx.shadowBlur = 40; ctx.shadowColor = '#a0aec0';
-                ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); 
-                ctx.shadowBlur = 0;
-                ctx.fillStyle = '#cbd5e1';
-                ctx.beginPath(); ctx.arc(W - 160, 90, 12, 0, Math.PI*2); ctx.fill();
-                ctx.beginPath(); ctx.arc(W - 130, 115, 8, 0, Math.PI*2); ctx.fill();
-                ctx.beginPath(); ctx.arc(W - 140, 80, 6, 0, Math.PI*2); ctx.fill();
-
+                ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
                 ctx.fillStyle = 'rgba(255,255,255,0.15)';
-                for (const c of clouds) {
-                    ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
-                    ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore();
-                }
             } else {
-                let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
-                skyGrad.addColorStop(0, '#4facfe'); skyGrad.addColorStop(1, '#00f2fe');
+                let skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y); skyGrad.addColorStop(0, '#4facfe'); skyGrad.addColorStop(1, '#00f2fe');
                 ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, W, GROUND_Y);
-                
                 ctx.fillStyle = '#fff'; ctx.shadowBlur = 40; ctx.shadowColor = '#FFD700';
                 ctx.beginPath(); ctx.arc(W - 150, 100, 50, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
-
                 ctx.fillStyle = 'rgba(255,255,255,0.9)';
-                for (const c of clouds) {
-                    ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
-                    ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore();
-                }
             }
+
+            for (const c of clouds) { ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale); ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI*2); ctx.arc(35, -15, 25, 0, Math.PI*2); ctx.arc(70, 0, 30, 0, Math.PI*2); ctx.arc(35, 15, 30, 0, Math.PI*2); ctx.fill(); ctx.restore(); }
 
             for (let i = 0; i < hills.length; i++) {
                 const h = hills[i]; 
-                if (isNight) { ctx.fillStyle = i % 2 === 0 ? '#1c2e1e' : '#132215'; } 
-                else { ctx.fillStyle = i % 2 === 0 ? '#75c95e' : '#56ab3e'; }
+                if (isNight) { ctx.fillStyle = i % 2 === 0 ? '#1c2e1e' : '#132215'; } else { ctx.fillStyle = i % 2 === 0 ? '#75c95e' : '#56ab3e'; }
                 ctx.beginPath(); ctx.moveTo(h.x, GROUND_Y); ctx.quadraticCurveTo(h.x + h.w/2, GROUND_Y - h.h, h.x + h.w, GROUND_Y); ctx.fill();
             }
 
             let groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, H);
-            if (isNight) { groundGrad.addColorStop(0, '#2b1d14'); groundGrad.addColorStop(1, '#0f0806'); } 
-            else { groundGrad.addColorStop(0, '#5c4033'); groundGrad.addColorStop(1, '#3e2723'); }
+            if (isNight) { groundGrad.addColorStop(0, '#2b1d14'); groundGrad.addColorStop(1, '#0f0806'); } else { groundGrad.addColorStop(0, '#5c4033'); groundGrad.addColorStop(1, '#3e2723'); }
             ctx.fillStyle = groundGrad; ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
-            
-            ctx.fillStyle = isNight ? '#215c2c' : '#4CAF50'; 
-            ctx.fillRect(0, GROUND_Y, W, 15);
+            ctx.fillStyle = isNight ? '#215c2c' : '#4CAF50'; ctx.fillRect(0, GROUND_Y, W, 15);
+
+            if (currentSeason === 'winter') { ctx.fillStyle = 'rgba(255,255,255,0.8)'; weather.forEach(w => { ctx.beginPath(); ctx.arc(w.x, w.y, w.size, 0, Math.PI*2); ctx.fill(); }); }
+            else if (currentSeason === 'autumn') { ctx.fillStyle = 'rgba(255,165,0,0.8)'; weather.forEach(w => { ctx.fillRect(w.x, w.y, w.size, w.size); }); }
+            else if (currentSeason === 'spring') { ctx.fillStyle = 'rgba(255,182,193,0.8)'; weather.forEach(w => { ctx.beginPath(); ctx.arc(w.x, w.y, w.size, 0, Math.PI*2); ctx.fill(); }); }
+            else { ctx.fillStyle = 'rgba(255,255,255,0.3)'; weather.forEach(w => { ctx.fillRect(w.x, w.y, w.size, w.size); }); }
         }
 
         function update(dt) {
@@ -755,15 +767,9 @@
                 deathTimer += dt * 60;
                 if (giantCarrot) {
                     giantCarrot.y += giantCarrot.vy * dt * 60;
-                    
                     if (giantCarrot.y + giantCarrot.height/2 > player.y + player.height - 30) {
-                        giantCarrot.y = player.y + player.height - 30 - giantCarrot.height/2; 
-                        giantCarrot = null;
-                        screenShake = 30;
-                        flash = 1;
-                        Sound.sfx.smash(); 
-                        spawnParticles(player.x + player.width/2, player.y + player.height - 20, ['#5c4a3d','#ff4444','#3a4b22'], 40);
-                        
+                        giantCarrot.y = player.y + player.height - 30 - giantCarrot.height/2; giantCarrot = null;
+                        screenShake = 30; flash = 1; Sound.sfx.smash(); spawnParticles(player.x + player.width/2, player.y + player.height - 20, ['#5c4a3d','#ff4444','#3a4b22'], 40);
                         setTimeout(() => { if(gameState === 'dying') gameOver(); }, 1000);
                     }
                 }
@@ -775,41 +781,78 @@
             if (gameState !== 'playing') return;
             frames += dt * 60;
 
+            if (frames % 2 === 0) {
+                trail.push({ x: player.x, y: player.y });
+                if (trail.length > 10) trail.shift();
+            }
+
             if (keys['ArrowLeft'] || keys['KeyA'] || btnLeft) player.x -= player.speed * dt * 60;
             if (keys['ArrowRight'] || keys['KeyD'] || btnRight) player.x += player.speed * dt * 60;
             clampPlayer();
 
-            player.vy += GRAVITY * dt * 60;
-            player.y += player.vy * dt * 60;
+            player.vy += GRAVITY * dt * 60; player.y += player.vy * dt * 60;
+            if (!player.onGround) { player.stretch = Math.min(1.2, 1 + Math.abs(player.vy) * 0.015); player.squash = Math.max(0.8, 1 - Math.abs(player.vy) * 0.01); } 
+            else { player.squash += (1 - player.squash) * 0.2; player.stretch += (1 - player.stretch) * 0.2; }
 
-            if (!player.onGround) {
-                player.stretch = Math.min(1.2, 1 + Math.abs(player.vy) * 0.015);
-                player.squash = Math.max(0.8, 1 - Math.abs(player.vy) * 0.01);
-            } else {
-                player.squash += (1 - player.squash) * 0.2;
-                player.stretch += (1 - player.stretch) * 0.2;
+            if (player.y >= GROUND_Y) { if (!player.onGround) { player.squash = 1.3; player.stretch = 0.7; } player.y = GROUND_Y; player.vy = 0; player.onGround = true; }
+
+            if (player.magnetTimer > 0) player.magnetTimer -= dt;
+
+            if (Math.random() < 0.1) {
+                let color = 'white', size = 2, speed = 2;
+                if (currentSeason === 'autumn') { color = '#ff8c00'; size = 4; speed = 3; }
+                else if (currentSeason === 'spring') { color = '#ffb6c1'; size = 3; speed = 2.5; }
+                else if (currentSeason === 'winter') { color = 'white'; size = 3; speed = 4; }
+                weather.push({ x: Math.random() * W, y: -10, size: size, speed: speed, drift: (Math.random()-0.5)*2 });
+            }
+            for (let i = weather.length - 1; i >= 0; i--) {
+                let w = weather[i]; w.y += w.speed; w.x += w.drift;
+                if (w.y > H) weather.splice(i, 1);
             }
 
-            if (player.y >= GROUND_Y) {
-                if (!player.onGround) { player.squash = 1.3; player.stretch = 0.7; }
-                player.y = GROUND_Y; player.vy = 0; player.onGround = true;
+            if (score >= nextBossScore && !boss && gameState === 'playing') {
+                boss = { x: W/2 - 100, y: -200, width: 200, height: 200, hp: 3, timer: 0, dir: 1 };
+                Sound.music.stop(); Sound.sfx.bossHit();
+            }
+
+            if (boss) {
+                boss.x += 3 * boss.dir * dt * 60;
+                if (boss.x > W - boss.width) boss.dir = -1;
+                if (boss.x < 0) boss.dir = 1;
+                
+                boss.timer += dt * 60;
+                if (boss.timer > 90) {
+                    boss.timer = 0;
+                    objects.push({ x: boss.x + boss.width/2 - 20, y: boss.y + boss.height, width: 40, height: 40, speed: 6, type: 'rotten', wobble: 0 });
+                    Sound.sfx.hit();
+                }
             }
 
             difficulty = 1 + Math.floor(score / 100);
-            if (difficulty > prevDifficulty) { Sound.sfx.boost(); prevDifficulty = difficulty; Sound.BPM = 115 + difficulty * 2; }
+            if (difficulty > prevDifficulty) { Sound.sfx.powerup(); prevDifficulty = difficulty; Sound.BPM = 115 + difficulty * 2; }
 
             spawnTimer += dt * 60;
-            const spawnInterval = Math.max(16, 50 - difficulty * 4);
-            if (spawnTimer >= spawnInterval) { spawnTimer = 0; spawnObject(); }
+            if (!boss && spawnTimer >= Math.max(16, 50 - difficulty * 4)) { spawnTimer = 0; spawnObject(); }
 
             for (let i = objects.length - 1; i >= 0; i--) {
-                const obj = objects[i]; obj.y += obj.speed * dt * 60; obj.wobble += 0.1 * dt * 60;
+                const obj = objects[i]; 
+                
+                if (player.magnetTimer > 0 && (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red')) {
+                    let dx = (player.x + player.width/2) - (obj.x + obj.width/2);
+                    let dy = (player.y + player.height/2) - (obj.y + obj.height/2);
+                    let dist = Math.hypot(dx, dy);
+                    if (dist > 0) { obj.x += (dx/dist) * 15; obj.y += (dy/dist) * 15; }
+                } else {
+                    obj.y += obj.speed * dt * 60; 
+                    obj.wobble += 0.1 * dt * 60;
+                }
+
                 const hit = player.x < obj.x + obj.width && player.x + player.width > obj.x && player.y < obj.y + obj.height && player.y + player.height > obj.y;
                 
                 if (hit) {
                     const cx = obj.x + obj.width/2, cy = obj.y + obj.height/2;
                     if (obj.type === 'carrot' || obj.type === 'golden' || obj.type === 'red') {
-                        carrotsCollected++;
+                        carrotsCollected++; totalCarrots++;
                         if (obj.type === 'red') {
                             if (lives < (shopItems['extraLife'] ? 4 : 5)) { lives++; livesEl.innerText = lives; }
                             score += 25; Sound.sfx.powerup(); spawnParticles(cx, cy, ['#ff2020', '#fff'], 25);
@@ -820,15 +863,63 @@
                             score += gained;
                         }
                         scoreEl.innerText = score;
+                    } else if (obj.type === 'magnet') {
+                        player.magnetTimer = 8; Sound.sfx.buy();
+                        spawnParticles(cx, cy, ['#0088ff', '#fff'], 20);
+                    } else if (obj.type === 'shield') {
+                        player.hasShield = true; Sound.sfx.buy();
+                        spawnParticles(cx, cy, ['#00ffcc', '#fff'], 20);
                     } else { 
-                        combo = 0; lives--; if (lives < 0) lives = 0; livesEl.innerText = lives;
-                        Sound.sfx.hit(); spawnParticles(cx, cy, ['#5c4a3d','#ff4444'], 20);
-                        screenShake = 15; flash = 0.5;
-                        if (lives <= 0) triggerDeathAnimation();
+                        if (player.hasShield) {
+                            player.hasShield = false;
+                            Sound.sfx.powerup(); spawnParticles(cx, cy, ['#00ffcc', '#fff'], 20);
+                            screenShake = 10;
+                        } else if (!godMode) {
+                            combo = 0; lives--; if (lives < 0) lives = 0; livesEl.innerText = lives;
+                            Sound.sfx.hit(); spawnParticles(cx, cy, ['#5c4a3d','#ff4444'], 20);
+                            screenShake = 15; flash = 0.5;
+                            if (lives <= 0) triggerDeathAnimation();
+                        } else {
+                            Sound.sfx.hit(); screenShake = 5;
+                        }
                     }
                     objects.splice(i, 1); continue;
                 }
                 if (obj.y > H + 20) { objects.splice(i, 1); }
+            }
+
+            if (boss) {
+                const hitBoss = player.x < boss.x + boss.width && player.x + player.width > boss.x && player.y < boss.y + boss.height && player.y + player.height > boss.y;
+                if (hitBoss) {
+                    if (player.vy > 0 && player.y + player.height < boss.y + boss.height / 2) {
+                        boss.hp--;
+                        player.vy = -12; 
+                        Sound.sfx.hit();
+                        screenShake = 10;
+                        spawnParticles(boss.x + boss.width/2, boss.y + boss.height/2, ['#ff0000', '#ffaa00'], 30);
+                        
+                        if (boss.hp <= 0) {
+                            score += 500; coins += 100;
+                            achievements['boss1'] = true;
+                            nextBossScore += 1000;
+                            boss = null;
+                            screenShake = 30; flash = 1;
+                            Sound.sfx.smash();
+                            Sound.music.start();
+                            saveData();
+                        }
+                    } else {
+                        if (player.hasShield) {
+                            player.hasShield = false;
+                            Sound.sfx.powerup();
+                            spawnParticles(player.x, player.y, ['#00ffcc', '#fff'], 20);
+                        } else if (!godMode) {
+                            lives--; if (lives < 0) lives = 0; livesEl.innerText = lives;
+                            Sound.sfx.hit(); screenShake = 15; flash = 0.5;
+                            if (lives <= 0) triggerDeathAnimation();
+                        }
+                    }
+                }
             }
 
             for (let i = particles.length - 1; i >= 0; i--) {
@@ -841,24 +932,16 @@
         }
 
         function triggerDeathAnimation() {
-            gameState = 'dying';
-            deathTimer = 0;
-            Sound.music.stop();
-            Sound.sfx.drop(); 
-            
-            giantCarrot = {
-                x: player.x + player.width/2 - 100, 
-                y: -300, 
-                width: 200,
-                height: 200,
-                vy: 10 
-            };
+            if (godMode) return;
+            gameState = 'dying'; deathTimer = 0; Sound.music.stop(); Sound.sfx.drop(); 
+            giantCarrot = { x: player.x + player.width/2 - 100, y: -300, width: 200, height: 200, vy: 10 };
         }
 
         function gameOver() {
             gameState = 'gameover';
             const isNewRecord = score > bestScore;
             if (isNewRecord) bestScore = score;
+            totalDeaths++;
             
             coins += Math.floor(score / 10); saveData();
 
@@ -911,10 +994,12 @@
 
         function resetGame() {
             score = 0; lives = 3; if (shopItems['extraLife']) lives += 1;
+            if (godMode) lives = 999;
             frames = 0; spawnTimer = 0; difficulty = 1; prevDifficulty = 1; combo = 0;
             carrotsCollected = 0; carrotsMissed = 0; objectSpawnCount = 0;
             objects = []; particles = []; screenShake = 0; flash = 0; btnLeft = btnRight = false;
-            giantCarrot = null; deathTimer = 0;
+            giantCarrot = null; deathTimer = 0; boss = null; nextBossScore = 500; trail = [];
+            player.magnetTimer = 0; player.hasShield = false;
             Sound.BPM = 115;
             player.x = W/2 - player.width/2; player.y = GROUND_Y; player.vy = 0; player.onGround = true; player.squash = 1; player.stretch = 1;
             scoreEl.innerText = '0'; livesEl.innerText = lives;
@@ -934,20 +1019,25 @@
                 drawObjects(); 
                 drawPlayer(); 
                 
+                if (boss) {
+                    ctx.save(); ctx.translate(boss.x + boss.width/2, boss.y + boss.height/2);
+                    ctx.shadowBlur = 30; ctx.shadowColor = '#ff0000';
+                    ctx.fillStyle = '#8B0000'; ctx.beginPath(); ctx.moveTo(-80,-100); ctx.lineTo(80,-100); ctx.lineTo(0,100); ctx.closePath(); ctx.fill();
+                    ctx.fillStyle = '#FF0000'; ctx.beginPath(); ctx.moveTo(-60,-80); ctx.lineTo(60,-80); ctx.lineTo(0,80); ctx.closePath(); ctx.fill();
+                    ctx.fillStyle = '#228B22'; ctx.fillRect(-100,-180,200,80);
+                    ctx.fillStyle = '#fff'; ctx.fillRect(-50,-40,40,40); ctx.fillRect(10,-40,40,40);
+                    ctx.fillStyle = '#000'; ctx.fillRect(-40,-30,20,20); ctx.fillRect(20,-30,20,20);
+                    ctx.fillStyle = '#333'; ctx.fillRect(-60, 120, 120, 15);
+                    ctx.fillStyle = '#ff0000'; ctx.fillRect(-60, 120, 120 * (boss.hp/3), 15);
+                    ctx.restore();
+                }
+
                 if (gameState === 'dying' && giantCarrot) {
-                    ctx.save();
-                    ctx.translate(giantCarrot.x + giantCarrot.width/2, giantCarrot.y + giantCarrot.height/2);
-                    
-                    ctx.shadowBlur = 30;
-                    ctx.shadowColor = '#ff0000';
-                    
-                    ctx.fillStyle = '#5c4a3d';
+                    ctx.save(); ctx.translate(giantCarrot.x + giantCarrot.width/2, giantCarrot.y + giantCarrot.height/2);
+                    ctx.shadowBlur = 30; ctx.shadowColor = '#ff0000'; ctx.fillStyle = '#5c4a3d';
                     ctx.beginPath(); ctx.moveTo(-80,-80); ctx.lineTo(120,-120); ctx.lineTo(-20,200); ctx.closePath(); ctx.fill();
-                    ctx.fillStyle = '#3e2e24';
-                    ctx.fillRect(-40, -40, 60, 60); ctx.fillRect(40, 60, 50, 50);
-                    ctx.fillStyle = '#4a5d23'; ctx.fillRect(-100,-220,200,120);
-                    ctx.fillStyle = '#36441a'; ctx.fillRect(-60,-280,80,80);
-                    
+                    ctx.fillStyle = '#3e2e24'; ctx.fillRect(-40, -40, 60, 60); ctx.fillRect(40, 60, 50, 50);
+                    ctx.fillStyle = '#4a5d23'; ctx.fillRect(-100,-220,200,120); ctx.fillStyle = '#36441a'; ctx.fillRect(-60,-280,80,80);
                     ctx.restore();
                 }
             }
@@ -974,4 +1064,4 @@
         requestAnimationFrame(loop);
     </script>
 </body>
-</html>
+    </html>
