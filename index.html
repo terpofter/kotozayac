@@ -31,8 +31,10 @@
             display: flex; justify-content: center; align-items: center;
         }
         
+        /* ИСПРАВЛЕНО: object-fit: contain чтобы не растягивалось */
         canvas { 
             display: block; width: 100%; height: 100%; outline: none; 
+            object-fit: contain;
         }
 
         #hud {
@@ -72,9 +74,7 @@
         h2 { color: #fff; font-size: 28px; text-shadow: 0 0 10px #fff; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
         .subtitle { color: #aaa; font-size: 14px; margin-bottom: 25px; letter-spacing: 2px; text-align: center; }
 
-        .menu-grid {
-            display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 600px;
-        }
+        .menu-grid { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 600px; }
         .menu-row { display: flex; gap: 12px; width: 100%; justify-content: center; flex-wrap: wrap; }
         
         .btn-rgb {
@@ -88,11 +88,7 @@
             flex: none; 
         }
         .menu-row .btn-rgb { flex: 1; min-width: 180px; }
-        
-        .btn-rgb.main-play {
-            font-size: 26px; padding: 20px; max-width: 420px; width: 100%;
-            margin-bottom: 10px;
-        }
+        .btn-rgb.main-play { font-size: 26px; padding: 20px; max-width: 420px; width: 100%; margin-bottom: 10px; }
         .btn-rgb:hover {
             background: rgba(var(--neon-rgb, 0, 255, 204), 0.15);
             border-color: rgb(var(--neon-rgb, 0, 255, 204));
@@ -147,10 +143,7 @@
         }
         @keyframes rgbBorder { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
         @keyframes rgbGlowDeath { 0% { box-shadow: 0 0 20px rgba(255,0,128,0.4); } 100% { box-shadow: 0 0 40px rgba(0,255,255,0.5); } }
-        .death-title { 
-            font-size: 36px; color: #ff4444; text-shadow: 0 0 20px #ff4444, 0 0 40px #ff4444; 
-            margin-bottom: 20px; letter-spacing: 3px; animation: deathPulse 1.5s ease-in-out infinite;
-        }
+        .death-title { font-size: 36px; color: #ff4444; text-shadow: 0 0 20px #ff4444, 0 0 40px #ff4444; margin-bottom: 20px; letter-spacing: 3px; animation: deathPulse 1.5s ease-in-out infinite; }
         @keyframes deathPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .death-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
         .death-stat { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
@@ -162,11 +155,7 @@
         #shooter-screen { background: radial-gradient(circle at 50% 50%, #1a0f1a 0%, #0f0f13 100%); }
         .shooter-container { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; max-width: 700px; }
         .shooter-info { display: flex; justify-content: space-between; width: 100%; padding: 0 20px; font-size: 20px; color: #fff; }
-        #shooterCanvas {
-            width: 100%; max-width: 600px; aspect-ratio: 4/3;
-            border: 3px solid #ff0055; border-radius: 12px;
-            box-shadow: 0 0 25px rgba(255,0,85,0.4); background: #111; cursor: crosshair;
-        }
+        #shooterCanvas { width: 100%; max-width: 600px; aspect-ratio: 4/3; border: 3px solid #ff0055; border-radius: 12px; box-shadow: 0 0 25px rgba(255,0,85,0.4); background: #111; cursor: crosshair; }
 
         /* ЗОРКИЙ ГЛАЗ */
         #color-game-screen { background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0f0f13 100%); }
@@ -220,14 +209,7 @@
         .changelog-box .c-mod { color: #ffaa00; font-weight: bold; }
 
         #admin-backdrop { position: absolute; inset: 0; z-index: 998; background: rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(2px); }
-        #floating-admin {
-            position: absolute; top: 50px; left: 50px; z-index: 999;
-            width: 620px; max-width: calc(100% - 20px); height: 420px;
-            display: none; flex-direction: column; font-family: 'Segoe UI', Tahoma, sans-serif;
-            user-select: none; border-radius: 12px; border: 4px solid transparent;
-            background: linear-gradient(#0f0f13, #0f0f13) padding-box, linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000) border-box;
-            background-size: 100% 100%, 400% 100%; animation: rgbBorder 4s linear infinite, rgbGlow 3s ease-in-out infinite alternate;
-        }
+        #floating-admin { position: absolute; top: 50px; left: 50px; z-index: 999; width: 620px; max-width: calc(100% - 20px); height: 420px; display: none; flex-direction: column; font-family: 'Segoe UI', Tahoma, sans-serif; user-select: none; border-radius: 12px; border: 4px solid transparent; background: linear-gradient(#0f0f13, #0f0f13) padding-box, linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000) border-box; background-size: 100% 100%, 400% 100%; animation: rgbBorder 4s linear infinite, rgbGlow 3s ease-in-out infinite alternate; }
         @keyframes rgbGlow { 0% { box-shadow: 0 0 15px rgba(255,0,128,0.5); } 100% { box-shadow: 0 0 30px rgba(0,255,255,0.6); } }
         .adm-inner { background: rgba(10, 10, 15, 0.98); width: 100%; height: 100%; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; }
         .adm-header-drag { background: rgba(0,0,0,0.5); padding: 12px 15px; cursor: grab; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; font-weight: bold; font-size: 14px; }
@@ -245,7 +227,9 @@
         .adm-action-btn { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 6px 12px; font-size: 12px; cursor: pointer; font-weight: bold; }
         .adm-action-btn:hover { background: rgba(0,255,204,0.2); border-color: #00ffcc; color: #00ffcc; }
         .adm-input { background: #000; border: 1px solid #444; color: #fff; padding: 6px; border-radius: 4px; width: 80px; font-size: 12px; }
-        #admin-badge { background: rgba(255,0,85,0.2); border-color: #ff0055; color: #ff0055; cursor: pointer; pointer-events: auto; display: none; font-weight: bold; }
+        
+        /* АДМИНКА ВСЕГДА ВИДНА */
+        #admin-badge { background: rgba(255,0,85,0.2); border-color: #ff0055; color: #ff0055; cursor: pointer; pointer-events: auto; display: flex; font-weight: bold; }
 
         @media (max-width: 600px) {
             h1 { font-size: 32px; } h2 { font-size: 22px; }
@@ -277,16 +261,24 @@
                 <div class="adm-body">
                     <div class="adm-sidebar">
                         <button class="adm-tab-btn active" data-target="tab-player">👤 Игрок</button>
+                        <button class="adm-tab-btn" data-target="tab-shooter">🔫 Стрелялка</button>
                         <button class="adm-tab-btn" data-target="tab-spawn">📦 Спавн</button>
                         <button class="adm-tab-btn" data-target="tab-world">🌍 Мир</button>
-                        <button class="adm-tab-btn" data-target="tab-chaos">🔥 Хаос</button>
                     </div>
                     <div class="adm-content">
                         <div id="tab-player" class="adm-tab-content active">
-                            <div class="adm-item"><span class="adm-item-label">Бессмертие</span><input type="checkbox" id="tog-god"></div>
+                            <div class="adm-item"><span class="adm-item-label">Бессмертие (Основная)</span><input type="checkbox" id="tog-god"></div>
                             <div class="adm-item"><span class="adm-item-label">Магнит (9999с)</span><button class="adm-action-btn" onclick="player.magnetTimer = 9999">ВКЛ</button></div>
                             <div class="adm-item"><span class="adm-item-label">Монеты</span><div style="display:flex; gap:5px;"><input type="number" id="adm-coins-input" class="adm-input" value="1000"><button class="adm-action-btn" onclick="coins += parseInt(document.getElementById('adm-coins-input').value)||0; updateCoinUI(); saveData();">+</button></div></div>
                         </div>
+                        
+                        <!-- НОВАЯ ВКЛАДКА СТРЕЛЯЛКИ -->
+                        <div id="tab-shooter" class="adm-tab-content">
+                            <div class="adm-item"><span class="adm-item-label">God Mode (Стрелялка)</span><input type="checkbox" id="tog-s-god"></div>
+                            <div class="adm-item"><span class="adm-item-label">Aimbot (Автоприцел)</span><input type="checkbox" id="tog-s-aim"></div>
+                            <div class="adm-item"><span class="adm-item-label">Rapid Fire (Пулемет)</span><input type="checkbox" id="tog-s-rapid"></div>
+                        </div>
+                        
                         <div id="tab-spawn" class="adm-tab-content">
                             <div class="adm-item"><div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
                                 <button class="adm-action-btn" onclick="admSpawn('carrot')">🥕 Морковь</button>
@@ -300,18 +292,13 @@
                                 <button class="adm-action-btn" onclick="forceTime='night'; updateMoscowClock();">Ночь</button>
                             </div></div>
                         </div>
-                        <div id="tab-chaos" class="adm-tab-content">
-                            <div class="adm-item"><div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
-                                <button class="adm-action-btn" onclick="triggerDeathAnimation()">Fake GO</button>
-                            </div></div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="hud">
-            <div class="hud-item"><svg class="hud-icon icon-carrot" viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z M5.1,19.3l1.4-5.4c0.2-0.9,0.7-1.7,1.3-2.4l4.8-4.8 l3.3,3.3l-4.8,4.8c-0.7,0.7-1.5,1.1-2.4,1.3L5.1,19.3z"/></svg><span id="score">0</span></div>
+            <div class="hud-item"><svg class="hud-icon icon-carrot" viewBox="0 0 24 24"><path d="M17.7,2.7c-0.8-0.8-2-0.8-2.8,0L9,8.6C7.8,9.8,7,11.3,6.6,13l-2.2,8.3c-0.1,0.6,0.4,1.1,1,1l8.3-2.2 c1.7-0.4,3.2-1.2,4.4-2.4l5.9-5.9c0.8-0.8,0.8-2,0-2.8L17.7,2.7z"/></svg><span id="score">0</span></div>
             <div class="hud-item"><svg class="hud-icon icon-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="lives">3</span></div>
             <div class="hud-item"><svg class="hud-icon icon-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 6v12m-4-6h8" stroke="currentColor" stroke-width="2"/></svg><span id="coins">0</span></div>
             <div class="hud-item" style="border-color: rgba(0, 255, 204, 0.6);"><svg class="hud-icon icon-clock" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg><span id="clock-msk">00:00</span></div>
@@ -371,7 +358,7 @@
                     <div>СЧЁТ: <span id="shooter-score" style="color:#ff0055;">0</span></div>
                     <div>ЖИЗНИ: <span id="shooter-lives" style="color:#ff4444;">3</span></div>
                 </div>
-                <div style="color:#aaa; font-size:12px; margin-bottom:5px;">WASD / Стрелки — Ходить, ЛКМ — Стрелять</div>
+                <div style="color:#aaa; font-size:12px; margin-bottom:5px;">WASD / Стрелки — Ходить, ЛКМ — Стрелять (Зажми для пулемета в админке)</div>
                 <canvas id="shooterCanvas" width="600" height="450"></canvas>
                 <button id="shooter-close-btn" class="btn-secondary">ВЫЙТИ</button>
             </div>
@@ -392,10 +379,11 @@
         <div id="changelog-screen" class="overlay hidden">
             <h2>📜 ЧТО НОВОГО</h2>
             <div class="changelog-box">
-                <h3>Версия 6.0 (СТРЕЛЯЛКА)</h3>
-                <p><span class="c-add">[+]</span> Полностью новая мини-игра "СТРЕЛЯЛКА" (ходим, стреляем по котам-мафиози)</p>
-                <p><span class="c-mod">[/]</span> Шлейф за мышкой стал полупрозрачным</p>
-                <p><span class="c-mod">[/]</span> Игра переименована в "КОТОЗАЙЧИК"</p>
+                <h3>Версия 6.2 (ФИКС + АДМИНКА)</h3>
+                <p><span class="c-add">[+]</span> Починена кнопка "Играть" на ПК (ошибка в звуках)</p>
+                <p><span class="c-add">[+]</span> В админку добавлена вкладка "Стрелялка" (God Mode, Aimbot, Rapid Fire)</p>
+                <p><span class="c-mod">[/]</span> Кнопка ADMIN теперь всегда видна</p>
+                <p><span class="c-mod">[/]</span> Исправлено масштабирование холста на ПК</p>
             </div>
             <button id="changelog-close-btn" class="btn-secondary">ЗАКРЫТЬ</button>
         </div>
@@ -459,9 +447,6 @@
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('id') === '1') document.getElementById('admin-badge').style.display = 'flex';
-
         // ============ ПОЛУПРОЗРАЧНЫЙ ШЛЕЙФ ЗА МЫШКОЙ ============
         let mouseX = 0, mouseY = 0;
         let trailParticles = [];
@@ -485,8 +470,8 @@
                 trailParticles.push({
                     x: mouseX, y: mouseY,
                     vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2,
-                    life: 0.8, // Чуть меньше жизни
-                    color: `hsla(${Math.random()*60 + 160}, 100%, 60%, 0.3)`, // Полупрозрачный цвет
+                    life: 0.8,
+                    color: `hsla(${Math.random()*60 + 160}, 100%, 60%, 0.3)`, 
                     size: Math.random()*4+2
                 });
             }
@@ -513,7 +498,7 @@
                 p.x += p.vx; p.y += p.vy;
                 p.life -= 0.02;
                 if (p.life <= 0) { trailParticles.splice(i, 1); continue; }
-                tCtx.globalAlpha = p.life * 0.7; // Умножаем на 0.7 для мягкости
+                tCtx.globalAlpha = p.life * 0.7; 
                 tCtx.fillStyle = p.color;
                 tCtx.beginPath();
                 tCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2);
@@ -541,7 +526,7 @@
         setInterval(updateMoscowClock, 1000);
         updateMoscowClock(); 
 
-        // ============ ЗВУК ============
+        // ============ ЗВУК (ИСПРАВЛЕНО) ============
         const Sound = {
             ctx: null, master: null, sfxGain: null, noiseBuffer: null, muted: false,
             init() {
@@ -562,6 +547,7 @@
                 osc.connect(g).connect(this.sfxGain); osc.start(t); osc.stop(t + dur + 0.02);
             },
             sfx: {
+                start() { Sound.tone({freq: 90, type: 'sawtooth', dur: 0.7, vol: 0.14, slideTo: 45}); Sound.tone({freq: 440, type: 'square', dur: 0.4, vol: 0.09, delay: 0.28}); }, // ФИКС: Добавлен start()
                 jump() { Sound.tone({freq: 250, type: 'square', dur: 0.16, vol: 0.1, slideTo: 780}); },
                 hit() { Sound.tone({freq: 2093, type: 'sine', dur: 0.11, vol: 0.2}); },
                 bossHit() { Sound.tone({freq: 300, type: 'sawtooth', dur: 0.2, vol: 0.2, slideTo: 100}); },
@@ -581,7 +567,11 @@
         const SHOP_CONFIG = [
             { id: 'extraLife', type: 'upg', name: 'Доп. Сердце', desc: 'Старт с 4 жизнями', price: 500 },
             { id: 'slowStart', type: 'upg', name: 'Замедление', desc: 'Старт легче', price: 300 },
-            { id: 'classic', type: 'skin', name: 'Классика', desc: 'Обычный заяц', price: 0 }
+            { id: 'classic', type: 'skin', name: 'Классика', desc: 'Обычный заяц', price: 0 },
+            { id: 'mafia', type: 'skin', name: 'Мафиозо', desc: 'С сигарой', price: 1000 },
+            { id: 'cosmos', type: 'skin', name: 'Космонавт', desc: 'В шлеме', price: 1500 },
+            { id: 'sushi', type: 'skin', name: 'Суши-мастер', desc: 'С лососем', price: 1200 },
+            { id: 'pancakes', type: 'skin', name: 'Гурман', desc: 'С блинами', price: 900 }
         ];
 
         const ACH_CONFIG = [
@@ -601,10 +591,24 @@
             { id: 'shoot10', name: 'Снайпер', desc: '10 очков в Стрелялке', target: 10, reward: 500, getVal: () => shooterBest }
         ];
 
+        const IMAGES = { 
+            classic: { idle: new Image(), jump: new Image(), hit: new Image() }, 
+            mafia: { idle: new Image(), jump: new Image(), hit: new Image() }, 
+            cosmos: { idle: new Image(), jump: new Image(), hit: new Image() }, 
+            sushi: { idle: new Image(), jump: new Image(), hit: new Image() }, 
+            pancakes: { idle: new Image(), jump: new Image(), hit: new Image() } 
+        };
+        IMAGES.classic.idle.src = 'cat.png'; IMAGES.classic.jump.src = 'cat_jump.png'; IMAGES.classic.hit.src = 'cat_hit.png';
+        IMAGES.mafia.idle.src = 'cat_mafia.png'; IMAGES.mafia.jump.src = 'cat_mafia.png'; IMAGES.mafia.hit.src = 'cat_mafia.png';
+        IMAGES.cosmos.idle.src = 'cat_cosmos.png'; IMAGES.cosmos.jump.src = 'cat_cosmos.png'; IMAGES.cosmos.hit.src = 'cat_cosmos.png';
+        IMAGES.sushi.idle.src = 'cat_sushi.png'; IMAGES.sushi.jump.src = 'cat_sushi.png'; IMAGES.sushi.hit.src = 'cat_sushi.png';
+        IMAGES.pancakes.idle.src = 'cat_pancakes.png'; IMAGES.pancakes.jump.src = 'cat_pancakes.png'; IMAGES.pancakes.hit.src = 'cat_pancakes.png';
+
         function loadData() {
             try {
                 if (localStorage.getItem('kotozayac_coins')) coins = parseInt(localStorage.getItem('kotozayac_coins'), 10);
                 if (localStorage.getItem('kotozayac_shop')) shopItems = JSON.parse(localStorage.getItem('kotozayac_shop'));
+                if (localStorage.getItem('kotozayac_active_skin')) activeSkin = localStorage.getItem('kotozayac_active_skin');
                 if (localStorage.getItem('kotozayac_ach')) achievements = JSON.parse(localStorage.getItem('kotozayac_ach'));
                 if (localStorage.getItem('kotozayac_bosskills')) bossKills = parseInt(localStorage.getItem('kotozayac_bosskills'), 10);
                 if (localStorage.getItem('kotozayac_colorbest')) colorBest = parseInt(localStorage.getItem('kotozayac_colorbest'), 10);
@@ -617,6 +621,7 @@
             try {
                 localStorage.setItem('kotozayac_coins', String(coins));
                 localStorage.setItem('kotozayac_shop', JSON.stringify(shopItems));
+                localStorage.setItem('kotozayac_active_skin', activeSkin);
                 localStorage.setItem('kotozayac_bosskills', String(bossKills));
                 localStorage.setItem('kotozayac_colorbest', String(colorBest));
                 localStorage.setItem('kotozayac_shooterbest', String(shooterBest));
@@ -688,11 +693,11 @@
             document.getElementById('ach-header').innerText = `ДОСТИЖЕНИЯ (${overallPercent}%)`;
         }
 
-        // ============ НОВАЯ СТРЕЛЯЛКА ============
+        // ============ СТРЕЛЯЛКА С АДМИНКОЙ ============
         const shooterCanvas = document.getElementById('shooterCanvas');
         const sCtx = shooterCanvas.getContext('2d');
         let shooterActive = false;
-        let sPlayer = { x: 300, y: 225, r: 20, speed: 5, hp: 3 };
+        let sPlayer = { x: 300, y: 225, r: 25, speed: 5, hp: 3 };
         let sEnemies = [];
         let sBullets = [];
         let sMouse = { x: 300, y: 225 };
@@ -700,9 +705,12 @@
         let sSpawnTimer = 0;
         let sKeys = {};
 
-        // Загружаем спрайт мафии
-        const mafiaImg = new Image();
-        mafiaImg.src = 'cat_mafia.png';
+        // АДМИН ФЛАГИ ДЛЯ СТРЕЛЯЛКИ
+        let sGodMode = false;
+        let sAimbot = false;
+        let sRapidFire = false;
+        let sMouseDown = false;
+        let sShootCooldown = 0;
 
         shooterCanvas.addEventListener('mousemove', e => {
             const r = shooterCanvas.getBoundingClientRect();
@@ -710,18 +718,8 @@
             sMouse.y = (e.clientY - r.top) * (shooterCanvas.height / r.height);
         });
         
-        shooterCanvas.addEventListener('mousedown', (e) => {
-            if(!shooterActive) return;
-            Sound.sfx.shoot();
-            // Стреляем в сторону мыши
-            let angle = Math.atan2(sMouse.y - sPlayer.y, sMouse.x - sPlayer.x);
-            sBullets.push({
-                x: sPlayer.x, y: sPlayer.y,
-                vx: Math.cos(angle) * 10,
-                vy: Math.sin(angle) * 10,
-                r: 5
-            });
-        });
+        shooterCanvas.addEventListener('mousedown', () => { if(shooterActive) sMouseDown = true; });
+        window.addEventListener('mouseup', () => { sMouseDown = false; });
 
         window.addEventListener('keydown', (e) => {
             if (shooterActive) {
@@ -734,7 +732,7 @@
         function openShooter() {
             Sound.sfx.click();
             shooterActive = true;
-            sPlayer = { x: 300, y: 225, r: 20, speed: 5, hp: 3 };
+            sPlayer = { x: 300, y: 225, r: 25, speed: 5, hp: 3 };
             sEnemies = [];
             sBullets = [];
             sScore = 0;
@@ -756,27 +754,22 @@
         function shooterLoop() {
             if(!shooterActive) return;
             
-            // Очистка
             sCtx.fillStyle = '#111'; 
             sCtx.fillRect(0,0,shooterCanvas.width, shooterCanvas.height);
 
-            // Сетка для красоты
             sCtx.strokeStyle = 'rgba(255,255,255,0.05)';
             sCtx.lineWidth = 1;
             for(let i=0; i<shooterCanvas.width; i+=40) { sCtx.beginPath(); sCtx.moveTo(i,0); sCtx.lineTo(i,shooterCanvas.height); sCtx.stroke(); }
             for(let i=0; i<shooterCanvas.height; i+=40) { sCtx.beginPath(); sCtx.moveTo(0,i); sCtx.lineTo(shooterCanvas.width,i); sCtx.stroke(); }
 
-            // Движение игрока
             if (sKeys['KeyW'] || sKeys['ArrowUp']) sPlayer.y -= sPlayer.speed;
             if (sKeys['KeyS'] || sKeys['ArrowDown']) sPlayer.y += sPlayer.speed;
             if (sKeys['KeyA'] || sKeys['ArrowLeft']) sPlayer.x -= sPlayer.speed;
             if (sKeys['KeyD'] || sKeys['ArrowRight']) sPlayer.x += sPlayer.speed;
             
-            // Ограничение по краям
             sPlayer.x = Math.max(sPlayer.r, Math.min(shooterCanvas.width - sPlayer.r, sPlayer.x));
             sPlayer.y = Math.max(sPlayer.r, Math.min(shooterCanvas.height - sPlayer.r, sPlayer.y));
 
-            // Спавн врагов
             sSpawnTimer++;
             if (sSpawnTimer > 60 && sEnemies.length < 10) {
                 sSpawnTimer = 0;
@@ -786,22 +779,44 @@
                 else if (side === 1) { ex = shooterCanvas.width + 30; ey = Math.random() * shooterCanvas.height; }
                 else if (side === 2) { ex = Math.random() * shooterCanvas.width; ey = shooterCanvas.height + 30; }
                 else { ex = -30; ey = Math.random() * shooterCanvas.height; }
-                
-                sEnemies.push({ x: ex, y: ey, r: 25, speed: 1.5, hp: 2 });
+                sEnemies.push({ x: ex, y: ey, r: 30, speed: 1.5, hp: 2 });
             }
 
-            // Обновление врагов
+            // СТРЕЛЬБА (РАПИД ФАЕР)
+            if (sShootCooldown > 0) sShootCooldown--;
+            if ((sMouseDown || sRapidFire) && sShootCooldown <= 0) {
+                Sound.sfx.shoot();
+                
+                // ЛОГИКА АИМБОТА
+                let angle;
+                if (sAimbot && sEnemies.length > 0) {
+                    let target = sEnemies[0];
+                    let minDist = Infinity;
+                    for (let e of sEnemies) {
+                        let dist = Math.hypot(sPlayer.x - e.x, sPlayer.y - e.y);
+                        if (dist < minDist) { minDist = dist; target = e; }
+                    }
+                    angle = Math.atan2(target.y - sPlayer.y, target.x - sPlayer.x);
+                } else {
+                    angle = Math.atan2(sMouse.y - sPlayer.y, sMouse.x - sPlayer.x);
+                }
+
+                sBullets.push({ x: sPlayer.x, y: sPlayer.y, vx: Math.cos(angle) * 12, vy: Math.sin(angle) * 12, r: 5 });
+                sShootCooldown = sRapidFire ? 3 : 15; 
+            }
+
             for (let i = sEnemies.length - 1; i >= 0; i--) {
                 let e = sEnemies[i];
                 let angle = Math.atan2(sPlayer.y - e.y, sPlayer.x - e.x);
                 e.x += Math.cos(angle) * e.speed;
                 e.y += Math.sin(angle) * e.speed;
 
-                // Столкновение с игроком
                 if (Math.hypot(sPlayer.x - e.x, sPlayer.y - e.y) < sPlayer.r + e.r) {
-                    sPlayer.hp--;
-                    document.getElementById('shooter-lives').innerText = sPlayer.hp;
-                    Sound.sfx.hit();
+                    if (!sGodMode) {
+                        sPlayer.hp--;
+                        document.getElementById('shooter-lives').innerText = sPlayer.hp;
+                        Sound.sfx.hit();
+                    }
                     sEnemies.splice(i, 1);
                     if (sPlayer.hp <= 0) {
                         shooterActive = false;
@@ -812,28 +827,24 @@
                     continue;
                 }
 
-                // Рисуем врага
+                const mafiaImg = IMAGES.mafia.idle;
                 if (mafiaImg.complete && mafiaImg.naturalWidth > 0) {
                     sCtx.drawImage(mafiaImg, e.x - e.r*1.5, e.y - e.r*1.5, e.r*3, e.r*3);
                 } else {
-                    // Заглушка если нет картинки
                     sCtx.fillStyle = '#444';
                     sCtx.beginPath(); sCtx.arc(e.x, e.y, e.r, 0, Math.PI*2); sCtx.fill();
                     sCtx.fillStyle = '#fff'; sCtx.font = '20px Arial'; sCtx.textAlign = 'center'; sCtx.textBaseline = 'middle'; sCtx.fillText('M', e.x, e.y);
                 }
             }
 
-            // Обновление пуль
             for (let i = sBullets.length - 1; i >= 0; i--) {
                 let b = sBullets[i];
                 b.x += b.vx; b.y += b.vy;
                 
-                // Выход за экран
                 if (b.x < 0 || b.x > shooterCanvas.width || b.y < 0 || b.y > shooterCanvas.height) {
                     sBullets.splice(i, 1); continue;
                 }
 
-                // Попадание во врага
                 let hit = false;
                 for (let j = sEnemies.length - 1; j >= 0; j--) {
                     let e = sEnemies[j];
@@ -853,20 +864,24 @@
                 }
                 if (hit) { sBullets.splice(i, 1); continue; }
 
-                // Рисуем пулю
                 sCtx.fillStyle = '#ff0055';
                 sCtx.shadowBlur = 10; sCtx.shadowColor = '#ff0055';
                 sCtx.beginPath(); sCtx.arc(b.x, b.y, b.r, 0, Math.PI*2); sCtx.fill();
                 sCtx.shadowBlur = 0;
             }
 
-            // Рисуем игрока
-            sCtx.fillStyle = '#00ffcc';
-            sCtx.shadowBlur = 15; sCtx.shadowColor = '#00ffcc';
-            sCtx.beginPath(); sCtx.arc(sPlayer.x, sPlayer.y, sPlayer.r, 0, Math.PI*2); sCtx.fill();
-            sCtx.shadowBlur = 0;
+            // ИГРОК
+            const skinImg = IMAGES[activeSkin]?.idle || IMAGES.classic.idle;
+            if (skinImg.complete && skinImg.naturalWidth > 0) {
+                sCtx.drawImage(skinImg, sPlayer.x - sPlayer.r, sPlayer.y - sPlayer.r, sPlayer.r*2, sPlayer.r*2);
+            } else {
+                sCtx.fillStyle = '#00ffcc';
+                sCtx.shadowBlur = 15; sCtx.shadowColor = '#00ffcc';
+                sCtx.beginPath(); sCtx.arc(sPlayer.x, sPlayer.y, sPlayer.r, 0, Math.PI*2); sCtx.fill();
+                sCtx.shadowBlur = 0;
+            }
 
-            // Прицел
+            // ПРИЦЕЛ
             sCtx.strokeStyle = 'rgba(255, 0, 85, 0.5)'; sCtx.lineWidth = 1;
             sCtx.beginPath(); sCtx.arc(sMouse.x, sMouse.y, 15, 0, Math.PI*2); sCtx.stroke();
             sCtx.beginPath(); sCtx.moveTo(sMouse.x - 20, sMouse.y); sCtx.lineTo(sMouse.x + 20, sMouse.y); sCtx.stroke();
@@ -889,10 +904,11 @@
             colorBaseHue = Math.floor(Math.random() * 360);
             colorOffset = Math.max(5, 50 - colorScore * 2); 
             const grid = document.getElementById('color-grid'); grid.innerHTML = '';
+            const currentSpriteSrc = IMAGES[activeSkin]?.idle?.src || 'cat.png';
             for (let i = 0; i < 8; i++) {
                 const cell = document.createElement('div'); cell.className = 'color-cell';
                 const hue = i === colorTargetIndex ? (colorBaseHue + colorOffset) % 360 : colorBaseHue;
-                cell.innerHTML = `<img src="cat.png" style="filter: hue-rotate(${hue}deg) saturate(2) brightness(1.2);">`;
+                cell.innerHTML = `<img src="${currentSpriteSrc}" style="filter: hue-rotate(${hue}deg) saturate(2) brightness(1.2);">`;
                 cell.onclick = () => handleColorClick(i);
                 grid.appendChild(cell);
             }
@@ -920,21 +936,8 @@
         const canvas = document.getElementById('gameCanvas'); const ctx = canvas.getContext('2d');
         const W = canvas.width, H = canvas.height;
         
-        function resizeCanvas() {
-            const container = document.getElementById('game-container');
-            const containerRatio = container.clientWidth / container.clientHeight;
-            const canvasRatio = W / H;
-            if (containerRatio > canvasRatio) {
-                canvas.style.width = 'auto';
-                canvas.style.height = '100%';
-            } else {
-                canvas.style.width = '100%';
-                canvas.style.height = 'auto';
-            }
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
+        // Ресайз не нужен, так как используется object-fit: contain в CSS
+        
         const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
         if (isTouch) document.getElementById('mobile-controls').classList.add('visible');
 
@@ -952,9 +955,6 @@
         const GROUND_Y = H - 150, GRAVITY = 0.85, JUMP_V = -16;
         const player = { x: W/2 - 40, y: GROUND_Y, width: 80, height: 80, speed: 7, vy: 0, onGround: true, squash: 1, stretch: 1, magnetTimer: 0, hasShield: false };
 
-        const IMAGES = { classic: { idle: new Image() } };
-        IMAGES.classic.idle.src = 'cat.png';
-
         for (let i = 0; i < 6; i++) clouds.push({ x: Math.random() * W, y: 20 + Math.random() * 150, speed: 10 + Math.random() * 20, scale: 0.4 + Math.random() * 0.6 });
         for (let i = 0; i < 5; i++) hills.push({ x: i * 250 - 100, y: GROUND_Y, w: 300 + Math.random() * 200, h: 150 + Math.random() * 100, speed: 2 });
 
@@ -967,6 +967,8 @@
         });
         window.addEventListener('keyup', e => keys[e.code] = false);
         canvas.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); canvas.focus(); });
+        
+        // ИСПРАВЛЕНИЕ ДЛЯ ПК: Точный рассчет мыши с учетом object-fit
         canvas.addEventListener('pointermove', e => { 
             if (isTouch || gameState !== 'playing') return; 
             const r = canvas.getBoundingClientRect(); 
@@ -991,7 +993,7 @@
         function startGame() {
             try {
                 Sound.init(); 
-                Sound.sfx.start();
+                Sound.sfx.start(); 
                 document.getElementById('hub-screen').classList.add('hidden'); 
                 resetGame(); 
                 gameState = 'playing'; 
@@ -1087,9 +1089,21 @@
             ctx.scale(player.squash * rabbitScaleX, player.stretch * rabbitScaleY); 
             ctx.translate(-(px + w/2), -(py + h/2));
             
-            let currentSprite = IMAGES.classic.idle;
-            if (currentSprite.complete && currentSprite.naturalWidth > 0) {
-                ctx.drawImage(currentSprite, px, py, w, h);
+            let currentSprite = null; const skinImgs = IMAGES[activeSkin] || IMAGES.classic;
+            if (flash > 0 && skinImgs.hit.complete && skinImgs.hit.naturalWidth > 0) currentSprite = skinImgs.hit; 
+            else if (!player.onGround && skinImgs.jump.complete && skinImgs.jump.naturalWidth > 0) currentSprite = skinImgs.jump; 
+            else if (skinImgs.idle.complete && skinImgs.idle.naturalWidth > 0) currentSprite = skinImgs.idle; 
+            
+            if (currentSprite) {
+                if (activeSkin === 'pancakes') { 
+                    const scale = 0.55; const nw = 172, nh = 211; const sw = nw * scale, sh = nh * scale; 
+                    const pivotX = 86 * scale; const pivotY = 170 * scale; 
+                    ctx.drawImage(currentSprite, -pivotX, -pivotY, sw, sh); 
+                } else { 
+                    const imgRatio = currentSprite.width / currentSprite.height; let drawW = w, drawH = h; 
+                    if (imgRatio > 1) drawH = w / imgRatio; else drawW = h * imgRatio; 
+                    ctx.drawImage(currentSprite, px + (w - drawW)/2, py + (h - drawH)/2, drawW, drawH); 
+                }
             } else {
                 ctx.fillStyle = '#e0e0e0';
                 ctx.beginPath(); ctx.ellipse(px + w/2, py + h/2, w/2, h/2, 0, 0, Math.PI*2); ctx.fill();
@@ -1290,6 +1304,48 @@
             update(dt); draw();
             requestAnimationFrame(loop);
         }
+
+        // ============ АДМИН ПАНЕЛЬ ЛОГИКА ============
+        const adminWindow = document.getElementById('floating-admin');
+        const adminBackdrop = document.getElementById('admin-backdrop');
+        
+        window.openAdmin = function() { 
+            if (typeof Sound !== 'undefined') Sound.sfx.click(); 
+            adminBackdrop.style.display = 'block'; 
+            adminWindow.style.display = 'flex'; 
+        };
+        window.closeAdmin = function() { 
+            if (typeof Sound !== 'undefined') Sound.sfx.click(); 
+            adminBackdrop.style.display = 'none'; 
+            adminWindow.style.display = 'none'; 
+            document.getElementById('gameCanvas').focus(); 
+        };
+        
+        document.getElementById('adm-close-btn').addEventListener('click', closeAdmin);
+        adminBackdrop.addEventListener('click', closeAdmin);
+
+        document.querySelectorAll('.adm-tab-btn').forEach(btn => { 
+            btn.addEventListener('click', () => { 
+                document.querySelectorAll('.adm-tab-btn').forEach(b => b.classList.remove('active')); 
+                document.querySelectorAll('.adm-tab-content').forEach(c => c.classList.remove('active')); 
+                btn.classList.add('active'); 
+                document.getElementById(btn.dataset.target).classList.add('active'); 
+            }); 
+        });
+
+        // Основная игра
+        document.getElementById('tog-god').addEventListener('change', function() { 
+            godMode = this.checked; 
+            if(godMode && gameState === 'playing') lives = 999; 
+        });
+
+        // Стрелялка Админка
+        document.getElementById('tog-s-god').addEventListener('change', function() { sGodMode = this.checked; });
+        document.getElementById('tog-s-aim').addEventListener('change', function() { sAimbot = this.checked; });
+        document.getElementById('tog-s-rapid').addEventListener('change', function() { sRapidFire = this.checked; });
+
+        window.admSpawn = function(type) { if (gameState !== 'playing') { alert('Сначала запусти игру!'); return; } objects.push({ x: Math.random() * (W - 40), y: -40, width: 40, height: 40, speed: 3, type: type, wobble: 0 }); }
+        window.admSpawnBoss = function() { if (gameState !== 'playing') { alert('Сначала запусти игру!'); return; } boss = { x: W/2 - 100, y: -250, width: 200, height: 200, hp: 3, timer: 0, dir: 1, entering: true }; Sound.sfx.bossHit(); }
 
         loadData();
         resetGame();
